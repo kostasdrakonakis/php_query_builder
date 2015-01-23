@@ -39,7 +39,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
@@ -64,7 +64,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -89,7 +89,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_ADD_ACCOUNT);
@@ -113,7 +113,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
@@ -137,7 +137,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
@@ -162,7 +162,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
@@ -187,7 +187,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
@@ -211,7 +211,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
@@ -236,7 +236,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
@@ -260,7 +260,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
@@ -284,7 +284,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
@@ -308,7 +308,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS);
@@ -332,7 +332,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
@@ -356,7 +356,7 @@ public class DialogMessageDisplay{
         AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("Ρυθμίσεις", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_DATE_SETTINGS);
