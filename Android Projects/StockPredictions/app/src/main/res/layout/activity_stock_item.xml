@@ -1,0 +1,168 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StockItem" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <include android:id="@+id/toolBar" layout="@layout/custom_toolbar" android:layout_alignParentTop="true" android:layout_width="match_parent" android:layout_height="?android:attr/actionBarSize"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolBar">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_chat"
+                    android:id="@+id/currentStockImageViewItem" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:padding="10dp"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/fake_name_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/stock_name"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/stockView1name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/hello_world" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:padding="10dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/current_price"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/stockView1price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/hello_world" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:padding="6dp"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/last_updated_prices" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:id="@+id/layout_to_be_shown"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/future_price"
+                    android:gravity="center"
+                    android:id="@+id/textView" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:layout_marginStart="@dimen/custom_margin"
+                        android:padding="15dp"
+                        android:id="@+id/textViewEValName" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/ic_chat"
+                        android:id="@+id/imageViewEval" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:padding="15dp"
+                        android:id="@+id/textViewEvaluation" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/listafake1"
+                    android:layout_width="match_parent"
+                    android:dividerHeight="2dp"
+                    android:divider="@color/white"
+                    android:background="@color/blue"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include android:id="@+id/toolBar" layout="@layout/custom_toolbar_bottom" android:layout_alignParentBottom="true" android:layout_width="match_parent" android:layout_height="?android:attr/actionBarSize"/>
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+            <ListView
+                android:layout_height="466dp"
+                android:id="@+id/ListViewCatalog"
+                android:layout_width="match_parent"
+                android:layout_weight="3.30" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dip">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/ButtonRemoveFromCart"
+                android:text="Remove from Cart" />
+
+            <Button
+                android:id="@+id/ButtonProceedToCheckout"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Proceed to Checkout" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

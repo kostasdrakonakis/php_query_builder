@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFA62F"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context="com.example.kostas.accounts.Register">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:padding="28dp"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_username"
+                    android:layout_weight="1"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/textView" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:ems="10"
+                    android:background="@drawable/rounded_corners"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_username" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="28dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_password"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:id="@+id/textView2" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/rounded_corners"
+                    android:inputType="textPassword"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:id="@+id/register_password" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/retype_pass"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:id="@+id/textView3" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corners"
+                    android:inputType="textPassword"
+                    android:layout_weight="0.93"
+                    android:layout_marginLeft="-25dp"
+                    android:ems="10"
+                    android:id="@+id/register_retype_password" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_now"
+                    android:id="@+id/register_button"
+                    android:nestedScrollingEnabled="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

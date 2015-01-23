@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RefreshActivity" >
+
+    <include android:id="@+id/toolBar" layout="@layout/custom_toolbar" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:padding="25dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@android:drawable/ic_dialog_info"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="19dp"
+                android:text="@string/refresh_text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:id="@+id/buttonRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/tap_to_refresh" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

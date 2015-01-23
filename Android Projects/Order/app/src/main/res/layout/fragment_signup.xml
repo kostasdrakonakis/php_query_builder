@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants" >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <include android:id="@+id/fragments_toolBar" layout="@layout/toolbar_fragments"></include>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/username"
+                android:hint="Username"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/userNameSignUp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:inputType="textPassword"
+                android:enabled="false"
+                android:hint="Password"
+                android:drawableLeft="@drawable/password"
+                android:id="@+id/passwordSignUp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:drawableLeft="@drawable/password"
+                android:hint="Retype password"
+                android:layout_marginTop="15dp"
+                android:enabled="false"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/retypePassword" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:enabled="false"
+                android:text="@string/signup"
+                android:id="@+id/buttonSignUp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>
