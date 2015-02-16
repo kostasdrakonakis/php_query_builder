@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import dialogs.DialogMessageDisplay;
 import sessions.SessionManager;
 
 
@@ -51,6 +52,13 @@ public class UserData extends ActionBarActivity {
                 Intent intent = new Intent(UserData.this, Tables.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+            }
+        });
+        Button payment = (Button)findViewById(R.id.btnpayment);
+        payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogMessageDisplay.displayMessage(UserData.this, "Payment Details", "There was no order made. \n Make an order and then tap the payment button.");
             }
         });
     }

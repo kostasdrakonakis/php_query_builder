@@ -25,13 +25,12 @@ public class ProductListAdapter extends ArrayAdapter<ProductList> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View arrayView = convertView;
         ViewHolderItems holder;
-        ProductList currentPosition = null;
 
         if(arrayView == null){
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             arrayView = vi.inflate(R.layout.list_item, parent, false);
-            currentPosition = getItem(position);
+
             holder = new ViewHolderItems();
             holder.viewName = (TextView)arrayView.findViewById(R.id.product_name_coffee);
             holder.viewPrice = (TextView)arrayView.findViewById(R.id.product_price_coffee);
@@ -40,11 +39,10 @@ public class ProductListAdapter extends ArrayAdapter<ProductList> {
         }else{
             holder = (ViewHolderItems) arrayView.getTag();
         }
-        if(currentPosition != null){
+            ProductList currentPosition = getItem(position);
             holder.viewName.setText(currentPosition.getName());
             holder.viewPrice.setText(currentPosition.getPrice());
             Ion.with(holder.viewImage).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).load(currentPosition.getImage());
-        }
         return arrayView;
     }
 

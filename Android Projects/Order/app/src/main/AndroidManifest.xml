@@ -31,13 +31,13 @@
             android:label="@string/title_activity_user_data" >
         </activity>
         <activity
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:name=".Tables"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tables" >
         </activity>
         <activity
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:name=".NewOrder"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_new_order" >
         </activity>
     </application>

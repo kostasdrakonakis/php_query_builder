@@ -42,7 +42,7 @@ import adapters.ProductListAdapter;
 import lists.ProductList;
 
 
-public class DrinksFragment extends Fragment {
+public class BeveragesFragment extends Fragment {
     private View rootView;
     private ListView lv;
     private ArrayAdapter<ProductList> adapter;

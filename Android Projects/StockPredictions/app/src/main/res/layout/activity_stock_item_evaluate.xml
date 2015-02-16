@@ -143,6 +143,28 @@
                         android:id="@+id/textView5" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:padding="15dp"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notification_text"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:id="@+id/textView6" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notify"
+                        android:id="@+id/buttonNotify" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

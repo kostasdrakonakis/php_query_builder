@@ -16,12 +16,13 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:padding="15dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:src="@android:drawable/ic_dialog_info"
+                android:src="@android:drawable/ic_delete"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView" />
 
@@ -30,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19dp"
+                android:layout_marginLeft="10dp"
                 android:text="@string/refresh_text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 

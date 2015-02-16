@@ -22,12 +22,21 @@
     <string name="graph">Graph</string>
     <string name="evaluate">Evaluate</string>
     <string name="tap_to_refresh">Retry</string>
-    <string name="refresh_text">There is no network connection right now. Please try again later.</string>
+    <string name="refresh_text"> An Error occurred. Please try again later.</string>
     <string name="title_activity_live_graph">LiveGraph</string>
     <string name="title_activity_evaluation">EvaluationActivity</string>
     <string name="search_title">Search</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="search_hint">Search here</string>
     <string name="future_price">The future stock price depending on the last 15 days will be:</string>
+    <string name="notification_text">Create Notification for Future Changes</string>
+    <string name="notify">Notify Me</string>
+    <string name="notifyText">The price has changed</string>
+    <string name="notifyTextrest">has changed</string>
+    <string name="notifyTextEmail">The price of the</string>
+    <string name="by">by</string>
+    <string name="units">units</string>
+    <string name="notifyTicker">Price Updated</string>
+    <string name="chooser">Choose: </string>
 
 </resources>

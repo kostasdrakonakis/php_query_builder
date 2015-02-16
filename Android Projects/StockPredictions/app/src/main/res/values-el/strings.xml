@@ -29,5 +29,14 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="search_hint">Search here</string>
     <string name="future_price">Η μελλοντική τιμή βασισμένη στις προηγούμενες 15 ημέρες είναι:</string>
+    <string name="notification_text">Διμιουργία ειδοποίησης για μελλοντικές αλλαγές</string>
+    <string name="notify">Ειδοποίησε με</string>
+    <string name="notifyText">Η τιμή άλλαξε</string>
+    <string name="notifyTicker">Αλλαγή Τιμής</string>
+    <string name="notifyTextEmail">Η τιμή της </string>
+    <string name="notifyTextrest">άλλαξε</string>
+    <string name="by">κατα</string>
+    <string name="units">μονάδες</string>
+    <string name="chooser">Επιλέξτε:</string>
 
 </resources>

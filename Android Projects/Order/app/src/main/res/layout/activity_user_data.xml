@@ -105,6 +105,12 @@
                 android:layout_centerVertical="true"
                 android:text="@string/new_order" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment"
+                android:id="@+id/btnpayment" />
+
         </LinearLayout>
     </ScrollView>
 

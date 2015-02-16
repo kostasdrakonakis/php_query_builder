@@ -4,14 +4,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import fragments.BeerFragment;
+import fragments.BeveragesFragment;
 import fragments.CoffeesFragment;
-import fragments.DrinksFragment;
 import fragments.SnacksFragment;
+import fragments.SpiritsFragment;
 import fragments.SweetsFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter{
 
-    private String[] titles = {"Coffees", "Sweets", "Snacks", "Drinks"};
+    private String[] titles = {"Coffees", "Sweets", "Snacks", "Beverages", "Spirits", "Beers"};
 
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -27,7 +29,11 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
             case 2:
                 return new SnacksFragment();
             case 3:
-                return new DrinksFragment();
+                return new BeveragesFragment();
+            case 4:
+                return new SpiritsFragment();
+            case 5:
+                return new BeerFragment();
         }
         return null;
     }

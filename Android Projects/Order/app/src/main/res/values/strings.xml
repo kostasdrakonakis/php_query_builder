@@ -79,5 +79,8 @@
     <string name="cancel">Cancel</string>
     <string name="waiting">Please wait</string>
     <string name="get_stocks">Loading Products…</string>
+    <string name="payment">Payment</string>
+    <string name="title_activity_spirits_fragment">SpiritsFragment</string>
+    <string name="title_activity_beer_fragment">BeerFragment</string>
 
 </resources>
