@@ -1,0 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="@color/light_gray"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_height="80dp" >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-80dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/placeholder"
+            android:id="@+id/product_image_coffee" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="-80dp"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:text="Product_Name"
+                android:id="@+id/product_name_coffee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:id="@+id/product_price_coffee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" €"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:id="@+id/textView" />
+        </LinearLayout>
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

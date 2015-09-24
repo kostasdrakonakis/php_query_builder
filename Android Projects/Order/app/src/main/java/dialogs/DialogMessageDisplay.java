@@ -18,9 +18,24 @@ import java.text.NumberFormat;
 
 public class DialogMessageDisplay{
 
-    public static AlertDialog displayInfoMessage(Context context, String title, String message, int theme){
+    public static AlertDialog displayInfoMessage(Context context, String title, String message){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+        return  builder.create();
+
+    }
+
+    public static AlertDialog displayErrorMessage(Context context, String title, String message){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -34,8 +49,8 @@ public class DialogMessageDisplay{
     }
 
 
-    public static AlertDialog displayWifiSettingsDialog(final Activity activity,final Context context, String title, String message, int theme){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
+    public static AlertDialog displayWifiSettingsDialog(final Activity activity,final Context context, String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
@@ -488,8 +503,8 @@ public class DialogMessageDisplay{
         }
     }
 
-    public static void displayProgressDialog(Context context, int style, String title, String message, int theme, boolean indeterminate, boolean flag){
-        ProgressDialog builder = new ProgressDialog(context, theme);
+    public static void displayProgressDialog(Context context, int style, String title, String message, boolean indeterminate, boolean flag){
+        ProgressDialog builder = new ProgressDialog(context);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setProgressStyle(style);

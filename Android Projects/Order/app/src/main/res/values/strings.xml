@@ -4,10 +4,26 @@
     <string name="app_name">Mobile Ordering System</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="signin">Sign in</string>
-    <string name="signup">Sign Up</string>
+    <string name="signin">Login</string>
+    <string name="signup">Register</string>
+
+    <string-array name="credentials_titles">
+        <item>Login</item>
+        <item>Register</item>
+    </string-array>
+
+    <string-array name="products">
+        <item>Coffees</item>
+        <item>Sweets</item>
+        <item>Snacks</item>
+        <item>Beverages</item>
+        <item>Spirits</item>
+        <item>Beers</item>
+    </string-array>
 
     <string-array name="refreshments_array">
+        <item>Plain</item>
+        <item>On the Rocks</item>
         <item>Coca Cola</item>
         <item>Coca Cola Light</item>
         <item>Coca Cola Zero</item>
@@ -16,17 +32,16 @@
         <item>Fanta Orange</item>
         <item>Red Bull</item>
         <item>Soda Water</item>
+        <item>Still Water</item>
         <item>Tonic Water</item>
     </string-array>
 
-    <string name="title_activity_user_data">UserData</string>
+    <string name="user_profile">User Profile</string>
     <string name="logout">Exit</string>
     <string name="new_order">New Order</string>
     <string name="action">Please choose an action</string>
     <string name="neworder">New Order</string>
     <string name="kind">Please choose a kind</string>
-    <string name="title_activity_freddo">Freddo Espresso</string>
-    <string name="title_activity_cappucino">Cart</string>
     <string name="quantity">Quantity:</string>
     <string name="sugar">Sugar:</string>
     <string name="milk_ebap">Milk:</string>
@@ -46,29 +61,17 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="zero">0</string>
-    <string name="title_activity_new_order">New Order</string>
     <string name="current_price">0</string>
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_register">Register</string>
-    <string name="login_username">Username:</string>
-    <string name="login_password">Password:</string>
-    <string name="registration">Register</string>
-    <string name="login">Login</string>
-    <string name="credentials_text">Please provide your credentials to login.</string>
-    <string name="title_activity_list_view_model">ListViewModel</string>
     <string name="waiter">Waiter:</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
     <string name="register_now">Register</string>
     <string name="retype_pass">Retype Password:</string>
     <string name="title_activity_tables">Tables</string>
-    <string name="title_activity_drinks_fragment">DrinksFragment</string>
-    <string name="title_activity_sweets_fragment">SweetsFragment</string>
-    <string name="title_activity_snacks_fragment">SnacksFragment</string>
     <string name="small">Small</string>
     <string name="mediumSize">Medium</string>
     <string name="large">Large</string>
-    <string name="table_text_intro">Please select a table Number</string>
+    <string name="table_text_intro">Table Number:</string>
     <string name="price">Price:</string>
     <string name="product_quantity">Product Quantity:</string>
     <string name="wifi_off_message">Network connection error. Please check your internet connection settings.</string>
@@ -77,33 +80,55 @@
     <string name="waiting">Please wait</string>
     <string name="get_stocks">Loading Products…</string>
     <string name="payment">Payment</string>
-    <string name="title_activity_spirits_fragment">SpiritsFragment</string>
-    <string name="title_activity_beer_fragment">BeerFragment</string>
-    <string name="title_activity_whiskeys">Whiskeys</string>
-    <string name="title_activity_gins">Gins</string>
-    <string name="title_activity_rums">Rums</string>
-    <string name="title_activity_vodkas">Vodkas</string>
-    <string name="title_activity_tequilas">Tequilas</string>
-    <string name="title_activity_liquers">Liquers</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_name">Fullname</string>
-    <string name="btn_login">LOGIN</string>
-    <string name="btn_register">REGISTER</string>
-    <string name="btn_link_to_register">Not a member? Sign up now.</string>
-    <string name="btn_link_to_login">Already registred! Login Me.</string>
-    <string name="welcome">Welcome</string>
-    <string name="btn_logout">LOGOUT</string>
-    <string name="name">Fullname</string>
     <string name="gin_flavor">Choose Gin Brand:</string>
     <string name="glass_pref">Prefered Glass:</string>
     <string name="short_glass">Short</string>
     <string name="long_glass">Long</string>
-    <string name="refreshment_flavor">With:</string>
+    <string name="refreshment_flavor">Choice:</string>
     <string name="liquer_flavor">Choose Liquer Brand:</string>
     <string name="rum_flavor">Choose Rum Brand:</string>
     <string name="whisky_flavor">Choose Whisky Brand:</string>
     <string name="vodka_flavor">Choose Vodka Brand:</string>
     <string name="tequila_flavor">Choose Tequila Brand:</string>
+    <string name="stroll">Stroll:</string>
+    <string name="image_saved">"Image has been saved to "</string>
+    <string name="as">" as "</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="payment_message">There was no order made. \nMake an order and then tap the payment button.</string>
+    <string name="canceled">Action Cancelled</string>
+    <string name="mobile_title">No Wifi Connection</string>
+    <string name="mobile_message">This application can only be used when connected to Wifi Network. Please connect to Wifi Network and try again.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="table_id">"Table: "</string>
+    <string name="error">Error</string>
+    <string name="glass_error_msg">You have to choose prefered glass</string>
+    <string name="success">Success</string>
+    <string name="product">"Your product "</string>
+    <string name="plus_with">" with "</string>
+    <string name="glass_preference">" glass preference"</string>
+    <string name="cart_success_msg">" has been added to the cart."</string>
+    <string name="search">Search</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="uname_or_password_not_found">Username or Password not found</string>
+    <string name="uname_required">Username is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="retype_pass_required">Please retype your password</string>
+    <string name="shareText">Its Finally here! The new Order Taking System for Android Devices! Check it out!!!</string>
+    <string name="shareSubject">Order Taking System</string>
+    <string name="rateBarText">Did you like our app?</string>
+    <string name="rateBarCommentHint">Write a comment</string>
+    <string name="rateDialogTitle">Rate our App</string>
+    <string name="posButtonRate">Confirm</string>
+    <string name="dialog_rate_data_submit">Please Wait...</string>
+    <string name="confirmRateText">Thank you for voting</string>
+    <string name="tableNumEmptyMessage">The table number cannot be empty</string>
+    <string name="tableNumZeroMessage">The table number cannot be zero</string>
+    <string name="email_hint">Email</string>
+    <string name="retype_hint_password">Retype password</string>
+    <string name="pass_field">Password</string>
+    <string name="username_field">Username</string>
+    <string name="email_required">Email field is required</string>
+    <string name="created_successfully">Account created successfully</string>
 
 </resources>

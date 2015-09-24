@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Παραγγελειοληψεία</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="signin">Είσοδος</string>
+    <string name="signup">Εγγραφή</string>
+
+    <string-array name="credentials_titles">
+        <item>Εισοδος</item>
+        <item>Εγγραφη</item>
+    </string-array>
+
+    <string-array name="products">
+        <item>Καφεδες</item>
+        <item>Γλυκα</item>
+        <item>Σνακ</item>
+        <item>Αναψυκτικα</item>
+        <item>Ποτα</item>
+        <item>Μπυρες</item>
+    </string-array>
+
+    <string-array name="refreshments_array">
+        <item>Σκετο</item>
+        <item>Με Πάγο</item>
+        <item>Coca Cola</item>
+        <item>Coca Cola Light</item>
+        <item>Coca Cola Zero</item>
+        <item>Sprite</item>
+        <item>Λεμονάδα</item>
+        <item>Πορτοκαλάδα</item>
+        <item>Red Bull</item>
+        <item>Σόδα</item>
+        <item>Νερό</item>
+        <item>Tonic</item>
+    </string-array>
+
+    <string name="user_profile">Προφίλ Χρήστη</string>
+    <string name="logout">Έξοδος</string>
+    <string name="new_order">Νέα Παραγγελία</string>
+    <string name="action">Παρακαλώ επιλέξτε:</string>
+    <string name="neworder">Νέα Παραγγελία</string>
+    <string name="kind">Παρακαλώ επιλέξτε είδος</string>
+    <string name="quantity">Ποσότητα:</string>
+    <string name="sugar">Ζάχαρη:</string>
+    <string name="milk_ebap">Γάλα:</string>
+    <string name="dose">Δόση:</string>
+    <string name="nosugar">Χωρίς Ζάχαρη</string>
+    <string name="medium">Μέτριος</string>
+    <string name="sweet">Γλυκός</string>
+    <string name="flavor">Γεύση:</string>
+    <string name="cart">Προσθήκη στο Καλάθι</string>
+    <string name="verysweet">Πολύ γλυκός</string>
+    <string name="with">Προτίμηση Ζάχαρης:</string>
+    <string name="blacksugar">Μαύρη Ζάχαρη</string>
+    <string name="zaxarini">Ζαχαρίνη</string>
+    <string name="monos">Μονός</string>
+    <string name="diplos">Διπλός</string>
+    <string name="sxolia">Σχόλια:</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="zero">0</string>
+    <string name="current_price">0</string>
+    <string name="waiter">Σερβιτόρος:</string>
+    <string name="date">Ημερομηνία:</string>
+    <string name="time">Ώρα:</string>
+    <string name="register_now">Εγγραφή</string>
+    <string name="retype_pass">Επιβεβαίωση Κωδικού:</string>
+    <string name="title_activity_tables">Τραπέζια</string>
+    <string name="small">Μικρό</string>
+    <string name="mediumSize">Μέτριο</string>
+    <string name="large">Μεγάλο</string>
+    <string name="table_text_intro">Αριθμός Τραπεζιού:</string>
+    <string name="price">Τιμή:</string>
+    <string name="product_quantity">Ποσότητα προϊόντος:</string>
+    <string name="wifi_off_message">Δεν υπάρχει σύνδεση δικτύου. Παρακαλώ προσπαθήστε αργότερα.</string>
+    <string name="wifi_off_title">Χωρίς Σύνδεση στο διαδίκτυο</string>
+    <string name="cancel">Άκυρο</string>
+    <string name="waiting">Παρακαλώ Περιμένετε</string>
+    <string name="get_stocks">Φόρτωση Δεδομένων…</string>
+    <string name="payment">Πληρωμή</string>
+    <string name="gin_flavor">Επιλέξτε Μάρκα Gin:</string>
+    <string name="glass_pref">Ποτήρι:</string>
+    <string name="short_glass">Κοντό</string>
+    <string name="long_glass">Μακρύ</string>
+    <string name="refreshment_flavor">Προτίμηση:</string>
+    <string name="liquer_flavor">Επιλέξτε Μάρκα Liquer:</string>
+    <string name="rum_flavor">Επιλέξτε Μάρκα Rum:</string>
+    <string name="whisky_flavor">Επιλέξτε Μάρκα Whisky:</string>
+    <string name="vodka_flavor">Επιλέξτε Μάρκα Vodka:</string>
+    <string name="tequila_flavor">Επιλέξτε Μάρκα Tequila:</string>
+    <string name="stroll">Καλαμάκι:</string>
+    <string name="image_saved">"Η εικόνα αποθηκεύτηκε στην τοποθεσία "</string>
+    <string name="as">" σαν "</string>
+    <string name="mobile_message">Η εφαρμογή αυτή μπορεί να χρησιμοποιηθεί μόνο απο σύνδεση Wifi</string>
+    <string name="mobile_title">Χωρίς σύνδεση Wifi</string>
+    <string name="payment_details">Λεπτομέριες Πληρωμής</string>
+    <string name="payment_message">Δεν υπάρχει παραγγελία. \nΚάντε μια παραγγελία και μετά πατήστε για πληρωμή.</string>
+    <string name="canceled">Ακυρώθηκε</string>
+    <string name="no">Όχι</string>
+    <string name="yes">Ναι</string>
+    <string name="table_id">"Τραπέζι: "</string>
+    <string name="cart_success_msg">" προστέθηκε στο καλάθι."</string>
+    <string name="error">Λάθος</string>
+    <string name="glass_error_msg">Πρέπει να επιλέξετε ποτήρι</string>
+    <string name="glass_preference">" ποτήρι"</string>
+    <string name="plus_with">" με "</string>
+    <string name="product">"Το προϊόν "</string>
+    <string name="success">Επιτυχές</string>
+    <string name="title_activity_searchable">Searchable Activity</string>
+    <string name="uname_or_password_not_found">Ο Κωδικός ή το Όνομα χρήστη δεν βρέθηκαν</string>
+    <string name="uname_required">Απαιτήται το όνομα χρήστη</string>
+    <string name="shareText">Έφτασε! Το νέο σύστημα παραγγελιοληψίας για συσκευές Android!! Δοκιμάστε το!!!</string>
+    <string name="shareSubject">Σύστημα Παραγγελιοληψίας</string>
+    <string name="search">Αναζήτηση</string>
+    <string name="retype_pass_required">Επιβεβαιώστε τον κωδικό σας</string>
+    <string name="rateDialogTitle">Βαθμολογήστε την εφαρμογή μας</string>
+    <string name="rateBarText">Σας άρεσε η εφαρμογή μας;</string>
+    <string name="rateBarCommentHint">Γράψτε ένα σχόλιο</string>
+    <string name="password_required">Απαιτήται κωδικός πρόσβασης</string>
+    <string name="posButtonRate">Υποβολη</string>
+    <string name="dialog_rate_data_submit">Παρακαλώ Περιμένετε...</string>
+    <string name="confirmRateText">Σας ευχαριστούμε για την ψήφο σας</string>
+    <string name="tableNumEmptyMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι κενός</string>
+    <string name="tableNumZeroMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι 0</string>
+    <string name="email_hint">Email</string>
+    <string name="email_required">Το πεδίο είναι υποχρεωτικό</string>
+    <string name="pass_field">Κωδικός Πρόσβασης</string>
+    <string name="retype_hint_password">Επιβεβαίωση Κωδικού</string>
+    <string name="username_field">Όνομα Χρήστη</string>
+    <string name="created_successfully">Ο λογαριασμός διμιουργήθηκε επιτυχώς</string>
+
+</resources>

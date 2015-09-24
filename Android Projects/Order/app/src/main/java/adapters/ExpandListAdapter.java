@@ -4,9 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +12,6 @@ import com.koushikdutta.ion.Ion;
 import com.order.app.order.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import lists.ExpandableListParent;
 import lists.ProductList;
@@ -82,7 +79,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         ProductList child = (ProductList) getChild(groupPosition, childPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = LayoutInflater.from(context);
-            convertView = infalInflater.inflate(R.layout.list_item, null);
+            convertView = infalInflater.inflate(R.layout.productlist_row_item, null);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.product_name_coffee);
         tv.setText(child.getItems()[childPosition]);

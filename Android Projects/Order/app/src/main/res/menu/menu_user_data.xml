@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="com.order.app.order.UserData">
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.order.app.order.UserProfile">
     <item
         android:id="@+id/exit"
         android:title="@string/logout"
         android:orderInCategory="100"
-        android:icon="@drawable/logout"
-        app:showAsAction="always" />
+        android:icon="@drawable/exit_app"
+        android:showAsAction="always" />
 </menu>

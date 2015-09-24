@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants" >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_account_black_24dp"
+                android:hint="@string/username_field"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:textColorHint="@color/input_register_hint"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/userNameSignUp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:inputType="textPassword"
+                android:enabled="false"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:hint="@string/pass_field"
+                android:textColorHint="@color/input_register_hint"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:id="@+id/passwordSignUp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:hint="@string/retype_hint_password"
+                android:layout_marginTop="15dp"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:enabled="false"
+                android:textColorHint="@color/input_register_hint"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/retypePassword" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:hint="@string/email_hint"
+                android:layout_marginTop="15dp"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:enabled="false"
+                android:textColorHint="@color/input_register_hint"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/emailRegisterText" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:enabled="false"
+                android:text="@string/signup"
+                android:textColor="@color/black"
+                android:id="@+id/buttonSignUp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

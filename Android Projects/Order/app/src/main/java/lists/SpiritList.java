@@ -4,10 +4,12 @@ public class SpiritList {
 
     private String price;
     private String name;
+    private String image;
 
-    public SpiritList(String name, String price) {
+    public SpiritList(String name, String price, String image) {
         this.name = name;
         this.price = price;
+        this.image = image;
 
     }
 
@@ -25,5 +27,13 @@ public class SpiritList {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

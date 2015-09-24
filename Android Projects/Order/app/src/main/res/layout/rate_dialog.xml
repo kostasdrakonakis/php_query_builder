@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:material="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rootLayout"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:numStars="5"
+            android:layout_marginTop="15dp"
+            android:stepSize="0.5"
+            android:progressTint="@color/articlecolor"
+            android:backgroundTint="@color/article_title"
+            android:secondaryProgressTint="@color/blue"
+            android:progressBackgroundTint="@color/articlecolor"
+            android:progressBackgroundTintMode="src_atop"
+            android:layout_height="wrap_content"
+            app:colorPressed="#fff"
+            android:id="@+id/ratingBar" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:hint="@string/rateBarCommentHint"
+            android:textColorHighlight="@color/black"
+            android:id="@+id/ratingComment" />
+    </LinearLayout>
+</RelativeLayout>

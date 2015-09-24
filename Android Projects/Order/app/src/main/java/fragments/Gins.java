@@ -1,13 +1,11 @@
 package fragments;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,7 +16,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.order.app.order.R;
@@ -41,36 +38,35 @@ import dialogs.DialogMessageDisplay;
 import lists.SpiritList;
 
 
-public class Gins extends ActionBarActivity {
+public class Gins extends Activity {
 
     private Toolbar tb;
     private Spinner spRef, spDrinks;
-    private CheckBox shortGlass, longGlass;
+    private CheckBox shortGlass, longGlass, yes, no;
     private EditText comments;
     private Button cart;
     private String jsonResult;
     private ArrayAdapter<String> adapter;
     private SpiritsListAdapter adapterGins;
-    private String url = "http://reservations.cretantaxiservices.gr/files/getgins.php";
+    private String url = "http://my.chatapp.info/order_api/files/getgins.php";
     ProgressDialog pDialog;
+    String selectedGin, selectedGlass, selectStroll;
     ArrayList<SpiritList> customSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gins);
-        tb = (Toolbar)findViewById(R.id.topBar);
+        setContentView(R.layout.gins);
         String name = getIntent().getStringExtra("spirit_name");
         String table = getIntent().getStringExtra("table_name");
-        tb.setTitle(name);
-        tb.setSubtitle("Table: " + table);
-        setSupportActionBar(tb);
+        getActionBar().setTitle(name);
+        getActionBar().setSubtitle(getString(R.string.table_id) + table);
         spDrinks = (Spinner)findViewById(R.id.flavor_gin_spinner);
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
         if (!network_connected) {
-            DialogMessageDisplay.displayWifiSettingsDialog(Gins.this, Gins.this, "No Internet Connection", "Please connect to the Internet", AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+            DialogMessageDisplay.displayWifiSettingsDialog(Gins.this, Gins.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 accessWebService();
@@ -80,6 +76,8 @@ public class Gins extends ActionBarActivity {
         spRef = (Spinner)findViewById(R.id.refreshment_spinner);
         shortGlass = (CheckBox)findViewById(R.id.short_glass);
         longGlass = (CheckBox)findViewById(R.id.long_glass);
+        yes = (CheckBox)findViewById(R.id.yesCheck);
+        no = (CheckBox)findViewById(R.id.noCheck);
         comments = (EditText)findViewById(R.id.editText_gins);
         cart = (Button)findViewById(R.id.button_gins);
 
@@ -88,8 +86,10 @@ public class Gins extends ActionBarActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     longGlass.setEnabled(false);
+                    selectedGlass = shortGlass.getText().toString().toLowerCase();
                 }else{
                     longGlass.setEnabled(true);
+                    selectedGlass = "";
                 }
             }
         });
@@ -98,12 +98,66 @@ public class Gins extends ActionBarActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     shortGlass.setEnabled(false);
+                    selectedGlass = longGlass.getText().toString().toLowerCase();
                 }else{
                     shortGlass.setEnabled(true);
+                    selectedGlass = "";
+                }
+            }
+        });
+        yes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    no.setEnabled(false);
+                    selectStroll = yes.getText().toString().toLowerCase();
+                }else{
+                    no.setEnabled(true);
+                    selectStroll = "";
+                }
+            }
+        });
+        no.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    yes.setEnabled(false);
+                    selectStroll = no.getText().toString().toLowerCase();
+                }else{
+                    yes.setEnabled(true);
+                    selectStroll = "";
                 }
             }
         });
         buildRefreshmentsSpinner();
+
+        spDrinks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedGin = customSpinner.get(position).getName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        registerCallBackClick();
+    }
+
+    private void registerCallBackClick() {
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!longGlass.isChecked() && !shortGlass.isChecked()){
+                    DialogMessageDisplay.displayErrorMessage(Gins.this, getString(R.string.error), getString(R.string.glass_error_msg));
+                }else{
+                    DialogMessageDisplay.displayInfoMessage(Gins.this, getString(R.string.success), getString(R.string.product) + selectedGin + getString(R.string.plus_with) + spRef.getSelectedItem() + getString(R.string.plus_with) + selectedGlass + getString(R.string.glass_preference) +getString(R.string.cart_success_msg));
+
+                }
+            }
+        });
     }
 
     private void buildRefreshmentsSpinner() {
@@ -121,7 +175,7 @@ public class Gins extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Gins.this, ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+            pDialog = new ProgressDialog(Gins.this);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialog.setIndeterminate(true);
             pDialog.setMessage(getString(R.string.get_stocks));
@@ -146,7 +200,8 @@ public class Gins extends ActionBarActivity {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                     String name = jsonChildNode.optString("name");
                     String price = jsonChildNode.optString("price");
-                    customSpinner.add(new SpiritList(name, price));
+                    String image = jsonChildNode.optString("image");
+                    customSpinner.add(new SpiritList(name, price, image));
                 }
                 return customSpinner;
             } catch (Exception e) {

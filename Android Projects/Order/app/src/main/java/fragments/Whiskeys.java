@@ -1,14 +1,12 @@
 package fragments;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,36 +35,34 @@ import dialogs.DialogMessageDisplay;
 import lists.SpiritList;
 
 
-public class Whiskeys extends ActionBarActivity {
+public class Whiskeys extends Activity {
 
-    private Toolbar tb;
     private Spinner spRef, spDrinks;
-    private CheckBox shortGlass, longGlass;
+    private CheckBox shortGlass, longGlass, yes, no;
+    String selectedGin, selectedGlass, selectStroll;
     private EditText comments;
     private Button cart;
     private String jsonResult;
     private ArrayAdapter<String> adapter;
     private SpiritsListAdapter adapterWhiskys;
-    private String url = "http://reservations.cretantaxiservices.gr/files/getwhiskys.php";
+    private String url = "http://my.chatapp.info/order_api/files/getwhiskys.php";
     ProgressDialog pDialog;
     ArrayList<SpiritList> customSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_whiskeys);
-        tb = (Toolbar)findViewById(R.id.topBar);
+        setContentView(R.layout.whiskeys);
         String name = getIntent().getStringExtra("spirit_name");
         String table = getIntent().getStringExtra("table_name");
-        tb.setTitle(name);
-        tb.setSubtitle("Table: " + table);
-        setSupportActionBar(tb);
+        getActionBar().setTitle(name);
+        getActionBar().setSubtitle(getString(R.string.table_id) + table);
         spDrinks = (Spinner)findViewById(R.id.flavor_whisky_spinner);
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
         if (!network_connected) {
-            DialogMessageDisplay.displayWifiSettingsDialog(Whiskeys.this, Whiskeys.this, "No Internet Connection", "Please connect to the Internet", AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+            DialogMessageDisplay.displayWifiSettingsDialog(Whiskeys.this, Whiskeys.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 accessWebService();
@@ -75,6 +71,8 @@ public class Whiskeys extends ActionBarActivity {
         spRef = (Spinner)findViewById(R.id.refreshment_spinner_whisky);
         shortGlass = (CheckBox)findViewById(R.id.short_glass);
         longGlass = (CheckBox)findViewById(R.id.long_glass);
+        yes = (CheckBox)findViewById(R.id.yesCheck);
+        no = (CheckBox)findViewById(R.id.noCheck);
         comments = (EditText)findViewById(R.id.editText_whisky);
         cart = (Button)findViewById(R.id.button_whisky);
 
@@ -98,6 +96,30 @@ public class Whiskeys extends ActionBarActivity {
                 }
             }
         });
+        yes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    no.setEnabled(false);
+                    selectStroll = yes.getText().toString().toLowerCase();
+                }else{
+                    no.setEnabled(true);
+                    selectStroll = "";
+                }
+            }
+        });
+        no.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    yes.setEnabled(false);
+                    selectStroll = no.getText().toString().toLowerCase();
+                }else{
+                    yes.setEnabled(true);
+                    selectStroll = "";
+                }
+            }
+        });
         buildRefreshmentsSpinner();
     }
 
@@ -116,7 +138,7 @@ public class Whiskeys extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Whiskeys.this, ProgressDialog.THEME_DEVICE_DEFAULT_DARK);
+            pDialog = new ProgressDialog(Whiskeys.this);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialog.setIndeterminate(true);
             pDialog.setMessage(getString(R.string.get_stocks));
@@ -141,7 +163,8 @@ public class Whiskeys extends ActionBarActivity {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                     String name = jsonChildNode.optString("name");
                     String price = jsonChildNode.optString("price");
-                    customSpinner.add(new SpiritList(name, price));
+                    String image = jsonChildNode.optString("image");
+                    customSpinner.add(new SpiritList(name, price, image));
                 }
                 return customSpinner;
             } catch (Exception e) {

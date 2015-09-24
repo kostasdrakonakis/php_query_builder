@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.order.app.order" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -7,8 +8,21 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.BIND_APPWIDGET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.SET_TIME" />
+
+
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -26,9 +40,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserData"
+            android:name=".UserProfile"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_user_data" >
+            android:label="@string/user_profile" >
         </activity>
         <activity
             android:name=".Tables"
@@ -36,35 +50,43 @@
             android:label="@string/title_activity_tables" >
         </activity>
         <activity
-            android:name=".NewOrder"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_new_order" >
+            android:name=".ProductsViewOrder"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+
         </activity>
         <activity
             android:name="fragments.Whiskeys"
-            android:label="@string/title_activity_whiskeys" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity
             android:name="fragments.Gins"
-            android:label="@string/title_activity_gins" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity
             android:name="fragments.Rums"
-            android:label="@string/title_activity_rums" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity
             android:name="fragments.Vodkas"
-            android:label="@string/title_activity_vodkas" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity
             android:name="fragments.Tequilas"
-            android:label="@string/title_activity_tequilas" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity
             android:name="fragments.Liquers"
-            android:label="@string/title_activity_liquers" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
-
+        <activity
+            android:name=".SearchableActivity"
+            android:label="@string/title_activity_searchable" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
     </application>
 
 </manifest>

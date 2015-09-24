@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Material.Light">
+        <!-- Customize your theme here. -->
+        <!-- theme customizations -->
+        <item name="android:colorPrimary">@color/articlecolor</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/blue</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="android:colorButtonNormal">@color/articlecolor</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorPrimary">@color/articlecolor</item>
+        <item name="android:colorAccent">@color/article_title</item>
+    </style>
+
+</resources>

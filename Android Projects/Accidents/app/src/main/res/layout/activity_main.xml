@@ -1,0 +1,176 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <include android:id="@+id/toolBar" layout="@layout/toolbar"></include>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/pictureImage"
+                    android:src="@mipmap/placeholder"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Τραβηξτε φωτογραφια"
+                    android:layout_marginTop="50dp"
+                    android:drawableLeft="@drawable/camera"
+                    android:id="@+id/takePictureButton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:padding="20dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Γεωγραφικό Πλάτος:"
+                        android:textSize="20sp"
+                        android:singleLine="false"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:textColor="@color/black"
+                        android:id="@+id/textView4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="17sp"
+                        android:singleLine="true"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:id="@+id/latitude" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Γεωγραφικό Μήκος:"
+                        android:textSize="20sp"
+                        android:singleLine="false"
+                        android:maxLines="2"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:id="@+id/textView6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="17sp"
+                        android:singleLine="true"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:id="@+id/longitude" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Χαρτης"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:id="@+id/mapButton"
+                    android:drawableLeft="@drawable/location" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Αποστολη"
+                    android:layout_weight="1"
+                    android:id="@+id/shareButton"
+                    android:drawableLeft="@drawable/share" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Κλήση"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/call"
+                    android:id="@+id/callButton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:id="@+id/listView" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Σχόλια"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/comment" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_message_send"
+                    android:id="@+id/commentButton" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_mikrofono"
+                    android:id="@+id/micButton" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

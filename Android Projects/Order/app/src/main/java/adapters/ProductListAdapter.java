@@ -21,6 +21,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductList> {
         super(context, layoutId, items);
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View arrayView = convertView;
@@ -29,7 +30,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductList> {
         if(arrayView == null){
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            arrayView = vi.inflate(R.layout.list_item, parent, false);
+            arrayView = vi.inflate(R.layout.productlist_row_item, parent, false);
 
             holder = new ViewHolderItems();
             holder.viewName = (TextView)arrayView.findViewById(R.id.product_name_coffee);
@@ -42,7 +43,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductList> {
             ProductList currentPosition = getItem(position);
             holder.viewName.setText(currentPosition.getName());
             holder.viewPrice.setText(currentPosition.getPrice());
-            Ion.with(holder.viewImage).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).load(currentPosition.getImage());
+            Ion.with(holder.viewImage).placeholder(R.mipmap.placeholder).error(R.mipmap.placeholder).load(currentPosition.getImage());
         return arrayView;
     }
 

@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Lelemetro GA</string>
+    <string name="login">Εισοδος</string>
+    <string name="password">Κωδικός Πρόσβασης</string>
+    <string name="fullname">Ονοματεπώνυμο</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="register">Εγγραφη</string>
+    <string name="password_again">Επαναλάβετε Κωδικό Πρόσβασης</string>
+    <string name="seira">Σειρά</string>
+    <string name="esso">ΕΣΣΟ</string>
+    <string name="katataksi_imerominia">Ημερομηνία Κατάταξης</string>
+    <string name="imerominia_apolisis">Ημερομηνία Απόλυσης</string>
+    <string name="oplo">Όπλο/Σώμα</string>
+    <string name="dunami">Ένοπλη Δύναμη</string>
+    <string-array name="oplaswmata">
+        <item>ΠΖ</item>
+        <item>ΕΔ</item>
+        <item>ΤΘ</item>
+        <item>ΠΒ</item>
+        <item>ΜΧ</item>
+        <item>ΔΒ</item>
+        <item>ΑΣ</item>
+        <item>ΤΧ</item>
+        <item>ΕΜ</item>
+        <item>ΥΠ</item>
+        <item>ΥΓ</item>
+    </string-array>
+    <string name="title_activity_profile_page">ProfilePage</string>
+    <string name="title_activity_fragment_drawer">FragmentDrawer</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_friends">Friends</string>
+    <string name="nav_item_notifications">Messages</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_notifications</item>
+    </string-array>
+
+    <string name="title_messages">Messages</string>
+    <string name="title_friends">Friends</string>
+    <string name="title_home">Home</string>
+</resources>
