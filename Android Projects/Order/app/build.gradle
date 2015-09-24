@@ -30,4 +30,5 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.android.support:support-v4:21.0.+'
+    compile 'com.mcxiaoke.volley:library:1.0.+'
 }

@@ -31,12 +31,20 @@
     <string name="future_price">The future stock price depending on the last 15 days will be:</string>
     <string name="notification_text">Create Notification for Future Changes</string>
     <string name="notify">Notify Me</string>
-    <string name="notifyText">The price has changed</string>
-    <string name="notifyTextrest">has changed</string>
+    <string name="notifyText">New Price:</string>
+    <string name="notifyTextrest">has </string>
     <string name="notifyTextEmail">The price of the</string>
     <string name="by">by</string>
     <string name="units">units</string>
     <string name="notifyTicker">Price Updated</string>
     <string name="chooser">Choose: </string>
+    <string name="raised">raised</string>
+    <string name="dropped">dropped</string>
+    <string name="raisal">Rise</string>
+    <string name="drop">Dropdown</string>
+    <string name="version">Stock Predictions - Version 1.0</string>
+    <string name="alertMessage">Drakonakis Konstantinos\nStudent Number = 2766\nDepartment of Computer Engineering\nFinal Paper</string>
+    <string name="sendEmail">Send</string>
+    <string name="share">Share</string>
 
 </resources>

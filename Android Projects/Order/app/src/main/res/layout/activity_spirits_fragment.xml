@@ -15,7 +15,7 @@
             android:id="@+id/activity_main_swipe_refresh_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ExpandableListView
+            <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:dividerHeight="1dp"

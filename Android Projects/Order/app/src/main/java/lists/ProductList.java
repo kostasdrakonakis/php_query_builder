@@ -12,10 +12,11 @@ public class ProductList {
         this.price = price;
     }
 
-    public ProductList(String price, String[] items, String image) {
+    public ProductList(String price, String[] items, String image, String name) {
         this.price = price;
         this.items = items;
         this.image = image;
+        this.name = name;
     }
 
     public String[] getItems() {

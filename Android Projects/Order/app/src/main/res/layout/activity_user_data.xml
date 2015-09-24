@@ -102,12 +102,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="75dp"
+                android:background="@drawable/button_states"
                 android:layout_centerVertical="true"
                 android:text="@string/new_order" />
 
             <Button
                 android:layout_width="match_parent"
+                android:background="@drawable/button_states"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:text="@string/payment"
                 android:id="@+id/btnpayment" />
 

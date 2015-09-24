@@ -1,5 +1,6 @@
 package fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,6 @@ public class PlaceHolderSignInFragment extends Fragment {
     private EditText username, password;
     private Button signIn;
     private View rootView;
-    private Toolbar tb;
     private SessionManager session;
     private TextView tv;
     LoginDatabaseAdapter loginDataBaseAdapter;
@@ -36,8 +36,6 @@ public class PlaceHolderSignInFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_signin, container, false);
         loginDataBaseAdapter = new LoginDatabaseAdapter(getActivity().getApplicationContext());
         loginDataBaseAdapter = loginDataBaseAdapter.open();
-        tv = (TextView)rootView.findViewById(R.id.fragments_toolBar_text);
-        tv.setText(R.string.login);
         session = new SessionManager(getActivity().getApplicationContext());
         if (session.isLoggedIn()) {
             Intent intent = new Intent(getActivity().getApplicationContext(), UserData.class);
@@ -49,12 +47,6 @@ public class PlaceHolderSignInFragment extends Fragment {
         return rootView;
     }
 
-    /*@Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.login);
-        super.onActivityCreated(savedInstanceState);
-
-    }*/
 
     private void setupClickEvent() {
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +65,8 @@ public class PlaceHolderSignInFragment extends Fragment {
                         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                         getActivity().finish();
                     } else {
-                        DialogMessageDisplay.displayMessage(getActivity().getApplicationContext(), "Error", "Username or Password do not match");
+
+                        DialogMessageDisplay.displayInfoMessage(getActivity().getApplicationContext(), "Error", "Username or Password do not match", AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                     }
                 }
 

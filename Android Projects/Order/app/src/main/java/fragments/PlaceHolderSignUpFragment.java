@@ -24,15 +24,12 @@ public class PlaceHolderSignUpFragment extends Fragment {
     private EditText username, password, retypePassword;
     private Button signUp;
     private View rootView;
-    private Toolbar tb;
     private TextView tv;
     LoginDatabaseAdapter loginDataBaseAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_signup, container, false);
-        tv = (TextView)rootView.findViewById(R.id.fragments_toolBar_text);
-        tv.setText(R.string.registration);
         setupView();
         setupClickEvent();
         return rootView;
@@ -57,12 +54,6 @@ public class PlaceHolderSignUpFragment extends Fragment {
             }
         });
     }
-
-    /*@Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }*/
 
     private void setupView() {
         username = (EditText) rootView.findViewById(R.id.userNameSignUp);

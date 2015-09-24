@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:id="@+id/linear1"
+        android:background="@drawable/list_states"
+        android:padding="20dp"
+        android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/spirit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:text="Name"
+                 />
+
+            <TextView
+                android:id="@+id/spirit_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textColor="#000"
+                android:layout_weight="1"
+                 />
+ </LinearLayout>

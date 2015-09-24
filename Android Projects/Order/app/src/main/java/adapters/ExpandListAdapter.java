@@ -69,7 +69,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         ExpandableListParent group = (ExpandableListParent) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inf = LayoutInflater.from(context);
             convertView = inf.inflate(R.layout.exp_list_item_parent, null);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.exp_text);
@@ -81,7 +81,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ProductList child = (ProductList) getChild(groupPosition, childPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = LayoutInflater.from(context);
             convertView = infalInflater.inflate(R.layout.list_item, null);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.product_name_coffee);

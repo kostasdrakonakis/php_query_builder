@@ -91,8 +91,6 @@ public class StockItem extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(StockItem.this, EvaluationActivity.class);
-                startActivity(intent);*/
                 if(listaFake.isShown()){
                     listaFake.setVisibility(View.INVISIBLE);
                     LinearLayout ll = (LinearLayout)findViewById(R.id.layout_to_be_shown);
@@ -180,12 +178,17 @@ public class StockItem extends ActionBarActivity {
     private void createNotification(){
         builder = new NotificationCompat.Builder(StockItem.this);
         builder.setContentTitle(name);
-        builder.setContentText(getString(R.string.notifyText) + " " + new DecimalFormat("###.##").format(avg));
+        if(avg > 10){
+            builder.setContentText(getString(R.string.notifyText) + " " +  getString(R.string.raisal) + " " + getString(R.string.by) + " " + new DecimalFormat("###.##").format(avg) + " " + getString(R.string.units));
+        }else{
+            builder.setContentText(getString(R.string.notifyText) + " " +  getString(R.string.drop) + " " + getString(R.string.by) + " " + new DecimalFormat("###.##").format(avg) + " " + getString(R.string.units));
+        }
+
         builder.setWhen(System.currentTimeMillis());
         builder.setSmallIcon(R.drawable.ic_launcher_stock);
         builder.setTicker(getString(R.string.notifyTicker));
         builder.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
-                + "://" + getPackageName() + "/raw/carme"));
+                + "://" + getPackageName() + "/raw/not"));
 
         builder.setDefaults(NotificationCompat.DEFAULT_LIGHTS | NotificationCompat.DEFAULT_VIBRATE);
         builder.setAutoCancel(true);
@@ -197,33 +200,60 @@ public class StockItem extends ActionBarActivity {
         builder.setContentIntent(pendingIntent);
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
         mailIntent.setType("message/rfc822");
-        mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"dotpass@hotmail.com"});
+        mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"admin@chatapp.info"});
         mailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.notifyTicker));
-        mailIntent.putExtra(Intent.EXTRA_TEXT,
-                getString(R.string.notifyTextEmail) + " " +
-                        name + " " +
-                        getString(R.string.notifyTextrest) + " " +
-                        getString(R.string.by) + " " +
-                        new DecimalFormat("###.##").format(avg) + " " +
-                        getString(R.string.units));
+        if(avg > 10){
+            mailIntent.putExtra(Intent.EXTRA_TEXT,
+                    getString(R.string.notifyTextEmail) + " " +
+                            name + " " +
+                            getString(R.string.raised) + " " +
+                            getString(R.string.by) + " " +
+                            new DecimalFormat("###.##").format(avg) + " " +
+                            getString(R.string.units));
+        }else{
+            mailIntent.putExtra(Intent.EXTRA_TEXT,
+                    getString(R.string.notifyTextEmail) + " " +
+                            name + " " +
+                            getString(R.string.dropped) + " " +
+                            getString(R.string.by) + " " +
+                            new DecimalFormat("###.##").format(avg) + " " +
+                            getString(R.string.units));
+        }
+
         mailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        builder.setFullScreenIntent(pendingIntent, true);
+
         PendingIntent pIntent = PendingIntent.getActivity(StockItem.this, 12, mailIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.addAction(android.R.drawable.sym_action_email, "Send", pIntent);
+        builder.addAction(android.R.drawable.sym_action_email, getString(R.string.sendEmail), pIntent);
 
 
         Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.notifyTicker));
-        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.notifyTextEmail) + " " +
-                name + " " +
-                getString(R.string.notifyTextrest) + " " +
-                getString(R.string.by) + " " +
-                new DecimalFormat("###.##").format(avg) + " " +
-                getString(R.string.units));
+        if(avg > 10){
+            shareIntent.putExtra(Intent.EXTRA_TEXT,
+                    getString(R.string.notifyTextEmail) + " " +
+                            name + " " +
+                            getString(R.string.raised) + " " +
+                            getString(R.string.by) + " " +
+                            new DecimalFormat("###.##").format(avg) + " " +
+                            getString(R.string.units));
+        }else{
+            shareIntent.putExtra(Intent.EXTRA_TEXT,
+                    getString(R.string.notifyTextEmail) + " " +
+                            name + " " +
+                            getString(R.string.dropped) + " " +
+                            getString(R.string.by) + " " +
+                            new DecimalFormat("###.##").format(avg) + " " +
+                            getString(R.string.units));
+        }
+
 
         PendingIntent sharePendingIntent = PendingIntent.getActivity(StockItem.this, 13, shareIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        builder.addAction(android.R.drawable.ic_menu_share, "Share", sharePendingIntent);
+        builder.addAction(android.R.drawable.ic_menu_share, getString(R.string.share), sharePendingIntent);
+        builder.setFullScreenIntent(pIntent, true);
+        builder.setFullScreenIntent(sharePendingIntent, true);
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(1, builder.build());
     }

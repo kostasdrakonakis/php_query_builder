@@ -39,6 +39,7 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:text="1"
+                    android:background="@drawable/button_states"
                     android:id="@+id/table1" />
 
                 <Button
@@ -47,12 +48,14 @@
                     android:text="2"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@drawable/button_states"
                     android:id="@+id/table2" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
+                    android:background="@drawable/button_states"
                     android:layout_weight="1"
                     android:id="@+id/table3" />
             </LinearLayout>
@@ -66,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/button_states"
                     android:layout_marginRight="10dp"
                     android:text="4"
                     android:id="@+id/table4" />
@@ -74,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
+                    android:background="@drawable/button_states"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:id="@+id/table5" />
@@ -82,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6"
+                    android:background="@drawable/button_states"
                     android:layout_weight="1"
                     android:id="@+id/table6" />
             </LinearLayout>
@@ -95,6 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/button_states"
                     android:text="7"
                     android:layout_marginRight="10dp"
                     android:id="@+id/table7" />
@@ -103,6 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="8"
+                    android:background="@drawable/button_states"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:id="@+id/table8" />
@@ -111,6 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="9"
+                    android:background="@drawable/button_states"
                     android:layout_weight="1"
                     android:id="@+id/table9" />
             </LinearLayout>
@@ -124,6 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/button_states"
                     android:text="10"
                     android:layout_marginRight="10dp"
                     android:id="@+id/table10" />
@@ -132,6 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="11"
+                    android:background="@drawable/button_states"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:id="@+id/table11" />
@@ -140,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12"
+                    android:background="@drawable/button_states"
                     android:layout_weight="1"
                     android:id="@+id/table12" />
             </LinearLayout>
@@ -154,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="K1"
+                    android:background="@drawable/button_states"
                     android:layout_marginRight="10dp"
                     android:id="@+id/tableK1" />
 
@@ -163,12 +176,14 @@
                     android:text="K2"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@drawable/button_states"
                     android:id="@+id/tableK2" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="K3"
+                    android:background="@drawable/button_states"
                     android:layout_weight="1"
                     android:id="@+id/tableK3" />
             </LinearLayout>
@@ -182,6 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/button_states"
                     android:text="Bar 1"
                     android:layout_marginRight="10dp"
                     android:id="@+id/tableBar1" />
@@ -190,6 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bar 2"
+                    android:background="@drawable/button_states"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:id="@+id/tableBar2" />
@@ -198,6 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bar 3"
+                    android:background="@drawable/button_states"
                     android:layout_weight="1"
                     android:id="@+id/tableBar3" />
             </LinearLayout>

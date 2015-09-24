@@ -22,7 +22,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,7 +52,6 @@ public class ListLoaderActivity extends ActionBarActivity {
     public static final String PREFS_NAME = "MyPrefsFile1";
     ProgressDialog pDialog;
     List<StockList> customList;
-    ImageButton fab;
     public CheckBox dontShowAgain;
     private String name, price, price1, price2, price3, price4, price5, price6, price7, price8, price9,
             price10, price11, price12, price13, price14, price15, image;
@@ -171,7 +169,7 @@ public class ListLoaderActivity extends ActionBarActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.about: {
-                MyMessageDialog.displayMessage(ListLoaderActivity.this, "Stock Predictions - Version 1.0", "Δρακωνάκης Κωνσταντίνος\nΑ.Μ. = 2766\nΤμήμα Μηχανικών Πληροφορικής\nΠτυχιακή Εργασία");
+                MyMessageDialog.displayMessage(ListLoaderActivity.this, getString(R.string.version), getString(R.string.alertMessage));
                 return true;
             }
             default: {
@@ -222,7 +220,6 @@ public class ListLoaderActivity extends ActionBarActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
-        fab = (ImageButton) findViewById(R.id.add_button);
 
         startList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -238,12 +235,6 @@ public class ListLoaderActivity extends ActionBarActivity {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accessWebService();
-            }
-        });
     }
 
 

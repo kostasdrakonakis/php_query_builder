@@ -24,14 +24,4 @@
         android:layout_below="@+id/toolBar" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <ImageButton
-        android:id="@+id/add_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@android:drawable/stat_notify_sync_noanim"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/button_states"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp" />
 </RelativeLayout>

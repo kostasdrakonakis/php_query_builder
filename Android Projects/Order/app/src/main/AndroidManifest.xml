@@ -40,6 +40,31 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_new_order" >
         </activity>
+        <activity
+            android:name="fragments.Whiskeys"
+            android:label="@string/title_activity_whiskeys" >
+        </activity>
+        <activity
+            android:name="fragments.Gins"
+            android:label="@string/title_activity_gins" >
+        </activity>
+        <activity
+            android:name="fragments.Rums"
+            android:label="@string/title_activity_rums" >
+        </activity>
+        <activity
+            android:name="fragments.Vodkas"
+            android:label="@string/title_activity_vodkas" >
+        </activity>
+        <activity
+            android:name="fragments.Tequilas"
+            android:label="@string/title_activity_tequilas" >
+        </activity>
+        <activity
+            android:name="fragments.Liquers"
+            android:label="@string/title_activity_liquers" >
+        </activity>
+
     </application>
 
 </manifest>

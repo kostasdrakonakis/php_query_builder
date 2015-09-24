@@ -31,12 +31,20 @@
     <string name="future_price">Η μελλοντική τιμή βασισμένη στις προηγούμενες 15 ημέρες είναι:</string>
     <string name="notification_text">Διμιουργία ειδοποίησης για μελλοντικές αλλαγές</string>
     <string name="notify">Ειδοποίησε με</string>
-    <string name="notifyText">Η τιμή άλλαξε</string>
+    <string name="notifyText">Νέα τιμή:</string>
     <string name="notifyTicker">Αλλαγή Τιμής</string>
     <string name="notifyTextEmail">Η τιμή της </string>
     <string name="notifyTextrest">άλλαξε</string>
     <string name="by">κατα</string>
     <string name="units">μονάδες</string>
     <string name="chooser">Επιλέξτε:</string>
+    <string name="raised">ανέβηκε</string>
+    <string name="dropped">έπεσε</string>
+    <string name="raisal">Άνοδος</string>
+    <string name="drop">Κάθοδος</string>
+    <string name="version">Προβλέψεις Μετοχών - Έκδοση 1.0</string>
+    <string name="alertMessage">Δρακωνάκης Κωνσταντίνος\nΑ.Μ. = 2766\nΤμήμα Μηχανικών Πληροφορικής\nΠτυχιακή Εργασία</string>
+    <string name="sendEmail">Αποστολή</string>
+    <string name="share">Μοιραστήτε το</string>
 
 </resources>

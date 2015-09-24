@@ -18,11 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.order.app.order.R;
 
@@ -39,28 +35,25 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.ExpandListAdapter;
 import adapters.ProductListAdapter;
-import lists.ExpandableListParent;
+import dialogs.DialogMessageDisplay;
 import lists.ProductList;
 
 
 public class SpiritsFragment extends Fragment {
 
     private View rootView;
-    private ExpandableListView lv;
-    private BaseExpandableListAdapter adapter;
+    private ListView lv;
+    private ProductListAdapter adapter;
     private String jsonResult;
     private String url = "http://reservations.cretantaxiservices.gr/files/getspirits.php";
     ProgressDialog pDialog;
-    ArrayList<ProductList> childs;
-    String[] products;
-    ArrayList<ExpandableListParent> customList;
+    ArrayList<ProductList> customList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_spirits_fragment, container, false);
-        lv = (ExpandableListView)rootView.findViewById(R.id.spiritsListView);
+        lv = (ListView)rootView.findViewById(R.id.spiritsListView);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -118,7 +111,55 @@ public class SpiritsFragment extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity().getApplicationContext(), "You have chosen " + customList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 0:{
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Gins.class);
+                        intent.putExtra("spirit_name", customList.get(position).getName());
+                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        startActivity(intent);
+                        break;
+                    }
+                    case 1:{
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
+                        intent.putExtra("spirit_name", customList.get(position).getName());
+                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        startActivity(intent);
+                        break;
+                    }
+                    case 2:{
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
+                        intent.putExtra("spirit_name", customList.get(position).getName());
+                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        startActivity(intent);
+                        break;
+                    }
+                    case 3:{
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
+                        intent.putExtra("spirit_name", customList.get(position).getName());
+                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        startActivity(intent);
+                        break;
+                    }
+                    case 4:{
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Vodkas.class);
+                        intent.putExtra("spirit_name", customList.get(position).getName());
+                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        startActivity(intent);
+                        break;
+                    }
+                    case 5:{
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Whiskeys.class);
+                        intent.putExtra("spirit_name", customList.get(position).getName());
+                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        startActivity(intent);
+                        break;
+                    }
+                    default:{
+                        Log.d("No Case", "You have done something wrong");
+                        DialogMessageDisplay.displayInfoMessage(getActivity().getApplicationContext(), "Error", "Please try again", AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                        break;
+                    }
+                }
             }
         });
     }
@@ -155,7 +196,7 @@ public class SpiritsFragment extends Fragment {
     }
 
 
-    public class JsonReadTask extends AsyncTask<String , Void, ArrayList<ExpandableListParent>> {
+    public class JsonReadTask extends AsyncTask<String , Void, List<ProductList>> {
         public JsonReadTask() {
             super();
         }
@@ -173,7 +214,7 @@ public class SpiritsFragment extends Fragment {
         }
 
         @Override
-        protected ArrayList<ExpandableListParent> doInBackground(String... params) {
+        protected List<ProductList> doInBackground(String... params) {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(params[0]);
             try {
@@ -189,39 +230,7 @@ public class SpiritsFragment extends Fragment {
                     String name = jsonChildNode.optString("type");
                     String price = jsonChildNode.optString("price");
                     String image = jsonChildNode.optString("image");
-
-                    String p1 = jsonChildNode.optString("product1");
-                    String p2 = jsonChildNode.optString("product2");
-                    String p3 = jsonChildNode.optString("product3");
-                    String p4 = jsonChildNode.optString("product4");
-                    String p5 = jsonChildNode.optString("product5");
-                    String p6 = jsonChildNode.optString("product6");
-                    String p7 = jsonChildNode.optString("product7");
-                    String p8 = jsonChildNode.optString("product8");
-                    String p9 = jsonChildNode.optString("product9");
-                    String p10 = jsonChildNode.optString("product10");
-                    String p11 = jsonChildNode.optString("product11");
-                    String p12 = jsonChildNode.optString("product12");
-                    String p13 = jsonChildNode.optString("product13");
-                    String p14 = jsonChildNode.optString("product14");
-                    String p15 = jsonChildNode.optString("product15");
-                    String p16 = jsonChildNode.optString("product16");
-                    String p17 = jsonChildNode.optString("product17");
-                    String p18 = jsonChildNode.optString("product18");
-                    String p19 = jsonChildNode.optString("product19");
-                    String p20 = jsonChildNode.optString("product20");
-                    String p21 = jsonChildNode.optString("product21");
-                    String p22 = jsonChildNode.optString("product22");
-                    String p23 = jsonChildNode.optString("product23");
-                    String p24 = jsonChildNode.optString("product24");
-                    String p25 = jsonChildNode.optString("product25");
-
-
-                    products = new String[]{p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25};
-
-                    childs.add(new ProductList(price, products, image));
-
-                    customList.add(new ExpandableListParent(name, childs));
+                    customList.add(new ProductList(image, name, price));
                 }
                 return customList;
             } catch (Exception e) {
@@ -246,7 +255,7 @@ public class SpiritsFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ExpandableListParent> customList) {
+        protected void onPostExecute(List<ProductList> customList) {
             if(customList == null){
                 Log.d("ERORR", "No result to show.");
                 return;
@@ -261,8 +270,9 @@ public class SpiritsFragment extends Fragment {
         task.execute(new String[]{url});
     }
 
-    public void ListDrawer(ArrayList<ExpandableListParent> customList) {
-        adapter = new ExpandListAdapter(getActivity().getApplicationContext(), customList);
+    public void ListDrawer(List<ProductList> customList) {
+        adapter = new ProductListAdapter(getActivity().getApplicationContext(), R.layout.list_item, customList);
+        adapter.notifyDataSetChanged();
         lv.setAdapter(adapter);
     }
 }

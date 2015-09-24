@@ -1,5 +1,6 @@
 package com.order.app.order;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -58,7 +59,8 @@ public class UserData extends ActionBarActivity {
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogMessageDisplay.displayMessage(UserData.this, "Payment Details", "There was no order made. \n Make an order and then tap the payment button.");
+                DialogMessageDisplay.displayInfoMessage(UserData.this, "Payment Details", "There was no order made. \n Make an order and then tap the payment button.", AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+
             }
         });
     }
