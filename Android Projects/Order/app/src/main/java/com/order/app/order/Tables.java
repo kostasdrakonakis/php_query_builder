@@ -16,10 +16,19 @@ public class Tables extends Activity {
     q, w, e, r, t, y, u, i, o, p, a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m;
     private EditText tableNumber;
     private Vibrator vibrator;
+    private String servitoros_id;
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String TABLE_INTENT_ID = "table_name";
+    private String magaziID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tables);
+        servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
+        magaziID = getIntent().getStringExtra(COMPANY_INTENT_ID);
+
         tableNumber = (EditText)findViewById(R.id.tableNumberEditText);
         setupButtons();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -391,7 +400,9 @@ public class Tables extends Activity {
                 }else {
                     vibrator.vibrate(28);
                     Intent intent = new Intent(Tables.this, ProductsViewOrder.class);
-                    intent.putExtra("tableID", textNow);
+                    intent.putExtra(TABLE_INTENT_ID, textNow);
+                    intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                    intent.putExtra(COMPANY_INTENT_ID, magaziID);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     Tables.this.finish();

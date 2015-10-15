@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.order.app.order.R;
 
@@ -39,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ProductListAdapter;
+import cart.SnacksLayoutActivity;
 import lists.ProductList;
 
 
@@ -51,12 +51,19 @@ public class Snacks extends Fragment {
     private String url = "http://my.chatapp.info/order_api/files/getsnacks.php";
     ProgressDialog pDialog;
     List<ProductList> customList;
+    private static final String TABLE_INTENT_ID = "table_name";
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
+    private String servitoros_id, magazi_id, table;
     private TextView tv1, tv2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.snacks_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.snacksListView);
+        table = getActivity().getIntent().getStringExtra(TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -115,7 +122,14 @@ public class Snacks extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity().getApplicationContext(), "You have chosen " + customList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), SnacksLayoutActivity.class);
+                intent.putExtra("snackName", customList.get(position).getName());
+                intent.putExtra("snackPrice", customList.get(position).getPrice());
+                intent.putExtra("snackImage", customList.get(position).getImage());
+                intent.putExtra(TABLE_INTENT_ID, table);
+                intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                startActivity(intent);
             }
         });
     }

@@ -13,12 +13,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SET_TIME" />
-
-
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -26,7 +27,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/test"
+        android:icon="@drawable/ic_logo_maker"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -52,7 +53,6 @@
         <activity
             android:name=".ProductsViewOrder"
             android:configChanges="orientation|keyboardHidden|screenSize" >
-
         </activity>
         <activity
             android:name="fragments.Whiskeys"
@@ -84,8 +84,27 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="cart.CoffeesLayoutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:label="@string/title_activity_coffees_layout" >
+        </activity>
+        <activity
+            android:name="settings.SettingsActivity"
+            android:label="@string/action_settings" >
+        </activity>
+        <activity
+            android:name="cart.SnacksLayoutActivity"
+            android:label="@string/title_activity_snacks_layout" >
+        </activity>
+        <activity
+            android:name="cart.SweetsLayoutActivity"
+            android:label="@string/title_activity_sweets_layout" >
         </activity>
     </application>
 

@@ -12,6 +12,16 @@
         <item>Εγγραφη</item>
     </string-array>
 
+    <string-array name="coffee_flavors">
+        <item>Καμία Γεύση</item>
+        <item>Καραμέλα</item>
+        <item>Σοκολάτα</item>
+        <item>Φράουλα</item>
+        <item>Baileys</item>
+        <item>Καρύδα</item>
+        <item>Μπανάνα</item>
+    </string-array>
+
     <string-array name="products">
         <item>Καφεδες</item>
         <item>Γλυκα</item>
@@ -20,6 +30,7 @@
         <item>Ποτα</item>
         <item>Μπυρες</item>
     </string-array>
+
 
     <string-array name="refreshments_array">
         <item>Σκετο</item>
@@ -111,8 +122,6 @@
     <string name="title_activity_searchable">Searchable Activity</string>
     <string name="uname_or_password_not_found">Ο Κωδικός ή το Όνομα χρήστη δεν βρέθηκαν</string>
     <string name="uname_required">Απαιτήται το όνομα χρήστη</string>
-    <string name="shareText">Έφτασε! Το νέο σύστημα παραγγελιοληψίας για συσκευές Android!! Δοκιμάστε το!!!</string>
-    <string name="shareSubject">Σύστημα Παραγγελιοληψίας</string>
     <string name="search">Αναζήτηση</string>
     <string name="retype_pass_required">Επιβεβαιώστε τον κωδικό σας</string>
     <string name="rateDialogTitle">Βαθμολογήστε την εφαρμογή μας</string>
@@ -130,5 +139,66 @@
     <string name="retype_hint_password">Επιβεβαίωση Κωδικού</string>
     <string name="username_field">Όνομα Χρήστη</string>
     <string name="created_successfully">Ο λογαριασμός διμιουργήθηκε επιτυχώς</string>
+    <string name="title_activity_coffees_layout">CoffeesLayoutActivity</string>
+    <string name="whipped_cream">Σαντιγί</string>
+    <string name="whipped_milk">Αφρόγαλο</string>
+    <string name="cart_addition_successfull">Το προϊόν προστέθηκε στο καλάθι</string>
+    <string name="account_not_active">Δεν έχετε ενεργοποιήσει τον λογαριασμό σας. \nΠαρακαλώ ρωτήστε το διαχειρηστή.</string>
+    <string name="waiter_id">ID Χρήστη: </string>
+    <string name="company_id">ID Εταιρίας: </string>
+    <string name="help_hint_message">Μήνυμα</string>
+    <string name="help_hint_name">Όνομα</string>
+    <string name="help_hint_subject">Θέμα</string>
+    <string name="call">Κληση</string>
+    <string name="help">Βοήθεια</string>
+    <string name="help_dialog_message">Μπορείτε να επικοινωνήσετε μαζί μας οποιαδήποτε στιγμή καλώντας στο </string>
+    <string name="send">Αποστολη</string>
+    <string name="switch_text">Δεν μπορείτε να μας βρείτε στο τηλέφωνο;\n Θέλετε περισσότερη βοήθεια;</string>
+    <string name="tel">+1–0256–04875–621</string>
+    <string name="message_empty">Το πεδίο μηνύματος δεν μπορεί να είναι κενό</string>
+    <string name="subject_empty">Το πεδίο θέματος δεν μπορεί να είναι κενό</string>
+    <string name="subject_or_message_empty">Τα πεδία είναι υποχρεωτικά</string>
+    <string name="chef_special">Σπέσιαλ Σεφ</string>
+    <string name="cooking_time">Χρόνος \n Ψησίματος:</string>
+    <string name="extra">Έξτρα:</string>
+    <string name="home_special">Σπέσιαλ Μαγαζιού</string>
+    <string name="medium_cooked">Μέτριο</string>
+    <string name="rare">Άψητο</string>
+    <string name="sauce">Σως:</string>
+    <string name="title_activity_snacks_layout">SnacksLayoutActivity</string>
+    <string name="very_well_done">Πολύ Καλοψημένο</string>
+    <string name="well_done">Καλοψημένο</string>
+    <string name="bacon">Μπέϊκον</string>
+    <string name="cabbage">Λάχανο</string>
+    <string name="cheese">Τυρί</string>
+    <string name="fries">Πατάτες</string>
+    <string name="ham">Ζαμπόν</string>
+    <string name="lettuce">Μαρούλι</string>
+    <string name="onions">Κρεμμύδι</string>
+    <string name="peppers">Πιπεριά</string>
+    <string name="tomatoes">Ντομάτα</string>
+    <string name="without">Χωρίς:</string>
+    <string name="cooking_time_required">Πρέπει να επιλέξετε χρόνο ψησίματος</string>
+    <string name="sugar_required">Πρέπει να επιλέξετε ποσότητα ζάχαρης</string>
+    <string name="banana">Μπανάνα</string>
+    <string name="caramel">Καραμέλα</string>
+    <string name="cheese_cake">Cheese Cake</string>
+    <string name="cookies">Cookies</string>
+    <string name="chocolate">Σοκολάτα</string>
+    <string name="ice_cream">Παγωτό</string>
+    <string name="ice_cream_scoops">Μπάλες Παγωτού:</string>
+    <string name="mango">Μάνγκο</string>
+    <string name="oreo">Oreo</string>
+    <string name="pistachio">Φυστίκι</string>
+    <string name="strawberry">Φράουλα</string>
+    <string name="syrup">Σιρόπι</string>
+    <string name="title_activity_sweets_layout">SweetsLayoutActivity</string>
+    <string name="vanilla">Βανίλια</string>
+    <string name="caramel_ice_cream">Καραμέλα</string>
+    <string name="pineapple">Ανανάς</string>
+    <string name="sorbet">Σορμπέ</string>
+    <string name="dose_required">Πρέπει να επιλέξετε την δόση του καφέ</string>
+    <string name="email_not_valid">Το email δεν είναι έγκυρο</string>
+    <string name="zero_rating">Το rating δεν μπορεί να είναι 0</string>
 
 </resources>

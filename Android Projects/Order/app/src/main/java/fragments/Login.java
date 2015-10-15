@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
 import com.order.app.order.R;
 import com.order.app.order.UserProfile;
 
@@ -67,6 +68,9 @@ public class Login extends Fragment {
     private boolean isRegistered = false, letLogin = false;
     private JSONObject data;
     private AlertDialog.Builder builder;
+    private String isActivated, servitorosId, message;
+    private boolean accountExists = false;
+    private String magaziId;
 
 
     @Override
@@ -118,7 +122,7 @@ public class Login extends Fragment {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             if (pDialog.isShowing()) {
                 pDialog.show();
             } else {
@@ -132,7 +136,7 @@ public class Login extends Fragment {
                 onDetectNetworkState().dismiss();
             }
         }
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             if (pDialog.isShowing()) {
                 pDialog.show();
             } else {
@@ -203,8 +207,10 @@ public class Login extends Fragment {
                 if (password.getText().toString().isEmpty()) {
                     Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor("#3399FF")).show(getActivity());
                     signIn.setEnabled(false);
+                    signIn.setBackgroundColor(getResources().getColor(R.color.light_gray));
                 } else {
                     signIn.setEnabled(true);
+                    signIn.setBackgroundColor(getResources().getColor(R.color.articlecolor));
                 }
             }
 
@@ -278,9 +284,20 @@ public class Login extends Fragment {
                 while ((line = br.readLine()) != null) {
                     result.append(line);
                 }
+                Log.e("Responce", result.toString());
                 if (result != null) {
                     data = new JSONObject(result.toString());
                     isRegistered = data.getBoolean("res");
+                    isActivated = data.getString("activated");
+                    servitorosId = data.getString("servitoros_id");
+                    magaziId = data.getString("magazi_id");
+                }
+
+                if (isActivated.equals("0")) {
+                    isRegistered = false;
+                    message = getString(R.string.account_not_active);
+                } else {
+                    message = getString(R.string.uname_or_password_not_found);
                 }
             } catch (Exception e) {
                 Log.e("Fail 1", e.toString());
@@ -293,13 +310,14 @@ public class Login extends Fragment {
             super.onPostExecute(aVoid);
             pDialog.dismiss();
             if (aVoid) {
-                session.createLoginSession(userName, "waiterx@gmail.com");
+                session.createLoginSession(userName, servitorosId, magaziId);
                 Intent intent = new Intent(getActivity().getApplicationContext(), UserProfile.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 getActivity().finish();
-            }else {
-                Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_or_password_not_found)).color(Color.parseColor("#3399FF")).show(getActivity());
+            } else {
+
+                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(message).color(Color.parseColor("#3399FF")).show(getActivity());
             }
         }
     }

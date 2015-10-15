@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 import adapters.DatabaseAdapter;
 
@@ -62,16 +64,21 @@ public class Register extends Fragment {
     private HttpEntity httpEntity;
     private InputStream is = null;
     private MyInsertDataTask task;
-    private String uName, pass, email, date;
+    private String uName, pass, email, date, release;
     private Calendar c;
     private DateFormat dateFormat;
     private AlertDialog.Builder builder;
+    private Random random;
+    private int sdkVersion;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.signup, container, false);
+        release = Build.VERSION.RELEASE;
+        sdkVersion = Build.VERSION.SDK_INT;
         setupView();
+
         createDateFormat();
         setupClickEvent();
         return rootView;
@@ -279,8 +286,15 @@ public class Register extends Fragment {
                 if (emailField.getText().toString().isEmpty()) {
                     Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_required)).color(Color.parseColor("#3399FF")).show(getActivity());
                     signUp.setEnabled(false);
+                    signUp.setBackgroundColor(getResources().getColor(R.color.light_gray));
                 } else {
-                    signUp.setEnabled(true);
+                    if (isEmailValid(emailField.getText().toString())) {
+                        signUp.setEnabled(true);
+                        signUp.setBackgroundColor(getResources().getColor(R.color.articlecolor));
+                    }else {
+                        Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_not_valid)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    }
+
                 }
             }
 
@@ -291,7 +305,14 @@ public class Register extends Fragment {
         });
 
     }
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 
+    private int getRandom(){
+        random = new Random();
+        return random.nextInt(10000);
+    }
 
     private class MyInsertDataTask extends AsyncTask<String, Void, Void> {
 
@@ -315,7 +336,11 @@ public class Register extends Fragment {
             nameValuePairs.add(new BasicNameValuePair("password", pass));
             nameValuePairs.add(new BasicNameValuePair("email", email));
             nameValuePairs.add(new BasicNameValuePair("dateCreated", date));
+            nameValuePairs.add(new BasicNameValuePair("servitoros_id", String.valueOf(getRandom())));
             nameValuePairs.add(new BasicNameValuePair("magazi_id", String.valueOf(2)));
+            nameValuePairs.add(new BasicNameValuePair("android_version", release));
+            nameValuePairs.add(new BasicNameValuePair("api_level", String.valueOf(sdkVersion)));
+
             try
             {
                 httpClient = new DefaultHttpClient();

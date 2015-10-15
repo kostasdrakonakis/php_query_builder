@@ -22,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.order.app.order.R;
 
@@ -40,19 +39,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ProductListAdapter;
+import cart.CoffeesLayoutActivity;
 import lists.ProductList;
 
 public class Coffees extends Fragment{
     private View rootView;
     private ListView lv;
     private ArrayAdapter<ProductList> adapter;
-    private String jsonResult;
-    private String url = "http://my.chatapp.info/order_api/files/getkafedes.php";
+    private String jsonResult, table;
+    private String url = "http://my.chatapp.info/order_api/files/getkafedes.php", name, image, price;
+
     ProgressDialog pDialog;
     List<ProductList> customList;
+    private static final String TABLE_INTENT_ID = "table_name";
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
     private TextView tv1, tv2;
     int pos;
     private CardView cardView;
+    private String servitoros_id;
+    private String magazi_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +66,9 @@ public class Coffees extends Fragment{
         rootView = inflater.inflate(R.layout.coffees_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.coffeesListView);
         cardView = (CardView)rootView.findViewById(R.id.card_view);
-
+        table = getActivity().getIntent().getStringExtra(TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -72,6 +80,7 @@ public class Coffees extends Fragment{
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 accessWebService();
                 registerCallClickBack();
+
                 mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -119,7 +128,14 @@ public class Coffees extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //pos = position;
-                Toast.makeText(getActivity().getApplicationContext(), "You have chosen " + customList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), CoffeesLayoutActivity.class);
+                intent.putExtra("coffeeName", customList.get(position).getName());
+                intent.putExtra("coffeePrice", customList.get(position).getPrice());
+                intent.putExtra("coffeeImage", customList.get(position).getImage());
+                intent.putExtra(TABLE_INTENT_ID, table);
+                intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                startActivity(intent);
             }
         });
     }
@@ -187,9 +203,9 @@ public class Coffees extends Fragment{
                 JSONArray jsonMainNode = jsonResponse.optJSONArray("kafedes");
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    String name = jsonChildNode.optString("name");
-                    String price = jsonChildNode.optString("price");
-                    String image = jsonChildNode.optString("image");
+                    name = jsonChildNode.optString("name");
+                    price = jsonChildNode.optString("price");
+                    image = jsonChildNode.optString("image");
                     customList.add(new ProductList(image, name, price));
 
                 }

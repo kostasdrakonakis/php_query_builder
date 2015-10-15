@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:enabled="false"
+            android:background="@color/light_gray"
             android:textColor="@color/black"
             android:text="@string/signin"
             android:id="@+id/buttonSignIn" />

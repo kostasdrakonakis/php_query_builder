@@ -21,6 +21,16 @@
         <item>Beers</item>
     </string-array>
 
+    <string-array name="coffee_flavors">
+        <item>No Flavor</item>
+        <item>Caramel</item>
+        <item>Chocolate</item>
+        <item>Strawberry</item>
+        <item>Baileys</item>
+        <item>Coconut</item>
+        <item>Banana</item>
+    </string-array>
+
     <string-array name="refreshments_array">
         <item>Plain</item>
         <item>On the Rocks</item>
@@ -81,7 +91,7 @@
     <string name="get_stocks">Loading Products…</string>
     <string name="payment">Payment</string>
     <string name="gin_flavor">Choose Gin Brand:</string>
-    <string name="glass_pref">Prefered Glass:</string>
+    <string name="glass_pref">Preferred Glass:</string>
     <string name="short_glass">Short</string>
     <string name="long_glass">Long</string>
     <string name="refreshment_flavor">Choice:</string>
@@ -102,7 +112,7 @@
     <string name="no">No</string>
     <string name="table_id">"Table: "</string>
     <string name="error">Error</string>
-    <string name="glass_error_msg">You have to choose prefered glass</string>
+    <string name="glass_error_msg">You have to choose preferred glass</string>
     <string name="success">Success</string>
     <string name="product">"Your product "</string>
     <string name="plus_with">" with "</string>
@@ -111,16 +121,15 @@
     <string name="search">Search</string>
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="uname_or_password_not_found">Username or Password not found</string>
+    <string name="account_not_active">You haven\'t activated your account.\nPlease ask your Manager.</string>
     <string name="uname_required">Username is required</string>
     <string name="password_required">Password is required</string>
     <string name="retype_pass_required">Please retype your password</string>
-    <string name="shareText">Its Finally here! The new Order Taking System for Android Devices! Check it out!!!</string>
-    <string name="shareSubject">Order Taking System</string>
     <string name="rateBarText">Did you like our app?</string>
     <string name="rateBarCommentHint">Write a comment</string>
     <string name="rateDialogTitle">Rate our App</string>
     <string name="posButtonRate">Confirm</string>
-    <string name="dialog_rate_data_submit">Please Wait...</string>
+    <string name="dialog_rate_data_submit">Please Wait…</string>
     <string name="confirmRateText">Thank you for voting</string>
     <string name="tableNumEmptyMessage">The table number cannot be empty</string>
     <string name="tableNumZeroMessage">The table number cannot be zero</string>
@@ -130,5 +139,65 @@
     <string name="username_field">Username</string>
     <string name="email_required">Email field is required</string>
     <string name="created_successfully">Account created successfully</string>
+    <string name="title_activity_coffees_layout">CoffeesLayoutActivity</string>
+    <string name="whipped_milk">Whipped Milk</string>
+    <string name="whipped_cream">Whipped Cream</string>
+    <string name="waiter_id">Waiter ID:</string>
+    <string name="cart_addition_successfull">Product has been added to cart</string>
+    <string name="company_id">Company ID:</string>
+    <string name="help_hint_message">Message</string>
+    <string name="help_hint_subject">Subject</string>
+    <string name="help_hint_name">Name</string>
+    <string name="switch_text">Can\'t find us on telephone?\n Need more help?</string>
+    <string name="help">Help</string>
+    <string name="help_dialog_message">Contact us any time at </string>
+    <string name="send">Send</string>
+    <string name="tel">+1–0256–04875–621</string>
+    <string name="call">Call</string>
+    <string name="subject_or_message_empty">Both fields are required</string>
+    <string name="subject_empty">Subject cannot be empty</string>
+    <string name="message_empty">Message cannot be empty</string>
+    <string name="title_activity_snacks_layout">SnacksLayoutActivity</string>
+    <string name="extra">Extra</string>
+    <string name="cooking_time">Cooking\n Time:</string>
+    <string name="rare">Rare</string>
+    <string name="medium_cooked">Medium</string>
+    <string name="well_done">Well Done</string>
+    <string name="very_well_done">Very Well Done</string>
+    <string name="sauce">Sauce:</string>
+    <string name="chef_special">Chef\'s Special</string>
+    <string name="home_special">Home\'s Special</string>
+    <string name="fries">Fries</string>
+    <string name="tomatoes">Tomatoes</string>
+    <string name="lettuce">Lettuce</string>
+    <string name="cabbage">Cabbage</string>
+    <string name="cheese">Cheese</string>
+    <string name="ham">Ham</string>
+    <string name="bacon">Bacon</string>
+    <string name="onions">Onions</string>
+    <string name="peppers">Peppers</string>
+    <string name="without">Without</string>
+    <string name="sugar_required">You have to select sugar value</string>
+    <string name="cooking_time_required">You have to select cooking time</string>
+    <string name="title_activity_sweets_layout">SweetsLayoutActivity</string>
+    <string name="ice_cream">Ice Cream</string>
+    <string name="ice_cream_scoops">Ice-Cream Scoops:</string>
+    <string name="vanilla">Vanilla</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="strawberry">Strawberry</string>
+    <string name="banana">Banana</string>
+    <string name="pistachio">Pistachio</string>
+    <string name="mango">Mango</string>
+    <string name="cookies">Cookies</string>
+    <string name="oreo">Oreo</string>
+    <string name="cheese_cake">Cheese Cake</string>
+    <string name="syrup">Syrup</string>
+    <string name="caramel">Caramel</string>
+    <string name="caramel_ice_cream">Caramel</string>
+    <string name="sorbet">Sorbet</string>
+    <string name="pineapple">Pineapple</string>
+    <string name="dose_required">You have to select dose value</string>
+    <string name="email_not_valid">This is not a valid email</string>
+    <string name="zero_rating">Rating cannot be zero</string>
 
 </resources>

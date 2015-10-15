@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:drawableStart="@drawable/ic_email_open_black_24dp"
                 android:hint="@string/email_hint"
                 android:layout_marginTop="15dp"
                 android:padding="15dp"
@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:enabled="false"
+                android:background="@color/light_gray"
                 android:text="@string/signup"
                 android:textColor="@color/black"
                 android:id="@+id/buttonSignUp" />

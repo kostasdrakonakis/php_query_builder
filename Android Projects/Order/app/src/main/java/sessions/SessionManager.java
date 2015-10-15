@@ -18,7 +18,8 @@ public class SessionManager {
     private static final String PREF_NAME = "OrderTakingSystem";
     private static final String IS_LOGGED_IN = "isLoggedIn";
     public static final String KEY_NAME = "name";
-    public static final String KEY_EMAIL = "email";
+    public static final String KEY_WAITER_ID = "servitoros_id";
+    public static final String KEY_SHOP_ID = "magazi_id";
     private static final int PRIVATE_MODE = 0;
 
     public SessionManager(Context context){
@@ -27,17 +28,19 @@ public class SessionManager {
         editor = preferences.edit();
     }
 
-    public void createLoginSession(String name, String email){
+    public void createLoginSession(String name, String servitoros_id, String shop_id){
         editor.putBoolean(IS_LOGGED_IN, true);
         editor.putString(KEY_NAME, name);
-        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_WAITER_ID, servitoros_id);
+        editor.putString(KEY_SHOP_ID, shop_id);
         editor.commit();
     }
 
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(KEY_NAME, preferences.getString(KEY_NAME, null));
-        user.put(KEY_EMAIL, preferences.getString(KEY_EMAIL, null));
+        user.put(KEY_WAITER_ID, preferences.getString(KEY_WAITER_ID, null));
+        user.put(KEY_SHOP_ID, preferences.getString(KEY_SHOP_ID, null));
         return user;
     }
 

@@ -1,8 +1,11 @@
 package com.order.app.order;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +19,7 @@ import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 
 import adapters.ProductsTabPagerAdapter;
+import dialogs.DialogMessageDisplay;
 
 
 public class ProductsViewOrder extends FragmentActivity {
@@ -27,6 +31,14 @@ public class ProductsViewOrder extends FragmentActivity {
     private String title;
     private SearchResult option;
     private Intent intent;
+    private ConnectivityManager cm;
+    private NetworkInfo activeNetwork;
+    boolean network_connected;
+    private String servitoros_id;
+    private String magazi_id;
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String TABLE_INTENT_ID = "table_name";
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -34,8 +46,19 @@ public class ProductsViewOrder extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_order);
-        setupPages();
-        setupSearch();
+        checkNetwork();
+    }
+
+    private void checkNetwork() {
+        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetwork = cm.getActiveNetworkInfo();
+        network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
+        if (!network_connected) {
+            DialogMessageDisplay.displayWifiSettingsDialog(ProductsViewOrder.this, ProductsViewOrder.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
+        }else {
+            setupPages();
+            setupSearch();
+        }
     }
 
     private void setupSearch() {
@@ -50,7 +73,9 @@ public class ProductsViewOrder extends FragmentActivity {
         getActionBar().setElevation(0);
         viewPager = (ViewPager) findViewById(R.id.pager);
         intent = getIntent();
-        title = intent.getStringExtra("tableID");
+        servitoros_id = intent.getStringExtra(WAITER_INTENT_ID);
+        magazi_id = intent.getStringExtra(COMPANY_INTENT_ID);
+        title = intent.getStringExtra(TABLE_INTENT_ID);
         getActionBar().setTitle(getString(R.string.table_id) + title);
         mAdapter = new ProductsTabPagerAdapter(getSupportFragmentManager(), ProductsViewOrder.this, ProductsViewOrder.this);
         viewPager.setAdapter(mAdapter);

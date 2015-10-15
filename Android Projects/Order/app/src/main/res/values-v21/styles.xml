@@ -20,4 +20,22 @@
         <item name="android:colorAccent">@color/article_title</item>
     </style>
 
+    <style name="Preference" parent="android:Theme.Material.Light">
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:colorPrimary">@color/articlecolor</item>
+        <item name="android:colorAccent">@color/article_title</item>
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
+    </style>
+
+
+
+        <style name="EditTextThemeCustom" parent="Theme.AppCompat.Light">
+            <!-- Customize your theme here. -->
+            <item name="android:editTextColor">@color/black</item>
+            <item name="android:textColor">@color/black</item>
+        </style>
+
+
 </resources>

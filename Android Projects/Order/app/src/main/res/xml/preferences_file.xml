@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="applicationUpdates"
+        android:summary="This option if selected will allow the application to check for latest versions."
+        android:title="Application Updates" />
+    <PreferenceCategory android:title="Network">
+
+        <EditTextPreference
+            android:summary="Coffees PHP file"
+            android:textColor="@color/black"
+            android:title="Coffees" />
+        <EditTextPreference
+            android:summary="Snacks PHP file"
+            android:textColor="@color/black"
+            android:title="Snacks" />
+        <EditTextPreference
+            android:summary="Sweets PHP file"
+            android:textColor="@color/black"
+            android:title="Sweets" />
+        <EditTextPreference
+            android:summary="Beverages PHP file"
+            android:textColor="@color/black"
+            android:title="Beverages" />
+        <EditTextPreference
+            android:summary="Spirits PHP file"
+            android:textColor="@color/black"
+            android:title="Spirits" />
+        <EditTextPreference
+            android:summary="Beers PHP file"
+            android:textColor="@color/black"
+            android:title="Beers" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Device">
+
+        <ListPreference
+            android:entries="@array/app_theme"
+            android:entryValues="@array/app_themeValues"
+            android:key="country"
+            android:title="App Theme" />
+
+        <ListPreference
+            android:entries="@array/bar_theme"
+            android:entryValues="@array/bar_themeValues"
+            android:key="country"
+            android:title="Actionbar Color Theme" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
