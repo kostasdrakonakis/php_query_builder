@@ -136,10 +136,7 @@ public class UserProfile extends AppCompatActivity{
     }
 
     private void setupReceiver() {
-        // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
-        // we fetch  the current time in milliseconds and added 1 day time
-        // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
-        Long time = new GregorianCalendar().getTimeInMillis() + 60*1000;//+24*60*60*1000;
+        Long time = new GregorianCalendar().getTimeInMillis() + 60*1000;//+24*60*60*1000 for a day;
         Intent intentAlarm = new Intent(UserProfile.this, CheckSubscriptionReceiver.class);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(UserProfile.this, 0, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT);

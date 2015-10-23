@@ -49,7 +49,7 @@ import sessions.SessionManager;
 
 public class Login extends Fragment {
 
-    private static final String URL = "http://my.chatapp.info/order_api/insertData/validation.php";
+    private static final String URL = "http://my.chatapp.info/order_api/insertData/user_login.php";
     private EditText username, password;
     private Button signIn;
     private View rootView;
@@ -317,7 +317,6 @@ public class Login extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 getActivity().finish();
             } else {
-
                 Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(message).color(Color.parseColor("#3399FF")).show(getActivity());
             }
         }
