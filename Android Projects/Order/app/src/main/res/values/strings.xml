@@ -202,5 +202,6 @@
     <string name="ticker_subscription_msg">Subscription Renewal</string>
     <string name="subscription_notif_message">Your subscription is about to end. Please renew as soons as possible so that you continue to have full features</string>
     <string name="subscription_notif_title">Subscription Alert</string>
+    <string name="username_exists_message">Username already exists</string>
 
 </resources>
