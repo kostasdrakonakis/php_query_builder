@@ -46,8 +46,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-import adapters.DatabaseAdapter;
-
 public class Register extends Fragment {
 
     private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_users_into_db.php";
@@ -55,7 +53,6 @@ public class Register extends Fragment {
     private Button signUp;
     private View rootView;
     private TextView tv;
-    DatabaseAdapter loginDataBaseAdapter;
     private ProgressDialog pDialog;
     private ArrayList<NameValuePair> nameValuePairs;
     private HttpResponse response;
@@ -92,16 +89,16 @@ public class Register extends Fragment {
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
                 Toast.makeText(getActivity(), getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+            /*if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 displayInfoMessage(getActivity(), getString(R.string.mobile_title), getString(R.string.mobile_message));
-            }
+            }*/
         }
     }
 

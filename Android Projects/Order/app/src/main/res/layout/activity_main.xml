@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent">
 
-
+    <include android:id="@+id/toolBar" layout="@layout/toolbar_top" />
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"

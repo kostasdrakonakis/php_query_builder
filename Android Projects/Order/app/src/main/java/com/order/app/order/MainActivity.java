@@ -4,15 +4,16 @@ import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.astuetz.PagerSlidingTabStrip;
 
 import adapters.LoginSignUpTabsAdapter;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     LoginSignUpTabsAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -23,10 +24,15 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getActionBar().setElevation(0);
-        getActionBar().setTitle(R.string.app_name);
-        setupPager();
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
 
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            toolbar.setElevation(0);
+        }
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
+        setupPager();
     }
 
     private void setupPager() {

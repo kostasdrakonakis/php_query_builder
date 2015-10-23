@@ -1,9 +1,10 @@
 package cart;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,7 +32,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-public class CoffeesLayoutActivity extends Activity {
+public class CoffeesLayoutActivity extends AppCompatActivity {
 
     private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_coffees_to_cart.php";
     private static final String COMPANY_INTENT_ID = "magaziID";
@@ -52,6 +53,7 @@ public class CoffeesLayoutActivity extends Activity {
     private int quantityNumberFinal;
     private String servitoros_id;
     private String magazi_id;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -309,14 +311,17 @@ public class CoffeesLayoutActivity extends Activity {
     }
 
     private void populateActionBar() {
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
+
         productName = getIntent().getStringExtra("coffeeName");
         price = getIntent().getStringExtra("coffeePrice");
         table = getIntent().getStringExtra(TABLE_INTENT_ID);
         image = getIntent().getStringExtra("coffeeImage");
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
-        getActionBar().setTitle(productName + " - " + getString(R.string.price) + " " + price);
-        getActionBar().setSubtitle(getString(R.string.table_id) + table);
+        toolbar.setTitle(productName + " - " + getString(R.string.price) + " " + price);
+        toolbar.setSubtitle(getString(R.string.table_id) + table);
+        setSupportActionBar(toolbar);
     }
 
     private class MyInsertDataTask extends AsyncTask<String, Void, Void> {

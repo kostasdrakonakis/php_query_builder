@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Material.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!-- theme customizations -->
         <item name="android:colorPrimary">@color/articlecolor</item>
@@ -13,20 +13,27 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
         <item name="android:colorButtonNormal">@color/articlecolor</item>
+        <item name="colorPrimary">@color/articlecolor</item>
+        <item name="colorPrimaryDark">@color/article_title</item>
+        <item name="colorAccent">@color/articlecolor</item>
     </style>
 
-    <style name="AlertDialogCustom" parent="android:Theme.Material.Light.Dialog.Alert">
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:colorPrimary">@color/articlecolor</item>
         <item name="android:colorAccent">@color/article_title</item>
+        <item name="colorAccent">@color/articlecolor</item>
+        <item name="colorPrimary">@color/articlecolor</item>
+        <item name="colorPrimaryDark">@color/article_title</item>
     </style>
 
-    <style name="Preference" parent="android:Theme.Material.Light">
+    <style name="Preference" parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:colorPrimary">@color/articlecolor</item>
         <item name="android:colorAccent">@color/article_title</item>
         <item name="android:editTextColor">@color/black</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="colorAccent">@color/articlecolor</item>
     </style>
 
 
@@ -35,6 +42,7 @@
             <!-- Customize your theme here. -->
             <item name="android:editTextColor">@color/black</item>
             <item name="android:textColor">@color/black</item>
+            <item name="colorAccent">@color/articlecolor</item>
         </style>
 
 

@@ -94,12 +94,13 @@ public class Login extends Fragment {
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
             }
+            /*
             if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 displayInfoMessage(getActivity(), getString(R.string.mobile_title), getString(R.string.mobile_message));
-            }
+            }*/
         }
     }
 

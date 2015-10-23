@@ -1,16 +1,17 @@
 package com.order.app.order;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class Tables extends Activity {
+public class Tables extends AppCompatActivity {
 
     private Button one, two, three, four, five, six, seven, eight, nine, zero, clear, ok, delete,
     q, w, e, r, t, y, u, i, o, p, a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m;
@@ -21,11 +22,14 @@ public class Tables extends Activity {
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
     private String magaziID;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tables);
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magaziID = getIntent().getStringExtra(COMPANY_INTENT_ID);
 

@@ -6,11 +6,11 @@
         android:title="@string/logout"
         android:orderInCategory="100"
         android:icon="@drawable/exit_app"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="99"
         android:icon="@drawable/ic_settings_white_24dp"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 </menu>

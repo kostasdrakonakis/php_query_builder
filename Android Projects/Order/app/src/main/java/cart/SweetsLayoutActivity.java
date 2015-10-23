@@ -1,9 +1,10 @@
 package cart;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -28,7 +29,7 @@ import org.apache.http.message.BasicNameValuePair;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class SweetsLayoutActivity extends Activity {
+public class SweetsLayoutActivity extends AppCompatActivity {
 
     private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_sweets_to_cart.php";
     private static final String COMPANY_INTENT_ID = "magaziID";
@@ -50,6 +51,7 @@ public class SweetsLayoutActivity extends Activity {
     private StringBuffer iceCreamPreference, syrupPreference;
     private int syrupBufferLength, iceCreamBufferLength;
     private MyInsertDataTask task;
+    private Toolbar toolbar;
 
 
     @Override
@@ -84,14 +86,16 @@ public class SweetsLayoutActivity extends Activity {
     }
 
     private void populateActionBar() {
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
         name = getIntent().getStringExtra("sweetsName");
         price = getIntent().getStringExtra("sweetsPrice");
         table = getIntent().getStringExtra(TABLE_INTENT_ID);
         image = getIntent().getStringExtra("sweetsImage");
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
-        getActionBar().setTitle(name + " - " + getString(R.string.price) + " " + price);
-        getActionBar().setSubtitle(getString(R.string.table_id) + table);
+        toolbar.setTitle(name + " - " + getString(R.string.price) + " " + price);
+        toolbar.setSubtitle(getString(R.string.table_id) + table);
+        setSupportActionBar(toolbar);
     }
 
     private void checkQuantity() {

@@ -74,6 +74,8 @@ public class Sweets extends Fragment {
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 accessWebService();
+                pDialog.dismiss();
+                setRetainInstance(true);
                 registerCallClickBack();
                 mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override

@@ -8,6 +8,7 @@
     tools:context="com.example.kostas.ordertakingsystem.Tables"
     android:id="@+id/topLayout">
 
+    <include android:id="@+id/toolBar" layout="@layout/toolbar_top"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

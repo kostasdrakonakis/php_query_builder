@@ -1,6 +1,5 @@
 package com.order.app.order;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,11 +7,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.quinny898.library.persistentsearch.SearchBox;
@@ -22,7 +22,7 @@ import adapters.ProductsTabPagerAdapter;
 import dialogs.DialogMessageDisplay;
 
 
-public class ProductsViewOrder extends FragmentActivity {
+public class ProductsViewOrder extends AppCompatActivity{
 
     private ViewPager viewPager;
     private ProductsTabPagerAdapter mAdapter;
@@ -39,9 +39,9 @@ public class ProductsViewOrder extends FragmentActivity {
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
+    private Toolbar toolbar;
+    private float mActionBarHeight;
 
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,15 +68,17 @@ public class ProductsViewOrder extends FragmentActivity {
         box.setDrawerLogo(null);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setupPages() {
-        getActionBar().setElevation(0);
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            toolbar.setElevation(0);
+        }
         viewPager = (ViewPager) findViewById(R.id.pager);
         intent = getIntent();
         servitoros_id = intent.getStringExtra(WAITER_INTENT_ID);
         magazi_id = intent.getStringExtra(COMPANY_INTENT_ID);
         title = intent.getStringExtra(TABLE_INTENT_ID);
-        getActionBar().setTitle(getString(R.string.table_id) + title);
+        toolbar.setTitle(getString(R.string.table_id) + title);
         mAdapter = new ProductsTabPagerAdapter(getSupportFragmentManager(), ProductsViewOrder.this, ProductsViewOrder.this);
         viewPager.setAdapter(mAdapter);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -84,7 +86,14 @@ public class ProductsViewOrder extends FragmentActivity {
         tabs.setDividerColor(Color.TRANSPARENT);
         tabs.setIndicatorColor(Color.WHITE);
         tabs.setIndicatorHeight(6);
-
+        setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                showSearchResults();
+                return true;
+            }
+        });
     }
 
 
@@ -94,33 +103,8 @@ public class ProductsViewOrder extends FragmentActivity {
         return true;
     }
 
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.search:{
-                showSearchResults();
-                return true;
-            }
-            case R.id.cart:{
-                return true;
-            }
-            default:{
-                return super.onOptionsItemSelected(item);
-            }
-        }
-    }
-
     private void showSearchResults() {
         box.revealFromMenuItem(R.id.search, this);
-        getActionBar().hide();
-        for (int x = 0; x < 10; x++) {
-            option = new SearchResult("Result "
-                    + Integer.toString(x), getResources().getDrawable(
-                    R.drawable.abc_ic_search_api_mtrl_alpha));
-            box.addSearchable(option);
-        }
         box.setSearchListener(new SearchBox.SearchListener() {
             @Override
             public void onSearchOpened() {
@@ -132,10 +116,7 @@ public class ProductsViewOrder extends FragmentActivity {
 
             @Override
             public void onSearchClosed() {
-                getActionBar().show();
-                if (box.getVisibility() == View.VISIBLE){
-                    box.setVisibility(View.GONE);
-                }
+                closeSearch();
             }
 
             @Override
@@ -143,10 +124,16 @@ public class ProductsViewOrder extends FragmentActivity {
             }
 
             @Override
-            public void onSearch(String s) {
-
+            public void onSearch(String searchTerm) {
+                Toast.makeText(ProductsViewOrder.this, searchTerm + " Searched",
+                        Toast.LENGTH_LONG).show();
+                toolbar.setTitle(searchTerm);
             }
         });
+    }
+
+    protected void closeSearch() {
+        box.hideCircularly(this);
     }
 
     @Override
@@ -154,4 +141,6 @@ public class ProductsViewOrder extends FragmentActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left);
     }
+
+
 }

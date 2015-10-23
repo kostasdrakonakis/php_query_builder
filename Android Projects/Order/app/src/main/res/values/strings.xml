@@ -199,5 +199,8 @@
     <string name="dose_required">You have to select dose value</string>
     <string name="email_not_valid">This is not a valid email</string>
     <string name="zero_rating">Rating cannot be zero</string>
+    <string name="ticker_subscription_msg">Subscription Renewal</string>
+    <string name="subscription_notif_message">Your subscription is about to end. Please renew as soons as possible so that you continue to have full features</string>
+    <string name="subscription_notif_title">Subscription Alert</string>
 
 </resources>

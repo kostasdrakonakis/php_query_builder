@@ -1,9 +1,10 @@
 package cart;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,7 +30,7 @@ import org.apache.http.message.BasicNameValuePair;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class SnacksLayoutActivity extends Activity {
+public class SnacksLayoutActivity extends AppCompatActivity {
 
     private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_snacks_to_cart.php";
     private static final String COMPANY_INTENT_ID = "magaziID";
@@ -50,6 +51,7 @@ public class SnacksLayoutActivity extends Activity {
     private InputStream is = null;
     private MyInsertDataTask task;
     private int extraBufferLength, withoutBufferLenght;
+    private Toolbar toolbar;
 
 
     @Override
@@ -145,6 +147,96 @@ public class SnacksLayoutActivity extends Activity {
         ham = (CheckBox)findViewById(R.id.ham);
         lettuce = (CheckBox)findViewById(R.id.lettuce);
         cabbage = (CheckBox)findViewById(R.id.cabbage);
+        fries.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (fries.isChecked()){
+                    friesW.setEnabled(false);
+                }else {
+                    friesW.setEnabled(true);
+                }
+            }
+        });
+        tomato.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (tomato.isChecked()){
+                    tomatoW.setEnabled(false);
+                }else {
+                    tomatoW.setEnabled(true);
+                }
+            }
+        });
+        pepper.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (pepper.isChecked()){
+                    pepperW.setEnabled(false);
+                }else {
+                    pepperW.setEnabled(true);
+                }
+            }
+        });
+        onnion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (onnion.isChecked()){
+                    onnionW.setEnabled(false);
+                }else {
+                    onnionW.setEnabled(true);
+                }
+            }
+        });
+        cheese.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cheese.isChecked()){
+                    cheeseW.setEnabled(false);
+                }else {
+                    cheeseW.setEnabled(true);
+                }
+            }
+        });
+        bacon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (bacon.isChecked()){
+                    baconW.setEnabled(false);
+                }else {
+                    baconW.setEnabled(true);
+                }
+            }
+        });
+        ham.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (ham.isChecked()){
+                    hamW.setEnabled(false);
+                }else {
+                    hamW.setEnabled(true);
+                }
+            }
+        });
+        lettuce.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (lettuce.isChecked()){
+                    lettuceW.setEnabled(false);
+                }else {
+                    lettuceW.setEnabled(true);
+                }
+            }
+        });
+        cabbage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cabbage.isChecked()){
+                    cabbageW.setEnabled(false);
+                }else {
+                    cabbageW.setEnabled(true);
+                }
+            }
+        });
 
     }
 
@@ -191,6 +283,96 @@ public class SnacksLayoutActivity extends Activity {
         cheeseW = (CheckBox)findViewById(R.id.cheeseWithout);
         hamW = (CheckBox)findViewById(R.id.hamWithout);
         baconW = (CheckBox)findViewById(R.id.baconWithout);
+        friesW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (friesW.isChecked()){
+                    fries.setEnabled(false);
+                }else {
+                    fries.setEnabled(true);
+                }
+            }
+        });
+        tomatoW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (tomatoW.isChecked()){
+                    tomato.setEnabled(false);
+                }else {
+                    tomato.setEnabled(true);
+                }
+            }
+        });
+        pepperW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (pepperW.isChecked()){
+                    pepper.setEnabled(false);
+                }else {
+                    pepper.setEnabled(true);
+                }
+            }
+        });
+        onnionW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (onnionW.isChecked()){
+                    onnion.setEnabled(false);
+                }else {
+                    onnion.setEnabled(true);
+                }
+            }
+        });
+        cheeseW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cheeseW.isChecked()){
+                    cheese.setEnabled(false);
+                }else {
+                    cheese.setEnabled(true);
+                }
+            }
+        });
+        baconW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (baconW.isChecked()){
+                    bacon.setEnabled(false);
+                }else {
+                    bacon.setEnabled(true);
+                }
+            }
+        });
+        hamW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (hamW.isChecked()){
+                    ham.setEnabled(false);
+                }else {
+                    ham.setEnabled(true);
+                }
+            }
+        });
+        lettuceW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (lettuceW.isChecked()){
+                    lettuce.setEnabled(false);
+                }else {
+                    lettuce.setEnabled(true);
+                }
+            }
+        });
+        cabbageW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cabbageW.isChecked()){
+                    cabbage.setEnabled(false);
+                }else {
+                    cabbage.setEnabled(true);
+                }
+            }
+        });
     }
 
 
@@ -310,14 +492,16 @@ public class SnacksLayoutActivity extends Activity {
     }
 
     private void populateActionBar() {
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
         name = getIntent().getStringExtra("snackName");
         price = getIntent().getStringExtra("snackPrice");
         table = getIntent().getStringExtra(TABLE_INTENT_ID);
         image = getIntent().getStringExtra("snackImage");
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
-        getActionBar().setTitle(name + " - " + getString(R.string.price) + " " + price);
-        getActionBar().setSubtitle(getString(R.string.table_id) + table);
+        toolbar.setTitle(name + " - " + getString(R.string.price) + " " + price);
+        toolbar.setSubtitle(getString(R.string.table_id) + table);
+        setSupportActionBar(toolbar);
     }
 
     private void accessWebService() {

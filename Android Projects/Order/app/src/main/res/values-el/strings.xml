@@ -200,5 +200,8 @@
     <string name="dose_required">Πρέπει να επιλέξετε την δόση του καφέ</string>
     <string name="email_not_valid">Το email δεν είναι έγκυρο</string>
     <string name="zero_rating">Το rating δεν μπορεί να είναι 0</string>
+    <string name="subscription_notif_message">Η συνδρομή σας λήγει. Παρακαλώ ανανεώστε την συνδρομή σας σύντομα για να συνεχίσετε να έχετε όλες τις δυνατότητες της εφαρμογής.</string>
+    <string name="subscription_notif_title">Λήξη Συνδρομής</string>
+    <string name="ticker_subscription_msg">Ανανέωση Συνδρομής</string>
 
 </resources>
