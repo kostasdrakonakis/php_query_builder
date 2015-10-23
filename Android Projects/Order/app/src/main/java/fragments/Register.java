@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
 import com.order.app.order.MainActivity;
 import com.order.app.order.R;
 
@@ -38,8 +39,11 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,6 +71,8 @@ public class Register extends Fragment {
     private AlertDialog.Builder builder;
     private Random random;
     private int sdkVersion;
+    private JSONObject data;
+    private boolean usernameExists=true;
 
 
     @Override
@@ -91,10 +97,7 @@ public class Register extends Fragment {
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
-                Toast.makeText(getActivity(), getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+
             }
             /*if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 displayInfoMessage(getActivity(), getString(R.string.mobile_title), getString(R.string.mobile_message));
@@ -311,7 +314,7 @@ public class Register extends Fragment {
         return random.nextInt(10000);
     }
 
-    private class MyInsertDataTask extends AsyncTask<String, Void, Void> {
+    private class MyInsertDataTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -327,7 +330,7 @@ public class Register extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("username", uName));
             nameValuePairs.add(new BasicNameValuePair("password", pass));
@@ -346,17 +349,38 @@ public class Register extends Fragment {
                 response = httpClient.execute(httpPost);
                 httpEntity = response.getEntity();
                 is = httpEntity.getContent();
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                }
+                Log.e("Responce", result.toString());
+                if (result != null) {
+                    data = new JSONObject(result.toString());
+                    usernameExists = data.getBoolean("result");
+                }
             }
             catch(Exception e)
             {
                 Log.e("Fail 1", e.toString());
             }
-            return null;
+            return  usernameExists;
         }
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
             pDialog.dismiss();
+            if (aVoid){
+                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor("#3399FF")).show(getActivity());
+            }else {
+                Toast.makeText(getActivity(), getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+
         }
     }
+
 }
