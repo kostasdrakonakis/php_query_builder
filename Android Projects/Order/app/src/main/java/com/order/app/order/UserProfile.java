@@ -1,7 +1,9 @@
 package com.order.app.order;
 
-import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -17,6 +19,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -50,14 +55,16 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import dialogs.DialogMessageDisplay;
+import receivers.CheckSubscriptionReceiver;
 import sessions.SessionManager;
 import settings.SettingsActivity;
 
 
-public class UserProfile extends Activity{
+public class UserProfile extends AppCompatActivity{
 
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String COMPANY_INTENT_ID = "magaziID";
@@ -104,11 +111,20 @@ public class UserProfile extends Activity{
     private EditText  subject, message;
     private Switch helpSwitch;
     private LinearLayout contactLayout;
+    private Toolbar toolbar;
+    private AlarmManager alarmManager;
+    private PendingIntent alarmIntent;
+    private NotificationCompat.Builder notifBuilder;
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
+        toolbar.setTitle(getString(R.string.user_profile));
+        setSupportActionBar(toolbar);
+        setupReceiver();
         checkSession();
         checkNetwork();
         populateProfileData();
@@ -117,6 +133,17 @@ public class UserProfile extends Activity{
         populateShareContentButtons();
         retrieveRateFromPrefs();
         setupButtonEvents();
+    }
+
+    private void setupReceiver() {
+        // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
+        // we fetch  the current time in milliseconds and added 1 day time
+        // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
+        Long time = new GregorianCalendar().getTimeInMillis() + 60*1000;//+24*60*60*1000;
+        Intent intentAlarm = new Intent(UserProfile.this, CheckSubscriptionReceiver.class);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(UserProfile.this, 0, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 
     private void populateShareContentButtons() {
@@ -140,11 +167,11 @@ public class UserProfile extends Activity{
         network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
         if (!network_connected) {
             DialogMessageDisplay.displayWifiSettingsDialog(UserProfile.this, UserProfile.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
-        } else {
+        }/*else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 displayInfoMessage(UserProfile.this, getString(R.string.mobile_title), getString(R.string.mobile_message));
             }
-        }
+        }*/
     }
 
     private void registerMainButtons() {
@@ -269,7 +296,7 @@ public class UserProfile extends Activity{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 insertDataToDatabaseFromRating();
-                                if (ratingComplited){
+                                if (ratingComplited) {
                                     rateButton.setEnabled(false);
                                     disabled = true;
                                     ed.putBoolean(ratingNameFile, disabled);
@@ -366,8 +393,6 @@ public class UserProfile extends Activity{
             });
         }
 
-
-
     }
 
     @Override
@@ -399,6 +424,7 @@ public class UserProfile extends Activity{
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_user_data, menu);
         return true;
+
     }
 
     @Override
