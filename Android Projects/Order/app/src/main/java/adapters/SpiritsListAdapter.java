@@ -47,7 +47,7 @@ public class SpiritsListAdapter extends BaseAdapter {
         if(convertView == null){
             LayoutInflater vi;
             vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.spinner_row_item, parent, false);
+            convertView = vi.inflate(R.layout.spirit_spinner_row_item, parent, false);
 
             holder = new SpiritHolderItems();
             holder.spiritName = (TextView)convertView.findViewById(R.id.spinner_row_name);

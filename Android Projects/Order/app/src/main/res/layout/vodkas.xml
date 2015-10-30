@@ -1,18 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/relative1"
+    android:orientation="vertical"
     android:focusableInTouchMode="true"
     android:descendantFocusability="beforeDescendants"
-    android:layout_height="match_parent"
-    tools:context="fragments.Gins">
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/toolBar" layout="@layout/toolbar_top"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView2"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/topBar" >
+        android:id="@+id/scrollView2" >
 
         <LinearLayout
             android:orientation="vertical"
@@ -26,18 +26,14 @@
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:padding="15dp"
-                android:id="@+id/ginFlavor"
-                android:layout_below="@+id/topBar"
-                android:layout_alignParentStart="true" />
+                android:id="@+id/ginFlavor"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/flavor_vodka_spinner"
                 android:padding="15dp"
-                android:spinnerMode="dialog"
-                android:layout_below="@+id/topBar"
-                android:layout_alignParentStart="true" />
+                android:spinnerMode="dialog" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,8 +48,6 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
                 android:padding="15dp">
 
                 <CheckBox
@@ -128,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dialog"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
 
                     android:id="@+id/refreshment_spinner" />
             </LinearLayout>
@@ -158,4 +152,4 @@
     </ScrollView>
 
 
-</RelativeLayout>
+</LinearLayout>

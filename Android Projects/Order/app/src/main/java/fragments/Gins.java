@@ -1,16 +1,15 @@
 package fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,12 +32,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapters.SpiritComponentAdapter;
 import adapters.SpiritsListAdapter;
 import dialogs.DialogMessageDisplay;
+import interfaces.GinsCommunicator;
+import lists.SpiritComponentProduct;
 import lists.SpiritList;
 
 
-public class Gins extends Activity {
+public class Gins extends AppCompatActivity {
 
     private Toolbar tb;
     private Spinner spRef, spDrinks;
@@ -48,20 +50,53 @@ public class Gins extends Activity {
     private String jsonResult;
     private ArrayAdapter<String> adapter;
     private SpiritsListAdapter adapterGins;
-    private String url = "http://my.chatapp.info/order_api/files/getgins.php";
+    private static final String URL = "http://my.chatapp.info/order_api/files/getgins.php";
+    private static final String TABLE_INTENT_ID = "table_name";
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String SPIRIT_ITEM = "spirit_item";
+    private String servitoros_id, magazi_id, table, name;
     ProgressDialog pDialog;
     String selectedGin, selectedGlass, selectStroll;
     ArrayList<SpiritList> customSpinner;
+    private Toolbar toolbar;
+    private List<SpiritComponentProduct> components;
+    private SpiritComponentAdapter componentAdapter;
+    private GinsCommunicator communicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gins);
-        String name = getIntent().getStringExtra("spirit_name");
-        String table = getIntent().getStringExtra("table_name");
-        getActionBar().setTitle(name);
-        getActionBar().setSubtitle(getString(R.string.table_id) + table);
+        populateToolBar();
         spDrinks = (Spinner)findViewById(R.id.flavor_gin_spinner);
+        spRef = (Spinner)findViewById(R.id.refreshment_spinner);
+        components = new ArrayList<>();
+        checkNetworkInfo();
+        findItems();
+
+        setupListeners();
+        populateSpiritComponentsList();
+        buildRefreshmentsSpinner();
+        registerCallBackClick();
+    }
+
+    private void populateSpiritComponentsList() {
+        components.add(new SpiritComponentProduct(R.mipmap.ic_glass, getString(R.string.sketo)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_ice, getString(R.string.pago)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_coca_cola, getString(R.string.coca)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_coca_light, getString(R.string.coca_light)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_zero, getString(R.string.coca_zero)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_sprite, getString(R.string.sprite)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_fanta_lemon, getString(R.string.fanta_lemon)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_fanta_orange, getString(R.string.fanta_orange)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_soda, getString(R.string.soda)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_tonic, getString(R.string.tonic)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_water, getString(R.string.water)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_redbull, getString(R.string.redbull)));
+    }
+
+    private void checkNetworkInfo() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
@@ -73,14 +108,9 @@ public class Gins extends Activity {
 
             }
         }
-        spRef = (Spinner)findViewById(R.id.refreshment_spinner);
-        shortGlass = (CheckBox)findViewById(R.id.short_glass);
-        longGlass = (CheckBox)findViewById(R.id.long_glass);
-        yes = (CheckBox)findViewById(R.id.yesCheck);
-        no = (CheckBox)findViewById(R.id.noCheck);
-        comments = (EditText)findViewById(R.id.editText_gins);
-        cart = (Button)findViewById(R.id.button_gins);
+    }
 
+    private void setupListeners() {
         shortGlass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -108,10 +138,10 @@ public class Gins extends Activity {
         yes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     no.setEnabled(false);
                     selectStroll = yes.getText().toString().toLowerCase();
-                }else{
+                } else {
                     no.setEnabled(true);
                     selectStroll = "";
                 }
@@ -120,30 +150,39 @@ public class Gins extends Activity {
         no.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     yes.setEnabled(false);
                     selectStroll = no.getText().toString().toLowerCase();
-                }else{
+                } else {
                     yes.setEnabled(true);
                     selectStroll = "";
                 }
             }
         });
-        buildRefreshmentsSpinner();
 
-        spDrinks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedGin = customSpinner.get(position).getName();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+    }
 
-            }
-        });
+    private void findItems() {
 
-        registerCallBackClick();
+        shortGlass = (CheckBox)findViewById(R.id.short_glass);
+        longGlass = (CheckBox)findViewById(R.id.long_glass);
+        yes = (CheckBox)findViewById(R.id.yesCheck);
+        no = (CheckBox)findViewById(R.id.noCheck);
+        comments = (EditText)findViewById(R.id.editText_gins);
+        cart = (Button)findViewById(R.id.button_gins);
+    }
+
+    private void populateToolBar() {
+        name = getIntent().getStringExtra(SPIRIT_ITEM);
+        table = getIntent().getStringExtra(TABLE_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
+        toolbar = (Toolbar)findViewById(R.id.toolBar);
+        toolbar.setTitle(name);
+        toolbar.setSubtitle(getString(R.string.table_id) + table);
+        setSupportActionBar(toolbar);
+
     }
 
     private void registerCallBackClick() {
@@ -152,19 +191,17 @@ public class Gins extends Activity {
             public void onClick(View v) {
                 if(!longGlass.isChecked() && !shortGlass.isChecked()){
                     DialogMessageDisplay.displayErrorMessage(Gins.this, getString(R.string.error), getString(R.string.glass_error_msg));
-                }else{
-                    DialogMessageDisplay.displayInfoMessage(Gins.this, getString(R.string.success), getString(R.string.product) + selectedGin + getString(R.string.plus_with) + spRef.getSelectedItem() + getString(R.string.plus_with) + selectedGlass + getString(R.string.glass_preference) +getString(R.string.cart_success_msg));
-
                 }
             }
         });
     }
 
     private void buildRefreshmentsSpinner() {
-        String[] refreshments = getResources().getStringArray(R.array.refreshments_array);
-        adapter = new ArrayAdapter<>(Gins.this, R.layout.spinner_layout, R.id.spinner_ref_id,refreshments);
-        spRef.setAdapter(adapter);
+        componentAdapter = new SpiritComponentAdapter(Gins.this, components);
+        spRef.setAdapter(componentAdapter);
     }
+
+
 
 
     public class JsonReadTask extends AsyncTask<String , Void, List<SpiritList>> {
@@ -237,7 +274,7 @@ public class Gins extends Activity {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(new String[]{URL});
     }
 
     public void ListDrawer(List<SpiritList> customSpinner) {

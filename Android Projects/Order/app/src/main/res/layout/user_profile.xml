@@ -185,8 +185,8 @@
                     android:src="@drawable/ic_star_white_24dp"
                     fab:menu_shadowRadius="14dp"
                     android:layout_weight="1"
-                    fab:fab_colorNormal="@color/articlecolor"
-                    fab:fab_colorPressed="@color/articlecolor"
+                    fab:fab_colorNormal="@color/btn_login"
+                    fab:fab_colorPressed="@color/btn_login"
                     app:fab_size="normal"/>
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/help"
@@ -195,10 +195,9 @@
                     android:src="@drawable/ic_live_help_white_24dp"
                     fab:menu_shadowRadius="14dp"
                     android:layout_weight="1"
-                    fab:fab_colorNormal="@color/articlecolor"
-                    fab:fab_colorPressed="@color/articlecolor"
+                    fab:fab_colorNormal="@color/btn_login"
+                    fab:fab_colorPressed="@color/btn_login"
                     app:fab_size="normal"/>
-
             </LinearLayout>
 
         </LinearLayout>

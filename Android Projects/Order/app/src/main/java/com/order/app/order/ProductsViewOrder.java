@@ -18,11 +18,21 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import adapters.ProductsTabPagerAdapter;
+import cart.CoffeesLayoutActivity;
+import cart.SnacksLayoutActivity;
+import cart.SweetsLayoutActivity;
 import dialogs.DialogMessageDisplay;
+import interfaces.CoffeeCommunicator;
+import interfaces.SnacksCommunicator;
+import interfaces.SweetsCommunicator;
+import lists.ProductList;
 
 
-public class ProductsViewOrder extends AppCompatActivity{
+public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommunicator, SnacksCommunicator, SweetsCommunicator {
 
     private ViewPager viewPager;
     private ProductsTabPagerAdapter mAdapter;
@@ -39,8 +49,18 @@ public class ProductsViewOrder extends AppCompatActivity{
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
+    private static final String SNACK_NAME = "snackName";
+    private static final String SNACK_IMAGE = "snackImage";
+    private static final String SNACK_PRICE = "snackPrice";
+    private static final String COFFEE_NAME = "coffeeName";
+    private static final String COFFEE_IMAGE = "coffeeImage";
+    private static final String COFFEE_PRICE = "coffeePrice";
+    private static final String SWEET_NAME = "sweetsName";
+    private static final String SWEET_IMAGE = "sweetsImage";
+    private static final String SWEET_PRICE = "sweetsPrice";
     private Toolbar toolbar;
-    private float mActionBarHeight;
+    private String name, image, price;
+    private List<ProductList> coffeesList, snacksList, sweetsList, ginsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,22 +75,21 @@ public class ProductsViewOrder extends AppCompatActivity{
         network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
         if (!network_connected) {
             DialogMessageDisplay.displayWifiSettingsDialog(ProductsViewOrder.this, ProductsViewOrder.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
-        }else {
+        } else {
             setupPages();
             setupSearch();
         }
     }
 
     private void setupSearch() {
-        box = (SearchBox)findViewById(R.id.searchbox);
-        box.enableVoiceRecognition(this);
+        box = (SearchBox) findViewById(R.id.searchbox);
         box.setLogoText(getString(R.string.search));
-        box.setDrawerLogo(null);
+
     }
 
     private void setupPages() {
-        toolbar = (Toolbar)findViewById(R.id.toolBar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(0);
         }
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -87,13 +106,31 @@ public class ProductsViewOrder extends AppCompatActivity{
         tabs.setIndicatorColor(Color.WHITE);
         tabs.setIndicatorHeight(6);
         setSupportActionBar(toolbar);
+        coffeesList = new ArrayList<>();
+        snacksList = new ArrayList<>();
+        sweetsList = new ArrayList<>();
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                showSearchResults();
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.search: {
+                        showSearchResults();
+                        break;
+                    }
+                    case R.id.cart: {
+                        showCart();
+                        break;
+                    }
+                }
+
                 return true;
             }
         });
+    }
+
+    private void showCart() {
+        Toast.makeText(ProductsViewOrder.this, R.string.cart_empty_toast, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -108,6 +145,18 @@ public class ProductsViewOrder extends AppCompatActivity{
         box.setSearchListener(new SearchBox.SearchListener() {
             @Override
             public void onSearchOpened() {
+                for (int i = 0; i < coffeesList.size(); i++) {
+                    option = new SearchResult(coffeesList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    box.addSearchable(option);
+                }
+                for (int i = 0; i < snacksList.size(); i++) {
+                    option = new SearchResult(snacksList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    box.addSearchable(option);
+                }
+                for (int i = 0; i < sweetsList.size(); i++) {
+                    option = new SearchResult(sweetsList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    box.addSearchable(option);
+                }
             }
 
             @Override
@@ -125,9 +174,52 @@ public class ProductsViewOrder extends AppCompatActivity{
 
             @Override
             public void onSearch(String searchTerm) {
-                Toast.makeText(ProductsViewOrder.this, searchTerm + " Searched",
-                        Toast.LENGTH_LONG).show();
-                toolbar.setTitle(searchTerm);
+                for (int i=0;i<coffeesList.size();i++){
+                    if (searchTerm.equals(coffeesList.get(i).getName())){
+                        name = coffeesList.get(i).getName();
+                        image = coffeesList.get(i).getImage();
+                        price = coffeesList.get(i).getPrice();
+                        Intent intent = new Intent(ProductsViewOrder.this, CoffeesLayoutActivity.class);
+                        intent.putExtra(COFFEE_NAME, name);
+                        intent.putExtra(COFFEE_PRICE, price);
+                        intent.putExtra(COFFEE_IMAGE, image);
+                        intent.putExtra(TABLE_INTENT_ID, title);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        startActivity(intent);
+                    }
+                }
+                for (int i=0;i<snacksList.size();i++){
+                    if (searchTerm.equals(snacksList.get(i).getName())){
+                        name = snacksList.get(i).getName();
+                        image = snacksList.get(i).getImage();
+                        price = snacksList.get(i).getPrice();
+                        Intent intent = new Intent(ProductsViewOrder.this, SnacksLayoutActivity.class);
+                        intent.putExtra(SNACK_NAME, name);
+                        intent.putExtra(SNACK_PRICE, price);
+                        intent.putExtra(SNACK_IMAGE, image);
+                        intent.putExtra(TABLE_INTENT_ID, title);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        startActivity(intent);
+                    }
+                }
+                for (int i=0;i<sweetsList.size();i++){
+                    if (searchTerm.equals(sweetsList.get(i).getName())){
+                        name = sweetsList.get(i).getName();
+                        image = sweetsList.get(i).getImage();
+                        price = sweetsList.get(i).getPrice();
+                        Intent intent = new Intent(ProductsViewOrder.this, SweetsLayoutActivity.class);
+                        intent.putExtra(SWEET_NAME, name);
+                        intent.putExtra(SWEET_PRICE, price);
+                        intent.putExtra(SWEET_IMAGE, image);
+                        intent.putExtra(TABLE_INTENT_ID, title);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        startActivity(intent);
+                    }
+                }
+
             }
         });
     }
@@ -142,5 +234,19 @@ public class ProductsViewOrder extends AppCompatActivity{
         overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left);
     }
 
+    @Override
+    public void sendCoffeeListData(String name, String image, String price) {
+        coffeesList.add(new ProductList(image, name, price));
+    }
+
+    @Override
+    public void sendSnackListData(String name, String image, String price) {
+        snacksList.add(new ProductList(image, name, price));
+    }
+
+    @Override
+    public void sendSweetListData(String name, String image, String price) {
+        sweetsList.add(new ProductList(image, name, price));
+    }
 
 }

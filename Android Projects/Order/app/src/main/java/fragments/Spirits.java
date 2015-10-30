@@ -45,6 +45,11 @@ public class Spirits extends Fragment {
     private View rootView;
     private ListView lv;
     private ProductListAdapter adapter;
+    private static final String TABLE_INTENT_ID = "table_name";
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String SPIRIT_ITEM = "spirit_item";
+    private String servitoros_id, magazi_id, table;
     private String jsonResult;
     private String url = "http://my.chatapp.info/order_api/files/getspirits.php";
     ProgressDialog pDialog;
@@ -54,6 +59,9 @@ public class Spirits extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.spirits_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.spiritsListView);
+        table = getActivity().getIntent().getStringExtra(TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -62,7 +70,7 @@ public class Spirits extends Fragment {
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
                 pDialog.dismiss();
                 setRetainInstance(true);
@@ -116,43 +124,55 @@ public class Spirits extends Fragment {
                 switch (position){
                     case 0:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Gins.class);
-                        intent.putExtra("spirit_name", customList.get(position).getName());
-                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(TABLE_INTENT_ID, table);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 1:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
-                        intent.putExtra("spirit_name", customList.get(position).getName());
-                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(TABLE_INTENT_ID, table);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 2:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
-                        intent.putExtra("spirit_name", customList.get(position).getName());
-                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(TABLE_INTENT_ID, table);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 3:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
-                        intent.putExtra("spirit_name", customList.get(position).getName());
-                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(TABLE_INTENT_ID, table);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 4:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Vodkas.class);
-                        intent.putExtra("spirit_name", customList.get(position).getName());
-                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(TABLE_INTENT_ID, table);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 5:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Whiskeys.class);
-                        intent.putExtra("spirit_name", customList.get(position).getName());
-                        intent.putExtra("table_name", getActivity().getIntent().getStringExtra("tableID"));
+                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(TABLE_INTENT_ID, table);
+                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }

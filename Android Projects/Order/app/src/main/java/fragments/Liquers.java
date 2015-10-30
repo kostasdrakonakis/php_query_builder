@@ -1,12 +1,13 @@
 package fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,12 +31,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapters.SpiritComponentAdapter;
 import adapters.SpiritsListAdapter;
 import dialogs.DialogMessageDisplay;
+import lists.SpiritComponentProduct;
 import lists.SpiritList;
 
 
-public class Liquers extends Activity {
+public class Liquers extends AppCompatActivity {
 
     private Spinner spRef, spDrinks;
     private CheckBox shortGlass, longGlass, yes, no;
@@ -45,38 +48,49 @@ public class Liquers extends Activity {
     private String jsonResult;
     private ArrayAdapter<String> adapter;
     private SpiritsListAdapter adapterLiquer;
-    private String url = "http://my.chatapp.info/order_api/files/getliquers.php";
+    private static final String URL = "http://my.chatapp.info/order_api/files/getliquers.php";
+    private static final String TABLE_INTENT_ID = "table_name";
+    private static final String COMPANY_INTENT_ID = "magaziID";
+    private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String SPIRIT_ITEM = "spirit_item";
+    private String servitoros_id, magazi_id, table, name;
     ProgressDialog pDialog;
     ArrayList<SpiritList> customSpinner;
+    private Toolbar toolbar;
+    private List<SpiritComponentProduct> components;
+    private SpiritComponentAdapter componentAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liquers);
-        String name = getIntent().getStringExtra("spirit_name");
-        String table = getIntent().getStringExtra("table_name");
-        getActionBar().setTitle(name);
-        getActionBar().setSubtitle(getString(R.string.table_id) + table);
+        populateToolBar();
         spDrinks = (Spinner)findViewById(R.id.flavor_liquer_spinner);
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
-        if (!network_connected) {
-            DialogMessageDisplay.displayWifiSettingsDialog(Liquers.this, Liquers.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
-        } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
-                accessWebService();
-            }
-        }
-        spRef = (Spinner)findViewById(R.id.refreshment_spinner);
-        shortGlass = (CheckBox)findViewById(R.id.short_glass);
-        longGlass = (CheckBox)findViewById(R.id.long_glass);
-        yes = (CheckBox)findViewById(R.id.yesCheck);
-        no = (CheckBox)findViewById(R.id.noCheck);
-        comments = (EditText)findViewById(R.id.editText_liquer);
-        cart = (Button)findViewById(R.id.button_liquer);
+        components = new ArrayList<>();
+        checkNetworkInfo();
+        findItems();
+        setupListeners();
+        populateSpiritComponentsList();
+        buildRefreshmentsSpinner();
+    }
 
+    private void populateSpiritComponentsList() {
+        components.add(new SpiritComponentProduct(R.mipmap.ic_glass, getString(R.string.sketo)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_ice, getString(R.string.pago)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_coca_cola, getString(R.string.coca)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_coca_light, getString(R.string.coca_light)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_zero, getString(R.string.coca_zero)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_sprite, getString(R.string.sprite)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_fanta_lemon, getString(R.string.fanta_lemon)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_fanta_orange, getString(R.string.fanta_orange)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_soda, getString(R.string.soda)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_tonic, getString(R.string.tonic)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_water, getString(R.string.water)));
+        components.add(new SpiritComponentProduct(R.mipmap.ic_redbull, getString(R.string.redbull)));
+    }
+
+    private void setupListeners() {
         shortGlass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -122,14 +136,46 @@ public class Liquers extends Activity {
                 }
             }
         });
-        buildRefreshmentsSpinner();
+    }
+
+    private void findItems() {
+        spRef = (Spinner)findViewById(R.id.refreshment_spinner);
+        shortGlass = (CheckBox)findViewById(R.id.short_glass);
+        longGlass = (CheckBox)findViewById(R.id.long_glass);
+        yes = (CheckBox)findViewById(R.id.yesCheck);
+        no = (CheckBox)findViewById(R.id.noCheck);
+        comments = (EditText)findViewById(R.id.editText_liquer);
+        cart = (Button)findViewById(R.id.button_liquer);
+    }
+
+    private void checkNetworkInfo() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
+        if (!network_connected) {
+            DialogMessageDisplay.displayWifiSettingsDialog(Liquers.this, Liquers.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
+        } else {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                accessWebService();
+            }
+        }
+    }
+
+    private void populateToolBar() {
+        name = getIntent().getStringExtra(SPIRIT_ITEM);
+        table = getIntent().getStringExtra(TABLE_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar.setTitle(name);
+        toolbar.setSubtitle(getString(R.string.table_id) + table);
+        setSupportActionBar(toolbar);
     }
 
 
     private void buildRefreshmentsSpinner() {
-        String[] refreshments = getResources().getStringArray(R.array.refreshments_array);
-        adapter = new ArrayAdapter<>(Liquers.this, R.layout.spinner_layout, R.id.spinner_ref_id, refreshments);
-        spRef.setAdapter(adapter);
+        componentAdapter = new SpiritComponentAdapter(Liquers.this, components);
+        spRef.setAdapter(componentAdapter);
     }
 
 
@@ -203,7 +249,7 @@ public class Liquers extends Activity {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(new String[]{URL});
     }
 
     public void ListDrawer(List<SpiritList> customSpinner) {
