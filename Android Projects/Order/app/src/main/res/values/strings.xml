@@ -152,14 +152,14 @@
     <string name="help">Help</string>
     <string name="help_dialog_message">Contact us any time at </string>
     <string name="send">Send</string>
-    <string name="tel">+1–0256–04875–621</string>
+    <string name="tel">+30-6949290612</string>
     <string name="call">Call</string>
     <string name="subject_or_message_empty">Both fields are required</string>
     <string name="subject_empty">Subject cannot be empty</string>
     <string name="message_empty">Message cannot be empty</string>
     <string name="title_activity_snacks_layout">SnacksLayoutActivity</string>
     <string name="extra">Extra</string>
-    <string name="cooking_time">Cooking\n Time:</string>
+    <string name="cooking_time">Cooking Time:</string>
     <string name="rare">Rare</string>
     <string name="medium_cooked">Medium</string>
     <string name="well_done">Well Done</string>
@@ -203,5 +203,98 @@
     <string name="subscription_notif_message">Your subscription is about to end. Please renew as soons as possible so that you continue to have full features</string>
     <string name="subscription_notif_title">Subscription Alert</string>
     <string name="username_exists_message">Username already exists</string>
+    <string name="cart_empty_toast">Your cart is empty</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Files</string>
+
+    <string name="pref_title_coffee_file">Coffees File Path</string>
+    <string name="pref_default_coffee_file">http://my.chatapp.info/order_api/files/getkafedes.php</string>
+    <string name="pref_title_snack_file">Snacks File Path</string>
+    <string name="pref_default_snack_file">http://my.chatapp.info/order_api/files/getsnacks.php</string>
+    <string name="pref_title_sweet_file">Sweets File Path</string>
+    <string name="pref_default_sweet_file">http://my.chatapp.info/order_api/files/getsweets.php</string>
+    <string name="pref_title_beverage_file">Beverages File Path</string>
+    <string name="pref_default_beverage_file">http://my.chatapp.info/order_api/files/getbeverages.php</string>
+    <string name="pref_title_beer_file">Beers File Path</string>
+    <string name="pref_default_beer_file">http://my.chatapp.info/order_api/files/getbeers.php</string>
+    <string name="pref_title_spirit_file">Spirits File Path</string>
+    <string name="pref_title_gin_file">Gins File Path</string>
+    <string name="pref_title_vodka_file">Vodkas File Path</string>
+    <string name="pref_title_whiskey_file">Whiskeys File Path</string>
+    <string name="pref_title_liquer_file">Liquers File Path</string>
+    <string name="pref_title_rum_file">Rums File Path</string>
+    <string name="pref_title_tequila_file">Tequilas File Path</string>
+    <string name="pref_default_spirit_file">http://my.chatapp.info/order_api/files/getspirits.php</string>
+    <string name="pref_default_gin_file">http://my.chatapp.info/order_api/files/getgins.php</string>
+    <string name="pref_default_tequila_file">http://my.chatapp.info/order_api/files/gettequilas.php</string>
+    <string name="pref_default_vodka_file">http://my.chatapp.info/order_api/files/getvodkas.php</string>
+    <string name="pref_default_whiskey_file">http://my.chatapp.info/order_api/files/getwhiskeys.php</string>
+    <string name="pref_default_rum_file">http://my.chatapp.info/order_api/files/getrums.php</string>
+    <string name="pref_default_liquer_file">http://my.chatapp.info/order_api/files/getliquers.php</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_offers_notifications">Offers Notifications</string>
+    <string name="pref_summary_new_offers_notification">If turned on you will be able to receive new offers and special prices through notification messages.</string>
+
+
+    <string name="pref_title_subscription">Subrscription Notifications</string>
+    <string name="pref_summary_sunscription_notification">If turned off you will be able to stop receiving the notification message for ending subscription</string>
+    <string name="pref_title_updates">Updates Notifications</string>
+    <string name="pref_summary_updates_notification">If turned on you will be able to receive notification messages for new version of the app</string>
+
+    <string name="pref_primary_category">Primary Category</string>
+    <string name="pref_secondary_category">Secondary Category</string>
+    <string name="title_activity_beverages_layout">BeveragesLayoutActivity</string>
+    <string name="sketo">Plain</string>
+    <string name="pago">On the Rocks</string>
+    <string name="coca">Coca Cola</string>
+    <string name="coca_light">Coca Cola Light</string>
+    <string name="coca_zero">Coca Cola Zero</string>
+    <string name="sprite">Sprite</string>
+    <string name="fanta_lemon">Fanta Lemon</string>
+    <string name="fanta_orange">Fnta Orange</string>
+    <string name="soda">Soda Water</string>
+    <string name="tonic">Tonic Water</string>
+    <string name="water">Water</string>
+    <string name="redbull">Red Bull</string>
 
 </resources>

@@ -36,6 +36,9 @@ public class SnacksLayoutActivity extends AppCompatActivity {
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
+    private static final String SNACK_NAME = "snackName";
+    private static final String SNACK_IMAGE = "snackImage";
+    private static final String SNACK_PRICE = "snackPrice";
     private String name, table, price, image, servitoros_id, magazi_id, quantityPreference, comment, cookingPreference;
     private EditText quantity, sxolia;
     private Button plus, minus, cart;
@@ -415,7 +418,7 @@ public class SnacksLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(getResources().getColor(R.color.articlecolor));
+                    cart.setBackgroundColor(getResources().getColor(R.color.btn_login));
                 } else {
                     cart.setEnabled(false);
                     cart.setBackgroundColor(getResources().getColor(R.color.light_gray));
@@ -436,7 +439,6 @@ public class SnacksLayoutActivity extends AppCompatActivity {
                 if (comment == null) {
                     comment = " ";
                 }
-
                 checkWhatExtraSelected();
                 checkWhatWithoutSelected();
                 if (extraBufferLength > 0){
@@ -445,7 +447,7 @@ public class SnacksLayoutActivity extends AppCompatActivity {
                 if (withoutBufferLenght > 0){
                     withoutPreference = withoutPreference.deleteCharAt(withoutBufferLenght - 2);
                 }
-                if (cookingPreference.isEmpty()){
+                if (!rare.isChecked() && !medium.isChecked() && !wellDone.isChecked() && !vWellDone.isChecked()){
                     Toast.makeText(SnacksLayoutActivity.this, getString(R.string.cooking_time_required), Toast.LENGTH_LONG).show();
                 }else {
                     accessWebService();
@@ -493,10 +495,10 @@ public class SnacksLayoutActivity extends AppCompatActivity {
 
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
-        name = getIntent().getStringExtra("snackName");
-        price = getIntent().getStringExtra("snackPrice");
+        name = getIntent().getStringExtra(SNACK_NAME);
+        price = getIntent().getStringExtra(SNACK_PRICE);
         table = getIntent().getStringExtra(TABLE_INTENT_ID);
-        image = getIntent().getStringExtra("snackImage");
+        image = getIntent().getStringExtra(SNACK_IMAGE);
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
         toolbar.setTitle(name + " - " + getString(R.string.price) + " " + price);

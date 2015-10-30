@@ -64,7 +64,7 @@ public class Beverages extends Fragment {
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
                 pDialog.dismiss();
                 setRetainInstance(true);

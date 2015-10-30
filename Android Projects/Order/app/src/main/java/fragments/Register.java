@@ -172,11 +172,7 @@ public class Register extends Fragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            if (pDialog.isShowing()) {
-                pDialog.show();
-            } else {
-                pDialog.dismiss();
-            }
+
 
             if (onDetectNetworkState().isShowing()
                     && onDetectNetworkState() != null) {
@@ -186,11 +182,7 @@ public class Register extends Fragment {
             }
         }
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            if (pDialog.isShowing()) {
-                pDialog.show();
-            } else {
-                pDialog.dismiss();
-            }
+
 
             if (onDetectNetworkState().isShowing()
                     && onDetectNetworkState() != null) {
@@ -221,7 +213,7 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (username.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor("#26ae90")).show(getActivity());
                     password.setEnabled(false);
                 } else {
                     password.setEnabled(true);
@@ -242,7 +234,7 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (password.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor("#26ae90")).show(getActivity());
                     retypePassword.setEnabled(false);
                 } else {
                     retypePassword.setEnabled(true);
@@ -263,7 +255,7 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (retypePassword.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.retype_pass_required)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.retype_pass_required)).color(Color.parseColor("#26ae90")).show(getActivity());
                     emailField.setEnabled(false);
                 } else {
                     emailField.setEnabled(true);
@@ -284,15 +276,15 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (emailField.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_required)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_required)).color(Color.parseColor("#26ae90")).show(getActivity());
                     signUp.setEnabled(false);
                     signUp.setBackgroundColor(getResources().getColor(R.color.light_gray));
                 } else {
                     if (isEmailValid(emailField.getText().toString())) {
                         signUp.setEnabled(true);
-                        signUp.setBackgroundColor(getResources().getColor(R.color.articlecolor));
+                        signUp.setBackgroundColor(getResources().getColor(R.color.btn_login));
                     }else {
-                        Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_not_valid)).color(Color.parseColor("#3399FF")).show(getActivity());
+                        Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_not_valid)).color(Color.parseColor("#26ae90")).show(getActivity());
                     }
 
                 }
@@ -372,7 +364,7 @@ public class Register extends Fragment {
             super.onPostExecute(aVoid);
             pDialog.dismiss();
             if (aVoid){
-                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor("#3399FF")).show(getActivity());
+                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor("#26ae90")).show(getActivity());
             }else {
                 Toast.makeText(getActivity(), getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);

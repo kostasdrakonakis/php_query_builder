@@ -1,5 +1,6 @@
 package fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -39,6 +40,7 @@ import java.util.List;
 
 import adapters.ProductListAdapter;
 import cart.SnacksLayoutActivity;
+import interfaces.SnacksCommunicator;
 import lists.ProductList;
 
 
@@ -54,8 +56,12 @@ public class Snacks extends Fragment {
     private static final String TABLE_INTENT_ID = "table_name";
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String SNACK_NAME = "snackName";
+    private static final String SNACK_IMAGE = "snackImage";
+    private static final String SNACK_PRICE = "snackPrice";
     private String servitoros_id, magazi_id, table;
     private TextView tv1, tv2;
+    private SnacksCommunicator snacksCommunicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +78,7 @@ public class Snacks extends Fragment {
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
                 pDialog.dismiss();
                 setRetainInstance(true);
@@ -125,9 +131,9 @@ public class Snacks extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), SnacksLayoutActivity.class);
-                intent.putExtra("snackName", customList.get(position).getName());
-                intent.putExtra("snackPrice", customList.get(position).getPrice());
-                intent.putExtra("snackImage", customList.get(position).getImage());
+                intent.putExtra(SNACK_NAME, customList.get(position).getName());
+                intent.putExtra(SNACK_PRICE, customList.get(position).getPrice());
+                intent.putExtra(SNACK_IMAGE, customList.get(position).getImage());
                 intent.putExtra(TABLE_INTENT_ID, table);
                 intent.putExtra(WAITER_INTENT_ID, servitoros_id);
                 intent.putExtra(COMPANY_INTENT_ID, magazi_id);
@@ -204,7 +210,7 @@ public class Snacks extends Fragment {
                     String price = jsonChildNode.optString("price");
                     String image = jsonChildNode.optString("image");
                     customList.add(new ProductList(image, name, price));
-
+                    snacksCommunicator.sendSnackListData(name, image, price);
                 }
                 return customList;
             } catch (Exception e) {
@@ -248,5 +254,11 @@ public class Snacks extends Fragment {
         adapter = new ProductListAdapter(getActivity().getApplicationContext(), R.layout.productlist_row_item, customList);
         adapter.notifyDataSetChanged();
         lv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        snacksCommunicator = (SnacksCommunicator)activity;
     }
 }

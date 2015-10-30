@@ -35,6 +35,9 @@ public class SweetsLayoutActivity extends AppCompatActivity {
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
+    private static final String SWEET_NAME = "sweetsName";
+    private static final String SWEET_IMAGE = "sweetsImage";
+    private static final String SWEET_PRICE = "sweetsPrice";
     private String name, table, price, image, servitoros_id, magazi_id;
     private CheckBox vanilla, chocolate, strawberry, chocolateSyrup, strawberrySyrup, caramelSyrup, pistachio, banana, mango, cookies, oreo, cheeseCake, caramel, sorbet, pineapple;
     private EditText quantity, sxolia, quantityIceCream;
@@ -87,10 +90,10 @@ public class SweetsLayoutActivity extends AppCompatActivity {
 
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
-        name = getIntent().getStringExtra("sweetsName");
-        price = getIntent().getStringExtra("sweetsPrice");
+        name = getIntent().getStringExtra(SWEET_NAME);
+        price = getIntent().getStringExtra(SWEET_PRICE);
         table = getIntent().getStringExtra(TABLE_INTENT_ID);
-        image = getIntent().getStringExtra("sweetsImage");
+        image = getIntent().getStringExtra(SWEET_IMAGE);
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
         toolbar.setTitle(name + " - " + getString(R.string.price) + " " + price);
@@ -156,7 +159,7 @@ public class SweetsLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(getResources().getColor(R.color.articlecolor));
+                    cart.setBackgroundColor(getResources().getColor(R.color.btn_login));
                 } else {
                     cart.setEnabled(false);
                     cart.setBackgroundColor(getResources().getColor(R.color.light_gray));

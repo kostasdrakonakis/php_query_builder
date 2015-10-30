@@ -2,7 +2,6 @@ package com.order.app.order;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -20,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -89,7 +87,7 @@ public class UserProfile extends AppCompatActivity{
     private SharedPreferences sharedPreferences, pref;
     private SharedPreferences.Editor editor , ed;
     private TextView date, time, watersName;
-    private FloatingActionButton helpButton, rateButton;
+    private FloatingActionButton helpButton, rateButton, themeButton;
     private RatingBar ratingBar;
     private EditText ratingComment;
     private HashMap<String, String> user;
@@ -112,10 +110,6 @@ public class UserProfile extends AppCompatActivity{
     private Switch helpSwitch;
     private LinearLayout contactLayout;
     private Toolbar toolbar;
-    private AlarmManager alarmManager;
-    private PendingIntent alarmIntent;
-    private NotificationCompat.Builder notifBuilder;
-    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,10 +127,11 @@ public class UserProfile extends AppCompatActivity{
         populateShareContentButtons();
         retrieveRateFromPrefs();
         setupButtonEvents();
+
     }
 
     private void setupReceiver() {
-        Long time = new GregorianCalendar().getTimeInMillis() + 60*1000;//+24*60*60*1000 for a day;
+        Long time = new GregorianCalendar().getTimeInMillis() + 24*60*60*1000;//+24*60*60*1000 for a day;
         Intent intentAlarm = new Intent(UserProfile.this, CheckSubscriptionReceiver.class);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(UserProfile.this, 0, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -146,7 +141,6 @@ public class UserProfile extends AppCompatActivity{
     private void populateShareContentButtons() {
         rateButton = (FloatingActionButton) findViewById(R.id.rate);
         helpButton = (FloatingActionButton) findViewById(R.id.help);
-
     }
 
     private void checkSession() {
@@ -298,7 +292,7 @@ public class UserProfile extends AppCompatActivity{
                                     disabled = true;
                                     ed.putBoolean(ratingNameFile, disabled);
                                     ed.commit();
-                                    Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor("#3399FF")).show(UserProfile.this);
+                                    Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor("#26ae90")).show(UserProfile.this);
                                 }
 
                             }
@@ -313,7 +307,9 @@ public class UserProfile extends AppCompatActivity{
                 helpIt();
             }
         });
+
     }
+
 
     private void helpIt() {
         anotherDialogBuilder = new AlertDialog.Builder(this);

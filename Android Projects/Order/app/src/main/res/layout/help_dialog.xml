@@ -37,6 +37,8 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:id="@+id/contactLayout"
+                android:animateLayoutChanges="true"
+
                 android:layout_height="match_parent"
                 android:visibility="gone">
 

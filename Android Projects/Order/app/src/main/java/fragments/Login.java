@@ -124,11 +124,6 @@ public class Login extends Fragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            if (pDialog.isShowing()) {
-                pDialog.show();
-            } else {
-                pDialog.dismiss();
-            }
 
             if (onDetectNetworkState().isShowing()
                     && onDetectNetworkState() != null) {
@@ -138,11 +133,6 @@ public class Login extends Fragment {
             }
         }
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            if (pDialog.isShowing()) {
-                pDialog.show();
-            } else {
-                pDialog.dismiss();
-            }
 
             if (onDetectNetworkState().isShowing()
                     && onDetectNetworkState() != null) {
@@ -187,7 +177,7 @@ public class Login extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (username.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor("#26ae90")).show(getActivity());
                     password.setEnabled(false);
                 } else {
                     password.setEnabled(true);
@@ -206,12 +196,12 @@ public class Login extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (password.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor("#3399FF")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor("#26ae90")).show(getActivity());
                     signIn.setEnabled(false);
                     signIn.setBackgroundColor(getResources().getColor(R.color.light_gray));
                 } else {
                     signIn.setEnabled(true);
-                    signIn.setBackgroundColor(getResources().getColor(R.color.articlecolor));
+                    signIn.setBackgroundColor(getResources().getColor(R.color.btn_login));
                 }
             }
 
@@ -258,7 +248,6 @@ public class Login extends Fragment {
             pDialog = new ProgressDialog(getActivity().getApplicationContext());
             pDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
             pDialog.setIndeterminate(true);
             pDialog.setMessage(getString(R.string.dialog_rate_data_submit));
             pDialog.setCancelable(false);
@@ -309,7 +298,9 @@ public class Login extends Fragment {
         @Override
         protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
-            pDialog.dismiss();
+            if (pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
             if (aVoid) {
                 session.createLoginSession(userName, servitorosId, magaziId);
                 Intent intent = new Intent(getActivity().getApplicationContext(), UserProfile.class);
@@ -317,7 +308,7 @@ public class Login extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 getActivity().finish();
             } else {
-                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(message).color(Color.parseColor("#3399FF")).show(getActivity());
+                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(message).color(Color.parseColor("#26ae90")).show(getActivity());
             }
         }
     }

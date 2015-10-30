@@ -1,0 +1,139 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <PreferenceCategory
+        android:key="primary_category"
+        android:title="@string/pref_primary_category">
+
+    <EditTextPreference
+        android:key="coffee_file"
+        android:title="@string/pref_title_coffee_file"
+        android:defaultValue="@string/pref_default_coffee_file"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="snack_file"
+        android:title="@string/pref_title_snack_file"
+        android:defaultValue="@string/pref_default_snack_file"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="sweet_file"
+        android:title="@string/pref_title_sweet_file"
+        android:defaultValue="@string/pref_default_sweet_file"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="beverage_file"
+        android:title="@string/pref_title_beverage_file"
+        android:defaultValue="@string/pref_default_beverage_file"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="beer_file"
+        android:title="@string/pref_title_beer_file"
+        android:defaultValue="@string/pref_default_beer_file"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="spirit_file"
+        android:title="@string/pref_title_spirit_file"
+        android:defaultValue="@string/pref_default_spirit_file"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="secondary_category"
+        app:icon="@drawable/ic_tab"
+        android:title="@string/pref_secondary_category">
+        <EditTextPreference
+            android:key="gin_file"
+            android:title="@string/pref_title_gin_file"
+            android:defaultValue="@string/pref_default_gin_file"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="liquer_file"
+            android:title="@string/pref_title_liquer_file"
+            android:defaultValue="@string/pref_default_liquer_file"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="rum_file"
+            android:title="@string/pref_title_rum_file"
+            android:defaultValue="@string/pref_default_rum_file"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="tequila_file"
+            android:title="@string/pref_title_tequila_file"
+            android:defaultValue="@string/pref_default_tequila_file"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="vodka_file"
+            android:title="@string/pref_title_vodka_file"
+            android:defaultValue="@string/pref_default_vodka_file"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="whiskey_file"
+            android:title="@string/pref_title_whiskey_file"
+            android:defaultValue="@string/pref_default_whiskey_file"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

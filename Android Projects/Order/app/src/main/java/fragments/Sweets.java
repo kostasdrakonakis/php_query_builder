@@ -1,5 +1,6 @@
 package fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -39,6 +40,7 @@ import java.util.List;
 
 import adapters.ProductListAdapter;
 import cart.SweetsLayoutActivity;
+import interfaces.SweetsCommunicator;
 import lists.ProductList;
 
 
@@ -54,6 +56,10 @@ public class Sweets extends Fragment {
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
+    private static final String SWEET_NAME = "sweetsName";
+    private static final String SWEET_IMAGE = "sweetsImage";
+    private static final String SWEET_PRICE = "sweetsPrice";
+    private SweetsCommunicator sweetsCommunicator;
     private TextView tv1, tv2;
     private String servitoros_id, magazi_id, table;
 
@@ -72,7 +78,7 @@ public class Sweets extends Fragment {
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
                 pDialog.dismiss();
                 setRetainInstance(true);
@@ -122,9 +128,9 @@ public class Sweets extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), SweetsLayoutActivity.class);
-                intent.putExtra("sweetsName", customList.get(position).getName());
-                intent.putExtra("sweetsPrice", customList.get(position).getPrice());
-                intent.putExtra("sweetsImage", customList.get(position).getImage());
+                intent.putExtra(SWEET_NAME, customList.get(position).getName());
+                intent.putExtra(SWEET_PRICE, customList.get(position).getPrice());
+                intent.putExtra(SWEET_IMAGE, customList.get(position).getImage());
                 intent.putExtra(TABLE_INTENT_ID, table);
                 intent.putExtra(WAITER_INTENT_ID, servitoros_id);
                 intent.putExtra(COMPANY_INTENT_ID, magazi_id);
@@ -200,7 +206,7 @@ public class Sweets extends Fragment {
                     String price = jsonChildNode.optString("price");
                     String image = jsonChildNode.optString("image");
                     customList.add(new ProductList(image, name, price));
-
+                    sweetsCommunicator.sendSweetListData(name, image, price);
                 }
                 return customList;
             } catch (Exception e) {
@@ -246,4 +252,9 @@ public class Sweets extends Fragment {
         lv.setAdapter(adapter);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        sweetsCommunicator = (SweetsCommunicator)activity;
+    }
 }

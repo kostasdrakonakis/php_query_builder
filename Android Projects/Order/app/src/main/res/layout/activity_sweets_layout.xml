@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     tools:context="cart.SweetsLayoutActivity">
@@ -30,8 +31,8 @@
                     android:id="@+id/quantitySweetTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="-14dp"
-                    android:layout_weight="1"
+                    android:layout_marginStart="-6dp"
+                    android:layout_weight="0.9"
                     android:padding="13dp"
                     android:text="@string/quantity"
                     android:textColor="@color/black"
@@ -79,10 +80,10 @@
                     android:id="@+id/iceCreamScoopQuantityTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="-15dp"
-                    android:layout_weight="1"
+                    android:layout_marginStart="-6dp"
+                    android:layout_weight="0.9"
                     android:gravity="center_vertical"
-                    android:padding="15dp"
+                    android:padding="14dp"
                     android:text="@string/ice_cream_scoops"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -337,4 +338,4 @@
                 android:text="@string/cart" />
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

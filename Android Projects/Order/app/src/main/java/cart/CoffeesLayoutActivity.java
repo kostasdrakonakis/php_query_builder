@@ -38,6 +38,9 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
     private static final String TABLE_INTENT_ID = "table_name";
+    private static final String COFFEE_NAME = "coffeeName";
+    private static final String COFFEE_IMAGE = "coffeeImage";
+    private static final String COFFEE_PRICE = "coffeePrice";
     private String productName, table, price, sugarPreference, milkPreference, dosePreference, quantityPreference, comment, zaximau, image;
     private EditText quantity, sxolia;
     private CheckBox nosugar, medium, sweet, vsweet, yesCheck, noCheck, afrogalo, santigi, monos, diplos;
@@ -272,7 +275,7 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(getResources().getColor(R.color.articlecolor));
+                    cart.setBackgroundColor(getResources().getColor(R.color.btn_login));
                 } else {
                     cart.setEnabled(false);
                     cart.setBackgroundColor(getResources().getColor(R.color.light_gray));
@@ -313,10 +316,10 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
 
-        productName = getIntent().getStringExtra("coffeeName");
-        price = getIntent().getStringExtra("coffeePrice");
+        productName = getIntent().getStringExtra(COFFEE_NAME);
+        price = getIntent().getStringExtra(COFFEE_PRICE);
         table = getIntent().getStringExtra(TABLE_INTENT_ID);
-        image = getIntent().getStringExtra("coffeeImage");
+        image = getIntent().getStringExtra(COFFEE_IMAGE);
         servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
         toolbar.setTitle(productName + " - " + getString(R.string.price) + " " + price);

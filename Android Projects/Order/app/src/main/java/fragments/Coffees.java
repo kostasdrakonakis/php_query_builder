@@ -1,6 +1,7 @@
 package fragments;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -40,6 +41,7 @@ import java.util.List;
 
 import adapters.ProductListAdapter;
 import cart.CoffeesLayoutActivity;
+import interfaces.CoffeeCommunicator;
 import lists.ProductList;
 
 public class Coffees extends Fragment{
@@ -54,11 +56,15 @@ public class Coffees extends Fragment{
     private static final String TABLE_INTENT_ID = "table_name";
     private static final String COMPANY_INTENT_ID = "magaziID";
     private static final String WAITER_INTENT_ID = "servitorosID";
+    private static final String COFFEE_NAME = "coffeeName";
+    private static final String COFFEE_IMAGE = "coffeeImage";
+    private static final String COFFEE_PRICE = "coffeePrice";
     private TextView tv1, tv2;
     int pos;
     private CardView cardView;
     private String servitoros_id;
     private String magazi_id;
+    private CoffeeCommunicator coffeeCommunicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +83,7 @@ public class Coffees extends Fragment{
         if (!network_connected) {
             onDetectNetworkState().show();
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
                 pDialog.dismiss();
                 setRetainInstance(true);
@@ -131,9 +137,9 @@ public class Coffees extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //pos = position;
                 Intent intent = new Intent(getActivity(), CoffeesLayoutActivity.class);
-                intent.putExtra("coffeeName", customList.get(position).getName());
-                intent.putExtra("coffeePrice", customList.get(position).getPrice());
-                intent.putExtra("coffeeImage", customList.get(position).getImage());
+                intent.putExtra(COFFEE_NAME, customList.get(position).getName());
+                intent.putExtra(COFFEE_PRICE, customList.get(position).getPrice());
+                intent.putExtra(COFFEE_IMAGE, customList.get(position).getImage());
                 intent.putExtra(TABLE_INTENT_ID, table);
                 intent.putExtra(WAITER_INTENT_ID, servitoros_id);
                 intent.putExtra(COMPANY_INTENT_ID, magazi_id);
@@ -208,7 +214,9 @@ public class Coffees extends Fragment{
                     name = jsonChildNode.optString("name");
                     price = jsonChildNode.optString("price");
                     image = jsonChildNode.optString("image");
+
                     customList.add(new ProductList(image, name, price));
+                    coffeeCommunicator.sendCoffeeListData(name, image, price);
 
                 }
                 return customList;
@@ -246,7 +254,7 @@ public class Coffees extends Fragment{
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(url);
     }
 
     public void ListDrawer(List<ProductList> customList) {
@@ -255,4 +263,10 @@ public class Coffees extends Fragment{
         lv.setAdapter(adapter);
     }
 
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        coffeeCommunicator = (CoffeeCommunicator)activity;
+    }
 }
