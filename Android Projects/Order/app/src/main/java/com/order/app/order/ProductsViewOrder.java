@@ -26,6 +26,7 @@ import cart.CoffeesLayoutActivity;
 import cart.SnacksLayoutActivity;
 import cart.SweetsLayoutActivity;
 import dialogs.DialogMessageDisplay;
+import functions.AppConstant;
 import interfaces.CoffeeCommunicator;
 import interfaces.SnacksCommunicator;
 import interfaces.SweetsCommunicator;
@@ -46,18 +47,6 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
     boolean network_connected;
     private String servitoros_id;
     private String magazi_id;
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String TABLE_INTENT_ID = "table_name";
-    private static final String SNACK_NAME = "snackName";
-    private static final String SNACK_IMAGE = "snackImage";
-    private static final String SNACK_PRICE = "snackPrice";
-    private static final String COFFEE_NAME = "coffeeName";
-    private static final String COFFEE_IMAGE = "coffeeImage";
-    private static final String COFFEE_PRICE = "coffeePrice";
-    private static final String SWEET_NAME = "sweetsName";
-    private static final String SWEET_IMAGE = "sweetsImage";
-    private static final String SWEET_PRICE = "sweetsPrice";
     private Toolbar toolbar;
     private String name, image, price;
     private List<ProductList> coffeesList, snacksList, sweetsList, ginsList;
@@ -90,14 +79,18 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
     private void setupPages() {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setElevation(0);
+            if (toolbar != null) {
+                toolbar.setElevation(0);
+            }
         }
         viewPager = (ViewPager) findViewById(R.id.pager);
         intent = getIntent();
-        servitoros_id = intent.getStringExtra(WAITER_INTENT_ID);
-        magazi_id = intent.getStringExtra(COMPANY_INTENT_ID);
-        title = intent.getStringExtra(TABLE_INTENT_ID);
-        toolbar.setTitle(getString(R.string.table_id) + title);
+        servitoros_id = intent.getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = intent.getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        title = intent.getStringExtra(AppConstant.TABLE_INTENT_ID);
+        if (toolbar != null) {
+            toolbar.setTitle(getString(R.string.table_id) + title);
+        }
         mAdapter = new ProductsTabPagerAdapter(getSupportFragmentManager(), ProductsViewOrder.this, ProductsViewOrder.this);
         viewPager.setAdapter(mAdapter);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -109,24 +102,26 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
         coffeesList = new ArrayList<>();
         snacksList = new ArrayList<>();
         sweetsList = new ArrayList<>();
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.search: {
-                        showSearchResults();
-                        break;
+        if (toolbar != null) {
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int id = item.getItemId();
+                    switch (id) {
+                        case R.id.search: {
+                            showSearchResults();
+                            break;
+                        }
+                        case R.id.cart: {
+                            showCart();
+                            break;
+                        }
                     }
-                    case R.id.cart: {
-                        showCart();
-                        break;
-                    }
-                }
 
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
+        }
     }
 
     private void showCart() {
@@ -174,48 +169,48 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
 
             @Override
             public void onSearch(String searchTerm) {
-                for (int i=0;i<coffeesList.size();i++){
-                    if (searchTerm.equals(coffeesList.get(i).getName())){
+                for (int i = 0; i < coffeesList.size(); i++) {
+                    if (searchTerm.equals(coffeesList.get(i).getName())) {
                         name = coffeesList.get(i).getName();
                         image = coffeesList.get(i).getImage();
                         price = coffeesList.get(i).getPrice();
                         Intent intent = new Intent(ProductsViewOrder.this, CoffeesLayoutActivity.class);
-                        intent.putExtra(COFFEE_NAME, name);
-                        intent.putExtra(COFFEE_PRICE, price);
-                        intent.putExtra(COFFEE_IMAGE, image);
-                        intent.putExtra(TABLE_INTENT_ID, title);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.COFFEE_NAME, name);
+                        intent.putExtra(AppConstant.COFFEE_PRICE, price);
+                        intent.putExtra(AppConstant.COFFEE_IMAGE, image);
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                     }
                 }
-                for (int i=0;i<snacksList.size();i++){
-                    if (searchTerm.equals(snacksList.get(i).getName())){
+                for (int i = 0; i < snacksList.size(); i++) {
+                    if (searchTerm.equals(snacksList.get(i).getName())) {
                         name = snacksList.get(i).getName();
                         image = snacksList.get(i).getImage();
                         price = snacksList.get(i).getPrice();
                         Intent intent = new Intent(ProductsViewOrder.this, SnacksLayoutActivity.class);
-                        intent.putExtra(SNACK_NAME, name);
-                        intent.putExtra(SNACK_PRICE, price);
-                        intent.putExtra(SNACK_IMAGE, image);
-                        intent.putExtra(TABLE_INTENT_ID, title);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SNACK_NAME, name);
+                        intent.putExtra(AppConstant.SNACK_PRICE, price);
+                        intent.putExtra(AppConstant.SNACK_IMAGE, image);
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                     }
                 }
-                for (int i=0;i<sweetsList.size();i++){
-                    if (searchTerm.equals(sweetsList.get(i).getName())){
+                for (int i = 0; i < sweetsList.size(); i++) {
+                    if (searchTerm.equals(sweetsList.get(i).getName())) {
                         name = sweetsList.get(i).getName();
                         image = sweetsList.get(i).getImage();
                         price = sweetsList.get(i).getPrice();
                         Intent intent = new Intent(ProductsViewOrder.this, SweetsLayoutActivity.class);
-                        intent.putExtra(SWEET_NAME, name);
-                        intent.putExtra(SWEET_PRICE, price);
-                        intent.putExtra(SWEET_IMAGE, image);
-                        intent.putExtra(TABLE_INTENT_ID, title);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SWEET_NAME, name);
+                        intent.putExtra(AppConstant.SWEET_PRICE, price);
+                        intent.putExtra(AppConstant.SWEET_IMAGE, image);
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                     }
                 }
