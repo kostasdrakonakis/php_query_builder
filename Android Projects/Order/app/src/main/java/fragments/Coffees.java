@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,7 @@ import java.util.List;
 
 import adapters.ProductListAdapter;
 import cart.CoffeesLayoutActivity;
+import functions.AppConstant;
 import interfaces.CoffeeCommunicator;
 import lists.ProductList;
 
@@ -49,16 +51,9 @@ public class Coffees extends Fragment{
     private ListView lv;
     private ArrayAdapter<ProductList> adapter;
     private String jsonResult, table;
-    private String url = "http://my.chatapp.info/order_api/files/getkafedes.php", name, image, price;
-
+    private String name, image, price;
     ProgressDialog pDialog;
     List<ProductList> customList;
-    private static final String TABLE_INTENT_ID = "table_name";
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String COFFEE_NAME = "coffeeName";
-    private static final String COFFEE_IMAGE = "coffeeImage";
-    private static final String COFFEE_PRICE = "coffeePrice";
     private TextView tv1, tv2;
     int pos;
     private CardView cardView;
@@ -71,10 +66,13 @@ public class Coffees extends Fragment{
 
         rootView = inflater.inflate(R.layout.coffees_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.coffeesListView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            lv.setNestedScrollingEnabled(true);
+        }
         cardView = (CardView)rootView.findViewById(R.id.card_view);
-        table = getActivity().getIntent().getStringExtra(TABLE_INTENT_ID);
-        servitoros_id = getActivity().getIntent().getStringExtra(WAITER_INTENT_ID);
-        magazi_id = getActivity().getIntent().getStringExtra(COMPANY_INTENT_ID);
+        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -137,12 +135,12 @@ public class Coffees extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //pos = position;
                 Intent intent = new Intent(getActivity(), CoffeesLayoutActivity.class);
-                intent.putExtra(COFFEE_NAME, customList.get(position).getName());
-                intent.putExtra(COFFEE_PRICE, customList.get(position).getPrice());
-                intent.putExtra(COFFEE_IMAGE, customList.get(position).getImage());
-                intent.putExtra(TABLE_INTENT_ID, table);
-                intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                intent.putExtra(AppConstant.COFFEE_NAME, customList.get(position).getName());
+                intent.putExtra(AppConstant.COFFEE_PRICE, customList.get(position).getPrice());
+                intent.putExtra(AppConstant.COFFEE_IMAGE, customList.get(position).getImage());
+                intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                 startActivity(intent);
             }
         });
@@ -254,7 +252,7 @@ public class Coffees extends Fragment{
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(url);
+        task.execute(AppConstant.COFFEES_URL);
     }
 
     public void ListDrawer(List<ProductList> customList) {

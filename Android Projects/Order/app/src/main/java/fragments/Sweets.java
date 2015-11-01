@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -40,6 +41,7 @@ import java.util.List;
 
 import adapters.ProductListAdapter;
 import cart.SweetsLayoutActivity;
+import functions.AppConstant;
 import interfaces.SweetsCommunicator;
 import lists.ProductList;
 
@@ -50,15 +52,8 @@ public class Sweets extends Fragment {
     private ListView lv;
     private ArrayAdapter<ProductList> adapter;
     private String jsonResult;
-    private String url = "http://my.chatapp.info/order_api/files/getsweets.php";
     ProgressDialog pDialog;
     List<ProductList> customList;
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String TABLE_INTENT_ID = "table_name";
-    private static final String SWEET_NAME = "sweetsName";
-    private static final String SWEET_IMAGE = "sweetsImage";
-    private static final String SWEET_PRICE = "sweetsPrice";
     private SweetsCommunicator sweetsCommunicator;
     private TextView tv1, tv2;
     private String servitoros_id, magazi_id, table;
@@ -67,9 +62,12 @@ public class Sweets extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.sweets_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.sweetsListView);
-        table = getActivity().getIntent().getStringExtra(TABLE_INTENT_ID);
-        servitoros_id = getActivity().getIntent().getStringExtra(WAITER_INTENT_ID);
-        magazi_id = getActivity().getIntent().getStringExtra(COMPANY_INTENT_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            lv.setNestedScrollingEnabled(true);
+        }
+        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -128,12 +126,12 @@ public class Sweets extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), SweetsLayoutActivity.class);
-                intent.putExtra(SWEET_NAME, customList.get(position).getName());
-                intent.putExtra(SWEET_PRICE, customList.get(position).getPrice());
-                intent.putExtra(SWEET_IMAGE, customList.get(position).getImage());
-                intent.putExtra(TABLE_INTENT_ID, table);
-                intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                intent.putExtra(AppConstant.SWEET_NAME, customList.get(position).getName());
+                intent.putExtra(AppConstant.SWEET_PRICE, customList.get(position).getPrice());
+                intent.putExtra(AppConstant.SWEET_IMAGE, customList.get(position).getImage());
+                intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                 startActivity(intent);
             }
         });
@@ -243,7 +241,7 @@ public class Sweets extends Fragment {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(new String[]{AppConstant.SWEETS_URL});
     }
 
     public void ListDrawer(List<ProductList> customList) {

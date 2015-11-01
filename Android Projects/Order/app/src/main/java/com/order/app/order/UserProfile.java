@@ -57,6 +57,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import dialogs.DialogMessageDisplay;
+import functions.AppConstant;
 import receivers.CheckSubscriptionReceiver;
 import sessions.SessionManager;
 import settings.SettingsActivity;
@@ -64,20 +65,13 @@ import settings.SettingsActivity;
 
 public class UserProfile extends AppCompatActivity{
 
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_ratings.php";
     private SessionManager session;
-    private static final int REQ_CODE = 1152;
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
     private Uri uri, number;
     private ProgressDialog pDialog;
     private File file;
     private Bitmap bmp;
     boolean taken = false, disabled = false, network_connected, returnedKey, needHelp = false, ratingComplited = false;
-    private String fileName = "ImageTaken", ratingNameFile = "RatingComplete", orientation = "ImageTakenorientation",
-            comTxt, name, timeF, text, committed, subjectTXT, messageTXT;
+    private String comTxt, name, timeF, text, committed, subjectTXT, messageTXT, servitorosId, magaziID;
     private SimpleDateFormat timeFormat, dateFormat;
     private Calendar c;
     private ConnectivityManager cm;
@@ -86,10 +80,10 @@ public class UserProfile extends AppCompatActivity{
     private ImageView imagePhoto;
     private SharedPreferences sharedPreferences, pref;
     private SharedPreferences.Editor editor , ed;
-    private TextView date, time, watersName;
+    private TextView date, time, watersName, waiterID, magaziId;
     private FloatingActionButton helpButton, rateButton, themeButton;
     private RatingBar ratingBar;
-    private EditText ratingComment;
+    private EditText ratingComment, subject, message;
     private HashMap<String, String> user;
     private float percent = 0;
     private Intent sendIntent, callIntent;
@@ -97,16 +91,11 @@ public class UserProfile extends AppCompatActivity{
     private ArrayList<NameValuePair> nameValuePairs;
     private AlertDialog.Builder builder, helper, anotherDialogBuilder;
     private MyInsertDataTask task;
-    private View newLayout;
+    private View newLayout, helpView;
     private HttpResponse response;
     private HttpClient httpClient;
     private HttpPost httpPost;
     private HttpEntity httpEntity;
-    private String servitorosId;
-    private TextView waiterID, magaziId;
-    private String magaziID;
-    private View helpView;
-    private EditText  subject, message;
     private Switch helpSwitch;
     private LinearLayout contactLayout;
     private Toolbar toolbar;
@@ -140,15 +129,17 @@ public class UserProfile extends AppCompatActivity{
 
     private void populateShareContentButtons() {
         rateButton = (FloatingActionButton) findViewById(R.id.rate);
+        rateButton.setColorNormal(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
         helpButton = (FloatingActionButton) findViewById(R.id.help);
+        helpButton.setColorNormal(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
     }
 
     private void checkSession() {
         session = new SessionManager(UserProfile.this);
         session.checkLogin();
         user = session.getUserDetails();
-        servitorosId = user.get("servitoros_id");
-        magaziID = user.get("magazi_id");
+        servitorosId = user.get(AppConstant.KEY_WAITER_ID);
+        magaziID = user.get(AppConstant.KEY_SHOP_ID);
     }
 
 
@@ -172,8 +163,8 @@ public class UserProfile extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfile.this, Tables.class);
-                intent.putExtra(WAITER_INTENT_ID, servitorosId);
-                intent.putExtra(COMPANY_INTENT_ID, magaziID);
+                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitorosId);
+                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magaziID);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
@@ -189,7 +180,7 @@ public class UserProfile extends AppCompatActivity{
     }
 
     private void populateProfileData() {
-        name = user.get(SessionManager.KEY_NAME);
+        name = user.get(AppConstant.KEY_NAME);
         watersName = (TextView) findViewById(R.id.waitersName);
         date = (TextView) findViewById(R.id.date);
         time = (TextView) findViewById(R.id.time);
@@ -208,20 +199,20 @@ public class UserProfile extends AppCompatActivity{
     }
 
     private void retrieveRateFromPrefs() {
-        pref = getSharedPreferences(ratingNameFile, MODE_PRIVATE);
+        pref = getSharedPreferences(AppConstant.RATING_NAME_FILE_PREFS, MODE_PRIVATE);
         ed = pref.edit();
-        returnedKey = pref.getBoolean(ratingNameFile, disabled);
+        returnedKey = pref.getBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
         if (returnedKey){
             rateButton.setEnabled(false);
         }
     }
 
     private void retrievePhotoFromPrefs() {
-        sharedPreferences = getSharedPreferences(fileName, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(AppConstant.IMAGE_NAME_FILE_PREFS, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         imagePhoto = (ImageView) findViewById(R.id.waiterPhoto);
         imagePhoto.setRotation(270);
-        committed = sharedPreferences.getString(fileName, null);
+        committed = sharedPreferences.getString(AppConstant.IMAGE_NAME_FILE_PREFS, null);
 
 
         if (committed != null) {
@@ -232,10 +223,10 @@ public class UserProfile extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "waiterProfile.jpg");
+                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), AppConstant.PROFILE_IMAGE_NAME);
                 uri = Uri.fromFile(file);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                startActivityForResult(intent, REQ_CODE);
+                startActivityForResult(intent, AppConstant.REQ_CODE);
             }
         });
 
@@ -290,9 +281,9 @@ public class UserProfile extends AppCompatActivity{
                                 if (ratingComplited) {
                                     rateButton.setEnabled(false);
                                     disabled = true;
-                                    ed.putBoolean(ratingNameFile, disabled);
+                                    ed.putBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
                                     ed.commit();
-                                    Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor("#26ae90")).show(UserProfile.this);
+                                    Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(UserProfile.this);
                                 }
 
                             }
@@ -318,9 +309,8 @@ public class UserProfile extends AppCompatActivity{
         message = (EditText)helpView.findViewById(R.id.message);
         helpSwitch = (Switch)helpView.findViewById(R.id.helpSwitch);
         contactLayout = (LinearLayout)helpView.findViewById(R.id.contactLayout);
-        CharSequence tel = getString(R.string.tel);
         anotherDialogBuilder.setTitle(getString(R.string.help))
-                .setMessage(getString(R.string.help_dialog_message)+ " \n" + tel )
+                .setMessage(getString(R.string.help_dialog_message)+ " \n" + AppConstant.TEL )
                 .setView(helpView)
                 .setPositiveButton(getString(R.string.send), new DialogInterface.OnClickListener() {
                     @Override
@@ -337,7 +327,7 @@ public class UserProfile extends AppCompatActivity{
                             sendIntent = new Intent(Intent.ACTION_SEND);
                             sendIntent.setData(Uri.parse("mailto:"));
                             sendIntent.setType("text/plain");
-                            sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"admin@chatapp.info"});
+                            sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{AppConstant.ADMIN_EMAIL});
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT, subjectTXT);
                             sendIntent.putExtra(Intent.EXTRA_TEXT, messageTXT);
                             startActivity(sendIntent);
@@ -355,7 +345,7 @@ public class UserProfile extends AppCompatActivity{
                 .setNeutralButton(getString(R.string.call), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        number = Uri.parse("tel:" + getString(R.string.tel));
+                        number = Uri.parse("tel:" + AppConstant.TEL);
                         callIntent = new Intent(Intent.ACTION_DIAL);
                         callIntent.setData(number);
                         startActivity(callIntent);
@@ -391,7 +381,7 @@ public class UserProfile extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_CODE) {
+        if (requestCode == AppConstant.REQ_CODE) {
             if (resultCode == RESULT_OK) {
                 taken = true;
                 getContentResolver().notifyChange(uri, null);
@@ -401,7 +391,7 @@ public class UserProfile extends AppCompatActivity{
                     imagePhoto.setImageBitmap(bmp);
                     imagePhoto.setRotation(270);
                     Toast.makeText(UserProfile.this, getString(R.string.image_saved) + file.getAbsolutePath() + getString(R.string.as) + file.getName(), Toast.LENGTH_LONG).show();
-                    editor.putString(fileName, uri.toString());
+                    editor.putString(AppConstant.IMAGE_NAME_FILE_PREFS, uri.toString());
                     editor.commit();
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
@@ -493,6 +483,6 @@ public class UserProfile extends AppCompatActivity{
 
     public void accessWebService(){
         task = new MyInsertDataTask();
-        task.execute(new String[]{URL});
+        task.execute(new String[]{AppConstant.RATINGS_URL});
     }
 }

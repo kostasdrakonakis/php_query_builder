@@ -1,6 +1,7 @@
 package cart;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,16 +33,11 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import functions.AppConstant;
+
 public class CoffeesLayoutActivity extends AppCompatActivity {
 
-    private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_coffees_to_cart.php";
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String TABLE_INTENT_ID = "table_name";
-    private static final String COFFEE_NAME = "coffeeName";
-    private static final String COFFEE_IMAGE = "coffeeImage";
-    private static final String COFFEE_PRICE = "coffeePrice";
-    private String productName, table, price, sugarPreference, milkPreference, dosePreference, quantityPreference, comment, zaximau, image;
+    private String productName, table, price, sugarPreference, milkPreference, dosePreference, quantityPreference, comment, zaximau, image, servitoros_id, magazi_id;
     private EditText quantity, sxolia;
     private CheckBox nosugar, medium, sweet, vsweet, yesCheck, noCheck, afrogalo, santigi, monos, diplos;
     private ProgressDialog pDialog;
@@ -54,8 +50,6 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private InputStream is = null;
     private MyInsertDataTask task;
     private int quantityNumberFinal;
-    private String servitoros_id;
-    private String magazi_id;
     private Toolbar toolbar;
 
     @Override
@@ -275,10 +269,10 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(getResources().getColor(R.color.btn_login));
+                    cart.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
                 } else {
                     cart.setEnabled(false);
-                    cart.setBackgroundColor(getResources().getColor(R.color.light_gray));
+                    cart.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
                 }
             }
 
@@ -310,18 +304,18 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(new String[]{URL});
+        task.execute(new String[]{AppConstant.COFFEES_ADD_TO_CART_URL});
     }
 
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
 
-        productName = getIntent().getStringExtra(COFFEE_NAME);
-        price = getIntent().getStringExtra(COFFEE_PRICE);
-        table = getIntent().getStringExtra(TABLE_INTENT_ID);
-        image = getIntent().getStringExtra(COFFEE_IMAGE);
-        servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
-        magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
+        productName = getIntent().getStringExtra(AppConstant.COFFEE_NAME);
+        price = getIntent().getStringExtra(AppConstant.COFFEE_PRICE);
+        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
+        image = getIntent().getStringExtra(AppConstant.COFFEE_IMAGE);
+        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         toolbar.setTitle(productName + " - " + getString(R.string.price) + " " + price);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
         setSupportActionBar(toolbar);
@@ -346,7 +340,7 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
         protected Void doInBackground(String... params) {
             nameValuePairs = new ArrayList<>();
 
-            ByteBuffer s = Charset.forName("UTF-8").encode(sugarPreference);
+            ByteBuffer s = Charset.forName(AppConstant.CHARACTER_ENCODING).encode(sugarPreference);
 
             nameValuePairs.add(new BasicNameValuePair("productName", productName));
             nameValuePairs.add(new BasicNameValuePair("productPrice", String.valueOf(price)));
@@ -363,7 +357,7 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
             {
                 httpClient = new DefaultHttpClient();
                 httpPost = new HttpPost(params[0]);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, AppConstant.CHARACTER_ENCODING));
                 response = httpClient.execute(httpPost);
                 httpEntity = response.getEntity();
                 is = httpEntity.getContent();

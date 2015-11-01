@@ -3,6 +3,7 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
         <item name="android:colorButtonNormal">@color/btn_login</item>

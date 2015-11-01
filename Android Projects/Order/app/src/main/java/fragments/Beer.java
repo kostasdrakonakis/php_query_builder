@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ProductListAdapter;
+import functions.AppConstant;
 import lists.ProductList;
 
 
@@ -49,7 +51,6 @@ public class Beer extends Fragment {
     private String jsonResult, rLine;
     private StringBuilder answer;
     private BufferedReader rd;
-    private String url = "http://my.chatapp.info/order_api/files/getbeers.php";
     ProgressDialog pDialog;
     private JsonReadTask task;
     private HttpClient httpclient;
@@ -68,6 +69,9 @@ public class Beer extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.beer_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.beerListView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            lv.setNestedScrollingEnabled(true);
+        }
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -236,7 +240,7 @@ public class Beer extends Fragment {
 
     public void accessWebService() {
         task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(new String[]{AppConstant.BEERS_URL});
     }
 
     public void ListDrawer(List<ProductList> customList) {

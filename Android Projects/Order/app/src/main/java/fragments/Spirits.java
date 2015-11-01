@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ import java.util.List;
 
 import adapters.ProductListAdapter;
 import dialogs.DialogMessageDisplay;
+import functions.AppConstant;
 import lists.ProductList;
 
 
@@ -45,13 +47,8 @@ public class Spirits extends Fragment {
     private View rootView;
     private ListView lv;
     private ProductListAdapter adapter;
-    private static final String TABLE_INTENT_ID = "table_name";
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String SPIRIT_ITEM = "spirit_item";
     private String servitoros_id, magazi_id, table;
     private String jsonResult;
-    private String url = "http://my.chatapp.info/order_api/files/getspirits.php";
     ProgressDialog pDialog;
     ArrayList<ProductList> customList;
 
@@ -59,9 +56,12 @@ public class Spirits extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.spirits_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.spiritsListView);
-        table = getActivity().getIntent().getStringExtra(TABLE_INTENT_ID);
-        servitoros_id = getActivity().getIntent().getStringExtra(WAITER_INTENT_ID);
-        magazi_id = getActivity().getIntent().getStringExtra(COMPANY_INTENT_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            lv.setNestedScrollingEnabled(true);
+        }
+        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -124,55 +124,55 @@ public class Spirits extends Fragment {
                 switch (position){
                     case 0:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Gins.class);
-                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(TABLE_INTENT_ID, table);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 1:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
-                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(TABLE_INTENT_ID, table);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 2:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
-                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(TABLE_INTENT_ID, table);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 3:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
-                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(TABLE_INTENT_ID, table);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 4:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Vodkas.class);
-                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(TABLE_INTENT_ID, table);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 5:{
                         Intent intent = new Intent(getActivity().getApplicationContext(), Whiskeys.class);
-                        intent.putExtra(SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(TABLE_INTENT_ID, table);
-                        intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
@@ -289,7 +289,7 @@ public class Spirits extends Fragment {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(new String[]{AppConstant.SPIRITS_URL});
     }
 
     public void ListDrawer(List<ProductList> customList) {

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import functions.AppConstant;
+
 
 public class Tables extends AppCompatActivity {
 
@@ -18,9 +20,6 @@ public class Tables extends AppCompatActivity {
     private EditText tableNumber;
     private Vibrator vibrator;
     private String servitoros_id;
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String TABLE_INTENT_ID = "table_name";
     private String magaziID;
     private Toolbar toolbar;
 
@@ -30,8 +29,8 @@ public class Tables extends AppCompatActivity {
         setContentView(R.layout.tables);
         toolbar = (Toolbar)findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
-        servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
-        magaziID = getIntent().getStringExtra(COMPANY_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magaziID = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
 
         tableNumber = (EditText)findViewById(R.id.tableNumberEditText);
         setupButtons();
@@ -404,9 +403,9 @@ public class Tables extends AppCompatActivity {
                 }else {
                     vibrator.vibrate(28);
                     Intent intent = new Intent(Tables.this, ProductsViewOrder.class);
-                    intent.putExtra(TABLE_INTENT_ID, textNow);
-                    intent.putExtra(WAITER_INTENT_ID, servitoros_id);
-                    intent.putExtra(COMPANY_INTENT_ID, magaziID);
+                    intent.putExtra(AppConstant.TABLE_INTENT_ID, textNow);
+                    intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                    intent.putExtra(AppConstant.COMPANY_INTENT_ID, magaziID);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     Tables.this.finish();

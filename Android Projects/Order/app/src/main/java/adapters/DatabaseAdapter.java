@@ -7,16 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import databasehandlers.DataBaseHelper;
+import functions.AppConstant;
 
 
 public class DatabaseAdapter {
-    static final String DATABASE_NAME = "login.db";
-    static final int DATABASE_VERSION = 1;
-    static final int NAME_COLUMN = 1;
-
-    public static final String DATABASE_CREATE = "create table "+"LOGIN"+
-            "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text,PASSWORD text); ";
-
     public SQLiteDatabase db;
     private final Context context;
     private DataBaseHelper dbHelper;
@@ -27,7 +21,7 @@ public class DatabaseAdapter {
 
     public DatabaseAdapter(Context _context){
         context = _context;
-        dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+        dbHelper = new DataBaseHelper(context, AppConstant.DATABASE_NAME, null, AppConstant.DATABASE_VERSION);
     }
 
     public DatabaseAdapter open() throws SQLException {

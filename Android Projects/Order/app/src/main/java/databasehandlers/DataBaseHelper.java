@@ -5,9 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import adapters.DatabaseAdapter;
+import functions.AppConstant;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
+
+    private String db_create;
 
     public DataBaseHelper(Context context, String name,SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);
@@ -15,7 +17,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase _db){
-        _db.execSQL(DatabaseAdapter.DATABASE_CREATE);
+        _db.execSQL(AppConstant.DATABASE_CREATE);
 
     }
 

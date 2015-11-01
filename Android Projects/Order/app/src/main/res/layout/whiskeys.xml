@@ -143,7 +143,6 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:text="@string/cart"
                     android:id="@+id/button_whisky" />
             </LinearLayout>

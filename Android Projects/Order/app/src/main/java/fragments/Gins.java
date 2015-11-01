@@ -35,6 +35,7 @@ import java.util.List;
 import adapters.SpiritComponentAdapter;
 import adapters.SpiritsListAdapter;
 import dialogs.DialogMessageDisplay;
+import functions.AppConstant;
 import interfaces.GinsCommunicator;
 import lists.SpiritComponentProduct;
 import lists.SpiritList;
@@ -50,11 +51,6 @@ public class Gins extends AppCompatActivity {
     private String jsonResult;
     private ArrayAdapter<String> adapter;
     private SpiritsListAdapter adapterGins;
-    private static final String URL = "http://my.chatapp.info/order_api/files/getgins.php";
-    private static final String TABLE_INTENT_ID = "table_name";
-    private static final String COMPANY_INTENT_ID = "magaziID";
-    private static final String WAITER_INTENT_ID = "servitorosID";
-    private static final String SPIRIT_ITEM = "spirit_item";
     private String servitoros_id, magazi_id, table, name;
     ProgressDialog pDialog;
     String selectedGin, selectedGlass, selectStroll;
@@ -103,9 +99,8 @@ public class Gins extends AppCompatActivity {
         if (!network_connected) {
             DialogMessageDisplay.displayWifiSettingsDialog(Gins.this, Gins.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
         } else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
-
             }
         }
     }
@@ -174,10 +169,10 @@ public class Gins extends AppCompatActivity {
     }
 
     private void populateToolBar() {
-        name = getIntent().getStringExtra(SPIRIT_ITEM);
-        table = getIntent().getStringExtra(TABLE_INTENT_ID);
-        servitoros_id = getIntent().getStringExtra(WAITER_INTENT_ID);
-        magazi_id = getIntent().getStringExtra(COMPANY_INTENT_ID);
+        name = getIntent().getStringExtra(AppConstant.SPIRIT_ITEM);
+        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         toolbar = (Toolbar)findViewById(R.id.toolBar);
         toolbar.setTitle(name);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
@@ -274,7 +269,7 @@ public class Gins extends AppCompatActivity {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{URL});
+        task.execute(new String[]{AppConstant.GINS_URL});
     }
 
     public void ListDrawer(List<SpiritList> customSpinner) {

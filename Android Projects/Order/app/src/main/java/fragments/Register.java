@@ -50,9 +50,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class Register extends Fragment {
+import functions.AppConstant;
 
-    private static final String URL = "http://my.chatapp.info/order_api/insertData/insert_users_into_db.php";
+public class Register extends Fragment {
     private EditText username, password, retypePassword, emailField;
     private Button signUp;
     private View rootView;
@@ -195,7 +195,7 @@ public class Register extends Fragment {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(new String[]{URL});
+        task.execute(new String[]{AppConstant.REGISTER_URL});
     }
 
     private void setupView() {
@@ -213,7 +213,7 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (username.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor("#26ae90")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
                     password.setEnabled(false);
                 } else {
                     password.setEnabled(true);
@@ -234,7 +234,7 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (password.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor("#26ae90")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
                     retypePassword.setEnabled(false);
                 } else {
                     retypePassword.setEnabled(true);
@@ -255,7 +255,7 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (retypePassword.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.retype_pass_required)).color(Color.parseColor("#26ae90")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.retype_pass_required)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
                     emailField.setEnabled(false);
                 } else {
                     emailField.setEnabled(true);
@@ -276,15 +276,15 @@ public class Register extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (emailField.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_required)).color(Color.parseColor("#26ae90")).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_required)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
                     signUp.setEnabled(false);
-                    signUp.setBackgroundColor(getResources().getColor(R.color.light_gray));
+                    signUp.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
                 } else {
                     if (isEmailValid(emailField.getText().toString())) {
                         signUp.setEnabled(true);
-                        signUp.setBackgroundColor(getResources().getColor(R.color.btn_login));
+                        signUp.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
                     }else {
-                        Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_not_valid)).color(Color.parseColor("#26ae90")).show(getActivity());
+                        Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.email_not_valid)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
                     }
 
                 }
@@ -364,7 +364,7 @@ public class Register extends Fragment {
             super.onPostExecute(aVoid);
             pDialog.dismiss();
             if (aVoid){
-                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor("#26ae90")).show(getActivity());
+                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
             }else {
                 Toast.makeText(getActivity(), getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);

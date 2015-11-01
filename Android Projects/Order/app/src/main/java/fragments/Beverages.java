@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ProductListAdapter;
+import functions.AppConstant;
 import lists.ProductList;
 
 
@@ -47,7 +49,6 @@ public class Beverages extends Fragment {
     private ListView lv;
     private ArrayAdapter<ProductList> adapter;
     private String jsonResult;
-    private String url = "http://my.chatapp.info/order_api/files/getbeverages.php";
     ProgressDialog pDialog;
     List<ProductList> customList;
     private TextView tv1, tv2;
@@ -56,6 +57,9 @@ public class Beverages extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.drinks_fragment, container, false);
         lv = (ListView)rootView.findViewById(R.id.drinksListView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            lv.setNestedScrollingEnabled(true);
+        }
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -225,7 +229,7 @@ public class Beverages extends Fragment {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{url});
+        task.execute(new String[]{AppConstant.BEVERAGES_URL});
     }
 
     public void ListDrawer(List<ProductList> customList) {

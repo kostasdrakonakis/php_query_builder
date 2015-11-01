@@ -81,7 +81,6 @@
                 android:enabled="false"
                 android:background="@color/light_gray"
                 android:text="@string/signup"
-                android:textColor="@color/black"
                 android:id="@+id/buttonSignUp" />
 
         </LinearLayout>

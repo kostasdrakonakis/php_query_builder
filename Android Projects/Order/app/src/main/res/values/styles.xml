@@ -1,6 +1,5 @@
 <resources >
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="android:textColor">@color/white</item>
         <item name="colorButtonNormal">@color/btn_login</item>
     </style>
