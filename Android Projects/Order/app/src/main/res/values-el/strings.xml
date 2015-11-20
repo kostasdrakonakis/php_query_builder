@@ -82,7 +82,7 @@
     <string name="small">Μικρό</string>
     <string name="mediumSize">Μέτριο</string>
     <string name="large">Μεγάλο</string>
-    <string name="table_text_intro">Αριθμός Τραπεζιού:</string>
+    <string name="table_text_intro">Τραπέζι:</string>
     <string name="price">Τιμή:</string>
     <string name="product_quantity">Ποσότητα προϊόντος:</string>
     <string name="wifi_off_message">Δεν υπάρχει σύνδεση δικτύου. Παρακαλώ προσπαθήστε αργότερα.</string>
@@ -273,5 +273,9 @@
     <string name="coca_zero">Coca Cola Zero</string>
     <string name="fanta_lemon">Λεμονάδα</string>
     <string name="fanta_orange">Πορτοκαλάδα</string>
+    <string name="ice">Πάγος:</string>
+    <string name="glass_required">Πρέπει να επιλέξετε ποτήρι</string>
+    <string name="ice_required">Πρέπει να επιλέξετε αν θέλετε πάγο ή όχι</string>
+    <string name="stroll_required">Πρέπει να επιλέξετε αν θέλετε καλαμάκι ή όχι</string>
 
 </resources>

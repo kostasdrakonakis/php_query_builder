@@ -4,20 +4,16 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -29,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Switch;
@@ -48,7 +43,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,20 +60,17 @@ import settings.SettingsActivity;
 public class UserProfile extends AppCompatActivity{
 
     private SessionManager session;
-    private Uri uri, number;
+    private Uri number;
     private ProgressDialog pDialog;
-    private File file;
-    private Bitmap bmp;
-    boolean taken = false, disabled = false, network_connected, returnedKey, needHelp = false, ratingComplited = false;
+    boolean disabled = false, network_connected, returnedKey, ratingComplited = false;
     private String comTxt, name, timeF, text, committed, subjectTXT, messageTXT, servitorosId, magaziID;
     private SimpleDateFormat timeFormat, dateFormat;
-    private Calendar c;
-    private ConnectivityManager cm;
-    private NetworkInfo activeNetwork;
-    private InputStream is = null;
-    private ImageView imagePhoto;
-    private SharedPreferences sharedPreferences, pref;
-    private SharedPreferences.Editor editor , ed;
+    private Calendar calendar;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo networkInfo;
+    private InputStream inputStream = null;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private TextView date, time, watersName, waiterID, magaziId;
     private FloatingActionButton helpButton, rateButton, themeButton;
     private RatingBar ratingBar;
@@ -89,7 +80,7 @@ public class UserProfile extends AppCompatActivity{
     private Intent sendIntent, callIntent;
     private Button btnnewworder, payment;
     private ArrayList<NameValuePair> nameValuePairs;
-    private AlertDialog.Builder builder, helper, anotherDialogBuilder;
+    private AlertDialog.Builder rateDialog, helpDialog;
     private MyInsertDataTask task;
     private View newLayout, helpView;
     private HttpResponse response;
@@ -112,7 +103,6 @@ public class UserProfile extends AppCompatActivity{
         checkNetwork();
         populateProfileData();
         registerMainButtons();
-        retrievePhotoFromPrefs();
         populateShareContentButtons();
         retrieveRateFromPrefs();
         setupButtonEvents();
@@ -144,13 +134,13 @@ public class UserProfile extends AppCompatActivity{
 
 
     private void checkNetwork() {
-        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        activeNetwork = cm.getActiveNetworkInfo();
-        network_connected = activeNetwork != null && activeNetwork.isAvailable() && activeNetwork.isConnectedOrConnecting();
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        network_connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnectedOrConnecting();
         if (!network_connected) {
             DialogMessageDisplay.displayWifiSettingsDialog(UserProfile.this, UserProfile.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
         }/*else {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+            if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
                 displayInfoMessage(UserProfile.this, getString(R.string.mobile_title), getString(R.string.mobile_message));
             }
         }*/
@@ -187,51 +177,26 @@ public class UserProfile extends AppCompatActivity{
         waiterID = (TextView)findViewById(R.id.waiterId);
         magaziId = (TextView)findViewById(R.id.magaziId);
         watersName.setText(Html.fromHtml("<b>" + name + "</b>"));
-        c = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd" + "/" + "MM" + "/" + "yyyy");
-        text = dateFormat.format(c.getTime());
+        text = dateFormat.format(calendar.getTime());
         date.setText(text);
         timeFormat = new SimpleDateFormat("HH:mm");
-        timeF = timeFormat.format(c.getTime());
+        timeF = timeFormat.format(calendar.getTime());
         time.setText(timeF);
         waiterID.setText(servitorosId);
         magaziId.setText(magaziID);
     }
 
     private void retrieveRateFromPrefs() {
-        pref = getSharedPreferences(AppConstant.RATING_NAME_FILE_PREFS, MODE_PRIVATE);
-        ed = pref.edit();
-        returnedKey = pref.getBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
+        sharedPreferences = getSharedPreferences(AppConstant.RATING_NAME_FILE_PREFS, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        returnedKey = sharedPreferences.getBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
         if (returnedKey){
             rateButton.setEnabled(false);
         }
     }
 
-    private void retrievePhotoFromPrefs() {
-        sharedPreferences = getSharedPreferences(AppConstant.IMAGE_NAME_FILE_PREFS, MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        imagePhoto = (ImageView) findViewById(R.id.waiterPhoto);
-        imagePhoto.setRotation(270);
-        committed = sharedPreferences.getString(AppConstant.IMAGE_NAME_FILE_PREFS, null);
-
-
-        if (committed != null) {
-            imagePhoto.setImageURI(Uri.parse(committed));
-        }
-
-        imagePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), AppConstant.PROFILE_IMAGE_NAME);
-                uri = Uri.fromFile(file);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                startActivityForResult(intent, AppConstant.REQ_CODE);
-            }
-        });
-
-
-    }
 
     private void insertDataToDatabaseFromRating() {
         ratingBar = (RatingBar) newLayout.findViewById(R.id.ratingBar);
@@ -252,27 +217,13 @@ public class UserProfile extends AppCompatActivity{
 
     }
 
-    public AlertDialog displayInfoMessage(Context context, String title, String message) {
-        builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                UserProfile.this.finish();
-            }
-        }).show();
-        return builder.create();
-
-    }
-
     private void setupButtonEvents() {
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                helper = new AlertDialog.Builder(UserProfile.this);
+                rateDialog = new AlertDialog.Builder(UserProfile.this);
                 newLayout = getLayoutInflater().inflate(R.layout.rate_dialog, (ViewGroup) findViewById(R.id.rootLayout));
-                helper.setView(newLayout)
+                rateDialog.setView(newLayout)
                         .setTitle(getString(R.string.rateDialogTitle))
                         .setPositiveButton(R.string.posButtonRate, new DialogInterface.OnClickListener() {
                             @Override
@@ -281,14 +232,14 @@ public class UserProfile extends AppCompatActivity{
                                 if (ratingComplited) {
                                     rateButton.setEnabled(false);
                                     disabled = true;
-                                    ed.putBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
-                                    ed.commit();
+                                    editor.putBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
+                                    editor.commit();
                                     Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(UserProfile.this);
                                 }
 
                             }
                         }).create();
-                helper.show();
+                rateDialog.show();
             }
         });
 
@@ -303,13 +254,13 @@ public class UserProfile extends AppCompatActivity{
 
 
     private void helpIt() {
-        anotherDialogBuilder = new AlertDialog.Builder(this);
+        helpDialog = new AlertDialog.Builder(this);
         helpView = getLayoutInflater().inflate(R.layout.help_dialog, (ViewGroup) findViewById(R.id.helpRootLayout));
         subject = (EditText)helpView.findViewById(R.id.subject);
         message = (EditText)helpView.findViewById(R.id.message);
         helpSwitch = (Switch)helpView.findViewById(R.id.helpSwitch);
         contactLayout = (LinearLayout)helpView.findViewById(R.id.contactLayout);
-        anotherDialogBuilder.setTitle(getString(R.string.help))
+        helpDialog.setTitle(getString(R.string.help))
                 .setMessage(getString(R.string.help_dialog_message)+ " \n" + AppConstant.TEL )
                 .setView(helpView)
                 .setPositiveButton(getString(R.string.send), new DialogInterface.OnClickListener() {
@@ -318,7 +269,7 @@ public class UserProfile extends AppCompatActivity{
                         subjectTXT = subject.getText().toString();
                         messageTXT = message.getText().toString();
                         if (subjectTXT.isEmpty() && messageTXT.isEmpty()){
-                            Toast.makeText(anotherDialogBuilder.getContext(), getString(R.string.subject_or_message_empty), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(helpDialog.getContext(), getString(R.string.subject_or_message_empty), Toast.LENGTH_SHORT).show();
                         }else if (subjectTXT.isEmpty()){
                             Toast.makeText(helpView.getContext(), getString(R.string.subject_empty), Toast.LENGTH_SHORT).show();
                         }else if (messageTXT.isEmpty()){
@@ -353,7 +304,7 @@ public class UserProfile extends AppCompatActivity{
                 })
                 .create();
 
-        anotherDialogBuilder.show();
+        helpDialog.show();
 
         if (helpSwitch!= null){
             helpSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -378,30 +329,6 @@ public class UserProfile extends AppCompatActivity{
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppConstant.REQ_CODE) {
-            if (resultCode == RESULT_OK) {
-                taken = true;
-                getContentResolver().notifyChange(uri, null);
-                ContentResolver cr = getContentResolver();
-                try {
-                    bmp = MediaStore.Images.Media.getBitmap(cr, uri);
-                    imagePhoto.setImageBitmap(bmp);
-                    imagePhoto.setRotation(270);
-                    Toast.makeText(UserProfile.this, getString(R.string.image_saved) + file.getAbsolutePath() + getString(R.string.as) + file.getName(), Toast.LENGTH_LONG).show();
-                    editor.putString(AppConstant.IMAGE_NAME_FILE_PREFS, uri.toString());
-                    editor.commit();
-                } catch (Exception e) {
-                    throw new RuntimeException(e.getMessage());
-                }
-            } else if (resultCode == RESULT_CANCELED) {
-                taken = false;
-                Toast.makeText(UserProfile.this, getString(R.string.canceled), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -466,7 +393,7 @@ public class UserProfile extends AppCompatActivity{
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 response = httpClient.execute(httpPost);
                 httpEntity = response.getEntity();
-                is = httpEntity.getContent();
+                inputStream = httpEntity.getContent();
             }
             catch(Exception e)
             {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.order.app.order.BeveragesLayoutActivity">
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context="cart.BeveragesLayoutActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -35,6 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="-6dp"
+                        android:layout_marginLeft="-6dp"
                         android:layout_weight="0.9"
                         android:padding="13dp"
                         android:text="@string/quantity"
@@ -57,20 +58,23 @@
                         android:textColor="@color/black" />
 
                     <Button
-                        android:id="@+id/buttonSnackMinus"
+                        android:id="@+id/buttonBeveragesMinus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:text="@string/minus" />
 
                     <Button
-                        android:id="@+id/buttonSnackPlus"
+                        android:id="@+id/buttonBeveragesPlus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:text="@string/plus" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,6 +114,113 @@
                             android:id="@+id/longBevGlassCheckbox" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/articlecolor"
+                        android:gravity="center"
+                        android:text="@string/stroll"
+                        android:id="@+id/textView16" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:padding="15dp"
+                        android:layout_height="match_parent" >
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:text="@string/yes"
+                            android:id="@+id/yesStrollCheckbox" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:text="@string/no"
+                            android:id="@+id/noStrollCheckbox" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/articlecolor"
+                        android:gravity="center"
+                        android:text="@string/ice"
+                        android:id="@+id/textView15" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:padding="15dp"
+                        android:layout_height="match_parent" >
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:text="@string/yes"
+                            android:id="@+id/beveragesYesCheckbox" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:text="@string/no"
+                            android:id="@+id/beveragesNoCheckbox" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:hint="@string/sxolia"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:textColorHint="@color/black"
+                        android:background="@drawable/edit_bg"
+                        android:id="@+id/editTextBeveragesComments" />
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cart"
+                    android:padding="15dp"
+                    android:background="@color/light_gray"
+                    android:enabled="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/cartBeverageButton" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

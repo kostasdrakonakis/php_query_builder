@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.order.app.order" >
+    package="com.order.app.order">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.BIND_APPWIDGET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -32,7 +27,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/launch_icon"
+        android:icon="@mipmap/launch"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -52,7 +47,7 @@
         </activity>
         <activity
             android:name=".Tables"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboardHidden|screenSize"
             android:label="@string/title_activity_tables" >
         </activity>
         <activity
@@ -125,9 +120,9 @@
         </receiver>
 
         <activity
-            android:name=".BeveragesLayoutActivity"
-            android:label="@string/title_activity_beverages_layout"
-            android:theme="@style/AppTheme" >
+            android:name="cart.BeveragesLayoutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_beverages_layout">
         </activity>
     </application>
 

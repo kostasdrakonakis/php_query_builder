@@ -14,12 +14,12 @@
             android:id="@+id/activity_main_swipe_refresh_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:divider="@color/black"
                 android:listSelector="@android:color/transparent"
-                android:id="@+id/spiritsListView" />
+                android:id="@+id/spiritsRecyclerView" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

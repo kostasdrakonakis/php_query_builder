@@ -20,53 +20,56 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:padding="15dp"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:text="@string/quantity"
+                android:layout_weight="0.9"
+                android:padding="13dp"
+                android:textSize="16sp"
+                android:layout_marginStart="-14dp"
+                android:layout_marginLeft="-14dp"
+                android:textColor="@color/black"
+                android:id="@+id/quantityTextView" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/quantity"
-                    android:layout_weight="0.9"
-                    android:padding="13dp"
-                    android:textSize="16sp"
-                    android:layout_marginStart="-14dp"
-                    android:textColor="@color/black"
-                    android:id="@+id/quantityTextView" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:editable="false"
+                android:text="0"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="10dp"
+                android:background="@drawable/edit_bg"
+                android:textColor="@color/black"
+                android:ems="3"
+                android:id="@+id/quantityEditText" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:layout_weight="1"
-                    android:editable="false"
-                    android:text="0"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:padding="10dp"
-                    android:background="@drawable/edit_bg"
-                    android:textColor="@color/black"
-                    android:ems="3"
-                    android:id="@+id/quantityEditText" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:id="@+id/buttonMinus" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/minus"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1"
-                    android:id="@+id/buttonMinus" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/plus"
-                    android:layout_weight="1"
-                    android:id="@+id/buttonPlus" />
-            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="@string/plus"
+                android:layout_weight="1"
+                android:id="@+id/buttonPlus" />
+        </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -79,6 +82,7 @@
                     android:layout_weight="1"
                     android:padding="22dp"
                     android:layout_marginStart="-6dp"
+                    android:layout_marginLeft="-6dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:text="@string/sugar"
@@ -152,6 +156,7 @@
                     android:layout_weight="1"
                     android:padding="15dp"
                     android:layout_marginStart="-6dp"
+                    android:layout_marginLeft="-6dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_height="wrap_content"
@@ -219,6 +224,7 @@
                         android:text="@string/dose"
                         android:padding="15dp"
                         android:layout_marginStart="-6dp"
+                        android:layout_marginLeft="-6dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="16sp"

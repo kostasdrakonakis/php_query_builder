@@ -10,12 +10,12 @@ import android.support.v7.widget.Toolbar;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import adapters.LoginSignUpTabsAdapter;
+import adapters.UserAccountAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    LoginSignUpTabsAdapter mSectionsPagerAdapter;
+    UserAccountAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     private PagerSlidingTabStrip tabs;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupPager() {
-        mSectionsPagerAdapter = new LoginSignUpTabsAdapter(getSupportFragmentManager(), MainActivity.this, MainActivity.this);
+        mSectionsPagerAdapter = new UserAccountAdapter(getSupportFragmentManager(), MainActivity.this, MainActivity.this);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);

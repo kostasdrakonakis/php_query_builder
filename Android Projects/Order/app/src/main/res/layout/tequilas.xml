@@ -18,6 +18,58 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/quantity"
+                    android:layout_weight="0.9"
+                    android:padding="13dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="-14dp"
+                    android:layout_marginLeft="-14dp"
+                    android:textColor="@color/black"
+                    android:id="@+id/quantityTextView" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:text="0"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:padding="10dp"
+                    android:background="@drawable/edit_bg"
+                    android:textColor="@color/black"
+                    android:ems="3"
+                    android:id="@+id/quantityEditTextTequilas" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minus"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:id="@+id/buttonMinusTequilas" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/plus"
+                    android:layout_weight="1"
+                    android:id="@+id/buttonPlusTequilas" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,13 +178,24 @@
                     android:id="@+id/refreshment_spinner" />
             </LinearLayout>
 
-            <EditText
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="20sp"
-                android:hint="@string/sxolia"
-                android:id="@+id/editText_tequila" />
+                android:layout_marginTop="20dp"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:hint="@string/sxolia"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textColorHint="@color/black"
+                    android:background="@drawable/edit_bg"
+                    android:id="@+id/editTextTequilaComments" />
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -143,8 +206,11 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:background="@color/light_gray"
+                    android:enabled="false"
                     android:text="@string/cart"
-                    android:id="@+id/button_tequilas" />
+                    android:id="@+id/cartButtonTequila" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

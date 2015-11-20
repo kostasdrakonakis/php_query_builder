@@ -18,6 +18,8 @@ import com.order.app.order.R;
 
 import java.util.List;
 
+import functions.AppConstant;
+
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
@@ -84,18 +86,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
-            bindPreferenceSummaryToValue(findPreference("coffee_file"));
-            bindPreferenceSummaryToValue(findPreference("sweet_file"));
-            bindPreferenceSummaryToValue(findPreference("snack_file"));
-            bindPreferenceSummaryToValue(findPreference("beverage_file"));
-            bindPreferenceSummaryToValue(findPreference("spirit_file"));
-            bindPreferenceSummaryToValue(findPreference("beer_file"));
-            bindPreferenceSummaryToValue(findPreference("gin_file"));
-            bindPreferenceSummaryToValue(findPreference("rum_file"));
-            bindPreferenceSummaryToValue(findPreference("tequila_file"));
-            bindPreferenceSummaryToValue(findPreference("liquer_file"));
-            bindPreferenceSummaryToValue(findPreference("vodka_file"));
-            bindPreferenceSummaryToValue(findPreference("whiskey_file"));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.COFFEE_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.SWEET_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.SNACK_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.BEVERAGE_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.SPIRIT_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.BEER_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.GIN_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.RUM_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.TEQUILA_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.LIQUER_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.VODKA_KEY));
+            bindPreferenceSummaryToValue(findPreference(AppConstant.WHISKEY_KEY));
         }
 
         @Override

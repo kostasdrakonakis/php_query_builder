@@ -12,7 +12,7 @@ import com.order.app.order.R;
 import fragments.Login;
 import fragments.Register;
 
-public class LoginSignUpTabsAdapter extends FragmentPagerAdapter {
+public class UserAccountAdapter extends FragmentPagerAdapter {
 
     Activity activity;
     static Context context;
@@ -20,7 +20,7 @@ public class LoginSignUpTabsAdapter extends FragmentPagerAdapter {
     static Resources res = null;
     static String[] CONTENT = null;
 
-    public LoginSignUpTabsAdapter(FragmentManager fm, Activity activity, Context context) {
+    public UserAccountAdapter(FragmentManager fm, Activity activity, Context context) {
         super(fm);
         this.activity = activity;
         this.context = context;
@@ -46,17 +46,17 @@ public class LoginSignUpTabsAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return LoginSignUpTabsAdapter.CONTENT.length;
+        return UserAccountAdapter.CONTENT.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
 
-        return LoginSignUpTabsAdapter.CONTENT[position];
+        return UserAccountAdapter.CONTENT[position];
     }
 
     public String[] getTitles() {
-        return LoginSignUpTabsAdapter.CONTENT;
+        return UserAccountAdapter.CONTENT;
     }
 }
 

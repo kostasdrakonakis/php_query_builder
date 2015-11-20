@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.order.app.order.R;
 
@@ -16,7 +16,7 @@ import fragments.Snacks;
 import fragments.Spirits;
 import fragments.Sweets;
 
-public class ProductsTabPagerAdapter extends FragmentPagerAdapter{
+public class ProductsTabPagerAdapter extends FragmentStatePagerAdapter {
 
     private Activity activity;
     private Context context;

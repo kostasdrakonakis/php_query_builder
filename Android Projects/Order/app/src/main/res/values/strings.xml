@@ -81,7 +81,7 @@
     <string name="small">Small</string>
     <string name="mediumSize">Medium</string>
     <string name="large">Large</string>
-    <string name="table_text_intro">Table Number:</string>
+    <string name="table_text_intro">Table:</string>
     <string name="price">Price:</string>
     <string name="product_quantity">Product Quantity:</string>
     <string name="wifi_off_message">Network connection error. Please check your internet connection settings.</string>
@@ -296,5 +296,9 @@
     <string name="tonic">Tonic Water</string>
     <string name="water">Water</string>
     <string name="redbull">Red Bull</string>
+    <string name="ice">Ice:</string>
+    <string name="glass_required">You have to choose glass</string>
+    <string name="stroll_required">You have to choose whether you want stroll or not</string>
+    <string name="ice_required">You have to choose whether you want ice or not</string>
 
 </resources>

@@ -31,7 +31,6 @@ public class Tables extends AppCompatActivity {
         setSupportActionBar(toolbar);
         servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
         magaziID = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
-
         tableNumber = (EditText)findViewById(R.id.tableNumberEditText);
         setupButtons();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
