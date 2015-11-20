@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,19 +17,22 @@ import android.widget.Toast;
 
 import com.order.app.order.R;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import functions.AppConstant;
+import functions.StringGenerator;
 
 public class SweetsLayoutActivity extends AppCompatActivity {
 
@@ -43,15 +45,16 @@ public class SweetsLayoutActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private HttpPost httpPost;
     private ArrayList<NameValuePair> nameValuePairs;
-    private HttpClient httpClient;
-    private HttpEntity httpEntity;
-    private HttpResponse response;
     private int quantityNumberFinal, quantityIceCreamNumberFinal;
-    private InputStream is = null;
     private StringBuffer iceCreamPreference, syrupPreference;
     private int syrupBufferLength, iceCreamBufferLength;
     private MyInsertDataTask task;
     private Toolbar toolbar;
+    private HttpURLConnection urlConnection;
+    private URL url;
+    private OutputStream outputStream;
+    private BufferedWriter bufferedWriter;
+    private InputStream inputStream;
 
 
     @Override
@@ -255,7 +258,7 @@ public class SweetsLayoutActivity extends AppCompatActivity {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(new String[]{AppConstant.SWEETS_ADD_TO_CART_URL});
+        task.execute(AppConstant.SWEETS_ADD_TO_CART_URL);
     }
 
 
@@ -277,30 +280,25 @@ public class SweetsLayoutActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             nameValuePairs = new ArrayList<>();
-
-            nameValuePairs.add(new BasicNameValuePair("productName", name));
-            nameValuePairs.add(new BasicNameValuePair("productPrice", String.valueOf(price)));
-            nameValuePairs.add(new BasicNameValuePair("productImage", image));
-            nameValuePairs.add(new BasicNameValuePair("quantity", String.valueOf(quantityNumberFinal)));
-            nameValuePairs.add(new BasicNameValuePair("iceCreamScoops", String.valueOf(quantityIceCreamNumberFinal)));
-            nameValuePairs.add(new BasicNameValuePair("iceCreamFlavors", iceCreamPreference.toString()));
-            nameValuePairs.add(new BasicNameValuePair("syrupFlavors", syrupPreference.toString()));
-            nameValuePairs.add(new BasicNameValuePair("comment", comment));
-            nameValuePairs.add(new BasicNameValuePair("magazi_id", magazi_id));
-            nameValuePairs.add(new BasicNameValuePair("servitoros_id", servitoros_id));
-            nameValuePairs.add(new BasicNameValuePair("trapezi", table));
-            try
-            {
-                httpClient = new DefaultHttpClient();
-                httpPost = new HttpPost(params[0]);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, AppConstant.CHARACTER_ENCODING));
-                response = httpClient.execute(httpPost);
-                httpEntity = response.getEntity();
-                is = httpEntity.getContent();
-            }
-            catch(Exception e)
-            {
-                Log.e("Fail 1", e.toString());
+            try {
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setConnectTimeout(15000);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                setupDataToDB();
+                outputStream = urlConnection.getOutputStream();
+                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+                bufferedWriter.write(StringGenerator.queryResults(nameValuePairs));
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                urlConnection.connect();
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         }
@@ -313,5 +311,19 @@ public class SweetsLayoutActivity extends AppCompatActivity {
         }
     }
 
+
+    private void setupDataToDB() {
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, name));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(price)));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair("iceCreamScoops", String.valueOf(quantityIceCreamNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair("iceCreamFlavors", iceCreamPreference.toString()));
+        nameValuePairs.add(new BasicNameValuePair("syrupFlavors", syrupPreference.toString()));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+    }
 
 }

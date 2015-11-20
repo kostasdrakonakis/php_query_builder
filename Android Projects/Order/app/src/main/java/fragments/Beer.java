@@ -8,70 +8,70 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.order.app.order.R;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.ProductListAdapter;
+import adapters.ProductsAdapter;
 import functions.AppConstant;
+import functions.StringGenerator;
+import listeners.RecyclerItemClickListener;
 import lists.ProductList;
 
 
 public class Beer extends Fragment {
 
     private View rootView;
-    private ListView lv;
-    private ArrayAdapter<ProductList> adapter;
-    private String jsonResult, rLine;
-    private StringBuilder answer;
-    private BufferedReader rd;
+    private RecyclerView recyclerView;
+    private ProductsAdapter productsAdapter;
+    private StringBuilder jsonResult;
     ProgressDialog pDialog;
     private JsonReadTask task;
-    private HttpClient httpclient;
-    private HttpPost httppost;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     List<ProductList> customList;
     private boolean network_connected;
-    private HttpResponse response;
     private JSONArray jsonMainNode;
     private JSONObject jsonResponse, jsonChildNode;
+    private LinearLayoutManager layoutManager;
+    private HttpURLConnection urlConnection;
+    private URL url;
+    private String name, image, price;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.beer_fragment, container, false);
-        lv = (ListView)rootView.findViewById(R.id.beerListView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            lv.setNestedScrollingEnabled(true);
-        }
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.beerRecyclerView);
+        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(true);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -82,7 +82,6 @@ public class Beer extends Fragment {
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
-                pDialog.dismiss();
                 setRetainInstance(true);
                 registerCallClickBack();
                 mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -128,12 +127,12 @@ public class Beer extends Fragment {
 
 
     private void registerCallClickBack() {
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(View view, int position) {
                 Toast.makeText(getActivity().getApplicationContext(), "You have chosen " + customList.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }));
     }
 
     @Override
@@ -187,44 +186,29 @@ public class Beer extends Fragment {
 
         @Override
         protected List<ProductList> doInBackground(String... params) {
-            httpclient = new DefaultHttpClient();
-            httppost = new HttpPost(params[0]);
             try {
-                response = httpclient.execute(httppost);
-                jsonResult = inputStreamToString(
-                        response.getEntity().getContent()).toString();
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+                urlConnection.setConnectTimeout(5000);
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                jsonResult = StringGenerator.inputStreamToString(in, getActivity());
                 customList = new ArrayList<>();
 
-                jsonResponse = new JSONObject(jsonResult);
-                jsonMainNode = jsonResponse.optJSONArray("beers");
+                jsonResponse = new JSONObject(jsonResult.toString());
+                jsonMainNode = jsonResponse.optJSONArray(AppConstant.BEERS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
-                    String name = jsonChildNode.optString("name");
-                    String price = jsonChildNode.optString("price");
-                    String image = jsonChildNode.optString("image");
+                    name = jsonChildNode.optString("name");
+                    price = jsonChildNode.optString("price");
+                    image = jsonChildNode.optString("image");
                     customList.add(new ProductList(image, name, price));
 
                 }
-                return customList;
-            } catch (Exception e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-                getActivity().finish();
             }
-            return null;
-        }
-
-        private StringBuilder inputStreamToString(InputStream is) {
-            rLine = "";
-            answer = new StringBuilder();
-            rd = new BufferedReader(new InputStreamReader(is));
-            try {
-                while ((rLine = rd.readLine()) != null) {
-                    answer.append(rLine);
-                }
-            } catch (Exception e) {
-                getActivity().finish();
-            }
-            return answer;
+            return customList;
         }
 
         @Override
@@ -240,13 +224,13 @@ public class Beer extends Fragment {
 
     public void accessWebService() {
         task = new JsonReadTask();
-        task.execute(new String[]{AppConstant.BEERS_URL});
+        task.execute(AppConstant.BEERS_URL);
     }
 
     public void ListDrawer(List<ProductList> customList) {
-        adapter = new ProductListAdapter(getActivity().getApplicationContext(), R.layout.productlist_row_item, customList);
-        adapter.notifyDataSetChanged();
-        lv.setAdapter(adapter);
+        productsAdapter = new ProductsAdapter(customList);
+        productsAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(productsAdapter);
     }
 
 }

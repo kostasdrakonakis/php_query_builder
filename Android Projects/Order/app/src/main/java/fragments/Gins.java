@@ -2,33 +2,36 @@ package fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.order.app.order.R;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,7 @@ import adapters.SpiritComponentAdapter;
 import adapters.SpiritsListAdapter;
 import dialogs.DialogMessageDisplay;
 import functions.AppConstant;
+import functions.StringGenerator;
 import interfaces.GinsCommunicator;
 import lists.SpiritComponentProduct;
 import lists.SpiritList;
@@ -43,22 +47,24 @@ import lists.SpiritList;
 
 public class Gins extends AppCompatActivity {
 
-    private Toolbar tb;
     private Spinner spRef, spDrinks;
     private CheckBox shortGlass, longGlass, yes, no;
-    private EditText comments;
-    private Button cart;
-    private String jsonResult;
-    private ArrayAdapter<String> adapter;
+    private EditText sxolia, quantity;
+    private Button cart, plus, minus;
+    private int quantityNumberFinal;
     private SpiritsListAdapter adapterGins;
-    private String servitoros_id, magazi_id, table, name;
+    private String servitoros_id, magazi_id, table, title, quantityPreference, comment, componentPreference, ginPreference, glassPreference, strollPreference, name, image, price;
+    private StringBuilder jsonResult;
     ProgressDialog pDialog;
-    String selectedGin, selectedGlass, selectStroll;
     ArrayList<SpiritList> customSpinner;
     private Toolbar toolbar;
     private List<SpiritComponentProduct> components;
     private SpiritComponentAdapter componentAdapter;
     private GinsCommunicator communicator;
+    private JSONObject jsonResponse, jsonChildNode;
+    private JSONArray jsonMainNode;
+    private HttpURLConnection urlConnection;
+    private URL url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +75,26 @@ public class Gins extends AppCompatActivity {
         spRef = (Spinner)findViewById(R.id.refreshment_spinner);
         components = new ArrayList<>();
         checkNetworkInfo();
+        getSpinnerSelectedPreference();
         findItems();
-
         setupListeners();
         populateSpiritComponentsList();
         buildRefreshmentsSpinner();
-        registerCallBackClick();
+        checkQuantity();
+    }
+
+    private void getSpinnerSelectedPreference() {
+        spDrinks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ginPreference = customSpinner.get(position).getName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void populateSpiritComponentsList() {
@@ -111,10 +131,10 @@ public class Gins extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     longGlass.setEnabled(false);
-                    selectedGlass = shortGlass.getText().toString().toLowerCase();
+                    glassPreference = shortGlass.getText().toString().toLowerCase();
                 }else{
                     longGlass.setEnabled(true);
-                    selectedGlass = "";
+                    glassPreference = null;
                 }
             }
         });
@@ -123,10 +143,10 @@ public class Gins extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     shortGlass.setEnabled(false);
-                    selectedGlass = longGlass.getText().toString().toLowerCase();
+                    glassPreference = longGlass.getText().toString().toLowerCase();
                 }else{
                     shortGlass.setEnabled(true);
-                    selectedGlass = "";
+                    glassPreference = null;
                 }
             }
         });
@@ -135,10 +155,10 @@ public class Gins extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     no.setEnabled(false);
-                    selectStroll = yes.getText().toString().toLowerCase();
+                    strollPreference = yes.getText().toString().toLowerCase();
                 } else {
                     no.setEnabled(true);
-                    selectStroll = "";
+                    strollPreference = null;
                 }
             }
         });
@@ -147,46 +167,103 @@ public class Gins extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     yes.setEnabled(false);
-                    selectStroll = no.getText().toString().toLowerCase();
+                    strollPreference = no.getText().toString().toLowerCase();
                 } else {
                     yes.setEnabled(true);
-                    selectStroll = "";
+                    strollPreference = null;
                 }
             }
         });
 
-
     }
 
     private void findItems() {
-
         shortGlass = (CheckBox)findViewById(R.id.short_glass);
         longGlass = (CheckBox)findViewById(R.id.long_glass);
         yes = (CheckBox)findViewById(R.id.yesCheck);
         no = (CheckBox)findViewById(R.id.noCheck);
-        comments = (EditText)findViewById(R.id.editText_gins);
-        cart = (Button)findViewById(R.id.button_gins);
     }
 
     private void populateToolBar() {
-        name = getIntent().getStringExtra(AppConstant.SPIRIT_ITEM);
+        title = getIntent().getStringExtra(AppConstant.SPIRIT_ITEM);
         table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
         servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
         magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         toolbar = (Toolbar)findViewById(R.id.toolBar);
-        toolbar.setTitle(name);
+        toolbar.setTitle(title);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
         setSupportActionBar(toolbar);
 
     }
 
-    private void registerCallBackClick() {
+    private void checkQuantity() {
+        quantity = (EditText) findViewById(R.id.quantityEditTextGin);
+        plus = (Button) findViewById(R.id.buttonPlusGin);
+        minus = (Button) findViewById(R.id.buttonMinusGin);
+        sxolia = (EditText)findViewById(R.id.editTextGinsComments);
+        cart = (Button)findViewById(R.id.cartButtonGin);
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String addTxt = quantity.getText().toString();
+                int add = Integer.parseInt(addTxt);
+                quantity.setText(String.valueOf(add + 1));
+            }
+        });
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String minusTxt = quantity.getText().toString();
+                int minus = Integer.parseInt(minusTxt);
+                if (minus > 0) {
+                    quantity.setText(String.valueOf(minus - 1));
+                }
+            }
+        });
+
+
+
+        quantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String quanText = quantity.getText().toString();
+                int numberQuant = Integer.parseInt(quanText);
+                if (numberQuant > 0) {
+                    cart.setEnabled(true);
+                    cart.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+                } else {
+                    cart.setEnabled(false);
+                    cart.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!longGlass.isChecked() && !shortGlass.isChecked()){
-                    DialogMessageDisplay.displayErrorMessage(Gins.this, getString(R.string.error), getString(R.string.glass_error_msg));
+                quantityPreference = quantity.getText().toString();
+                quantityNumberFinal = Integer.parseInt(quantityPreference);
+                comment = sxolia.getText().toString();
+                if (comment == null) {
+                    comment = " ";
                 }
+                if (glassPreference == null) {
+                    Toast.makeText(Gins.this, getString(R.string.glass_required), Toast.LENGTH_LONG).show();
+                } else if (strollPreference == null) {
+                    Toast.makeText(Gins.this, getString(R.string.stroll_required), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(Gins.this, "Success", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -194,6 +271,17 @@ public class Gins extends AppCompatActivity {
     private void buildRefreshmentsSpinner() {
         componentAdapter = new SpiritComponentAdapter(Gins.this, components);
         spRef.setAdapter(componentAdapter);
+        spRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                componentPreference = components.get(position).getProductName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -218,42 +306,29 @@ public class Gins extends AppCompatActivity {
 
         @Override
         protected List<SpiritList> doInBackground(String... params) {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(params[0]);
             try {
-                HttpResponse response = httpclient.execute(httppost);
-                jsonResult = inputStreamToString(
-                        response.getEntity().getContent()).toString();
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+                urlConnection.setConnectTimeout(5000);
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                jsonResult = StringGenerator.inputStreamToString(in, Gins.this);
                 customSpinner = new ArrayList<>();
 
-                JSONObject jsonResponse = new JSONObject(jsonResult);
-                JSONArray jsonMainNode = jsonResponse.optJSONArray("gins");
+                jsonResponse = new JSONObject(jsonResult.toString());
+                jsonMainNode = jsonResponse.optJSONArray(AppConstant.GINS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    String name = jsonChildNode.optString("name");
-                    String price = jsonChildNode.optString("price");
-                    String image = jsonChildNode.optString("image");
+                    jsonChildNode = jsonMainNode.getJSONObject(i);
+                    name = jsonChildNode.optString("name");
+                    price = jsonChildNode.optString("price");
+                    image = jsonChildNode.optString("image");
                     customSpinner.add(new SpiritList(name, price, image));
+
                 }
-                return customSpinner;
-            } catch (Exception e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            return null;
-        }
-
-        private StringBuilder inputStreamToString(InputStream is) {
-            String rLine = "";
-            StringBuilder answer = new StringBuilder();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            try {
-                while ((rLine = rd.readLine()) != null) {
-                    answer.append(rLine);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e.getMessage());
-            }
-            return answer;
+            return customSpinner;
         }
 
         @Override
@@ -265,17 +340,17 @@ public class Gins extends AppCompatActivity {
             ListDrawer(customSpinner);
             pDialog.dismiss();
         }
-    }// end async task
+    }
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{AppConstant.GINS_URL});
+        task.execute(AppConstant.GINS_URL);
     }
 
     public void ListDrawer(List<SpiritList> customSpinner) {
         adapterGins = new SpiritsListAdapter(Gins.this ,customSpinner);
         spDrinks.setAdapter(adapterGins);
-        Log.d("Spinner Count", "The Spinner count is " + spDrinks.getCount());
+
     }
 
 }

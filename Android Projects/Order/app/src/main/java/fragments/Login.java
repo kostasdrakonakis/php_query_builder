@@ -44,7 +44,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import adapters.DatabaseAdapter;
 import functions.AppConstant;
 import sessions.SessionManager;
 
@@ -54,7 +53,6 @@ public class Login extends Fragment {
     private View rootView;
     private SessionManager session;
     private TextView tv;
-    DatabaseAdapter loginDataBaseAdapter;
     private ProgressDialog pDialog;
     private ArrayList<NameValuePair> nameValuePairs;
     private HttpResponse response;

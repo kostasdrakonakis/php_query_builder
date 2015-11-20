@@ -8,57 +8,64 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.order.app.order.R;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.ProductListAdapter;
+import adapters.ProductsAdapter;
 import dialogs.DialogMessageDisplay;
 import functions.AppConstant;
+import functions.StringGenerator;
+import listeners.RecyclerItemClickListener;
 import lists.ProductList;
 
 
 public class Spirits extends Fragment {
 
     private View rootView;
-    private ListView lv;
-    private ProductListAdapter adapter;
-    private String servitoros_id, magazi_id, table;
-    private String jsonResult;
+    private RecyclerView recyclerView;
+    private ProductsAdapter productsAdapter;
+    private String servitoros_id, magazi_id, table, name, image, price;
+    private StringBuilder jsonResult;
     ProgressDialog pDialog;
     ArrayList<ProductList> customList;
+    private LinearLayoutManager layoutManager;
+    private HttpURLConnection urlConnection;
+    private URL url;
+    private JSONObject jsonResponse, jsonChildNode;
+    private JSONArray jsonMainNode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.spirits_fragment, container, false);
-        lv = (ListView)rootView.findViewById(R.id.spiritsListView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            lv.setNestedScrollingEnabled(true);
-        }
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.spiritsRecyclerView);
+        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(true);
         table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
         servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
         magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
@@ -72,7 +79,6 @@ public class Spirits extends Fragment {
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 accessWebService();
-                pDialog.dismiss();
                 setRetainInstance(true);
                 registerCallClickBack();
                 mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -118,11 +124,11 @@ public class Spirits extends Fragment {
 
 
     private void registerCallClickBack() {
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 0:{
+            public void onItemClick(View view, int position) {
+                switch (position) {
+                    case 0: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Gins.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -131,7 +137,7 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    case 1:{
+                    case 1: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -140,7 +146,7 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    case 2:{
+                    case 2: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -149,7 +155,7 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    case 3:{
+                    case 3: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -158,7 +164,7 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    case 4:{
+                    case 4: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Vodkas.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -167,7 +173,7 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    case 5:{
+                    case 5: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Whiskeys.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -176,14 +182,14 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    default:{
+                    default: {
                         Log.d("No Case", "You have done something wrong");
                         DialogMessageDisplay.displayInfoMessage(getActivity().getApplicationContext(), "Error", "Please try again");
                         break;
                     }
                 }
             }
-        });
+        }));
     }
 
     @Override
@@ -237,43 +243,28 @@ public class Spirits extends Fragment {
 
         @Override
         protected List<ProductList> doInBackground(String... params) {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(params[0]);
             try {
-                HttpResponse response = httpclient.execute(httppost);
-                jsonResult = inputStreamToString(
-                        response.getEntity().getContent()).toString();
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+                urlConnection.setConnectTimeout(5000);
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                jsonResult = StringGenerator.inputStreamToString(in, getActivity());
                 customList = new ArrayList<>();
 
-                JSONObject jsonResponse = new JSONObject(jsonResult);
-                JSONArray jsonMainNode = jsonResponse.optJSONArray("spirits");
+                jsonResponse = new JSONObject(jsonResult.toString());
+                jsonMainNode = jsonResponse.optJSONArray(AppConstant.SPIRITS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    String name = jsonChildNode.optString("type");
-                    String price = jsonChildNode.optString("price");
-                    String image = jsonChildNode.optString("image");
+                    jsonChildNode = jsonMainNode.getJSONObject(i);
+                    name = jsonChildNode.optString("type");
+                    price = jsonChildNode.optString("price");
+                    image = jsonChildNode.optString("image");
                     customList.add(new ProductList(image, name, price));
                 }
-                return customList;
-            } catch (Exception e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-                getActivity().finish();
             }
-            return null;
-        }
-
-        private StringBuilder inputStreamToString(InputStream is) {
-            String rLine = "";
-            StringBuilder answer = new StringBuilder();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            try {
-                while ((rLine = rd.readLine()) != null) {
-                    answer.append(rLine);
-                }
-            } catch (Exception e) {
-                getActivity().finish();
-            }
-            return answer;
+            return customList;
         }
 
         @Override
@@ -289,12 +280,12 @@ public class Spirits extends Fragment {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(new String[]{AppConstant.SPIRITS_URL});
+        task.execute(AppConstant.SPIRITS_URL);
     }
 
     public void ListDrawer(List<ProductList> customList) {
-        adapter = new ProductListAdapter(getActivity().getApplicationContext(), R.layout.productlist_row_item, customList);
-        adapter.notifyDataSetChanged();
-        lv.setAdapter(adapter);
+        productsAdapter = new ProductsAdapter(customList);
+        productsAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(productsAdapter);
     }
 }
