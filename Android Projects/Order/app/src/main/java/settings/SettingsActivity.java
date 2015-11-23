@@ -13,7 +13,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
-import com.order.app.order.AppCompatPreferenceActivity;
 import com.order.app.order.R;
 
 import java.util.List;

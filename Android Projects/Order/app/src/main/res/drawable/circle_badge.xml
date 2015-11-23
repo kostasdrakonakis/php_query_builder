@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:useLevel="false"
+    android:thickness="11dp"
+    android:innerRadius="0dp"
+    >
+
+    <solid
+        android:color="@color/btn_login"
+        />
+    <stroke
+        android:width="1dip"
+        android:color="#FFF" />
+
+    <padding
+        android:top="2dp"
+        android:bottom="2dp"/>
+
+</shape>

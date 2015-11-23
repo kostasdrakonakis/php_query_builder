@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.quinny898.library.persistentsearch.SearchBox;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ProductsTabPagerAdapter;
+import cart.CartActivity;
 import cart.CoffeesLayoutActivity;
 import cart.SnacksLayoutActivity;
 import cart.SweetsLayoutActivity;
@@ -50,6 +51,7 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
     private Toolbar toolbar;
     private String name, image, price;
     private List<ProductList> coffeesList, snacksList, sweetsList, ginsList;
+    private TextView cartCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,7 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
         coffeesList = new ArrayList<>();
         snacksList = new ArrayList<>();
         sweetsList = new ArrayList<>();
+
         if (toolbar != null) {
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
@@ -117,15 +120,18 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
                             break;
                         }
                     }
-
                     return true;
                 }
             });
         }
+
     }
 
     private void showCart() {
-        Toast.makeText(ProductsViewOrder.this, R.string.cart_empty_toast, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ProductsViewOrder.this, CartActivity.class);
+        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
+        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+        startActivity(intent);
     }
 
 
@@ -141,15 +147,21 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
             @Override
             public void onSearchOpened() {
                 for (int i = 0; i < coffeesList.size(); i++) {
-                    option = new SearchResult(coffeesList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        option = new SearchResult(coffeesList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    }
                     box.addSearchable(option);
                 }
                 for (int i = 0; i < snacksList.size(); i++) {
-                    option = new SearchResult(snacksList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        option = new SearchResult(snacksList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    }
                     box.addSearchable(option);
                 }
                 for (int i = 0; i < sweetsList.size(); i++) {
-                    option = new SearchResult(sweetsList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        option = new SearchResult(sweetsList.get(i).getName(), getDrawable(R.drawable.ic_history));
+                    }
                     box.addSearchable(option);
                 }
             }

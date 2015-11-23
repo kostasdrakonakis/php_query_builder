@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_account_black_24dp"
+            android:drawableLeft="@drawable/ic_account_black_24dp"
             android:hint="@string/username_field"
             android:padding="15dp"
             android:background="@color/white"
@@ -42,6 +43,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/input_login_hint"
             android:drawableLeft="@drawable/ic_lock_black_24dp"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
             android:id="@+id/password" />
 
         <Button

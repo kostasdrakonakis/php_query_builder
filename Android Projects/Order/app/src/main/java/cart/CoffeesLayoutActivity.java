@@ -46,6 +46,7 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private Button plus, minus, cart;
     private MyInsertDataTask task;
     private int quantityNumberFinal;
+    private double priceCalculated;
     private Toolbar toolbar;
     private HttpURLConnection urlConnection;
     private URL url;
@@ -287,6 +288,7 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 quantityPreference = quantity.getText().toString();
                 quantityNumberFinal = Integer.parseInt(quantityPreference);
+                priceCalculated = Double.parseDouble(price) * quantityNumberFinal;
                 comment = sxolia.getText().toString();
                 if (comment == null) {
                     comment = " ";
@@ -377,7 +379,7 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
 
     private void setupDataToDB() {
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, productName));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(price)));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
         nameValuePairs.add(new BasicNameValuePair("sugar", sugarPreference));

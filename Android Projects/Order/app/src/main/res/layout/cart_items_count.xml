@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/cart_bell"
+        android:src="@drawable/shopping_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="0dp"
+        android:contentDescription="bell"
+        />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cart_count"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:text="2"
+        android:padding="2dp"
+        android:layout_alignRight="@id/cart_bell"
+        android:layout_alignEnd="@id/cart_bell"
+
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_badge"/>
+</RelativeLayout>

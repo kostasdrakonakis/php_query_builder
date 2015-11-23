@@ -25,30 +25,32 @@ public class AppConstant {
     public static final String SPIRIT_ITEM = "spirit_item";
 
     //Paths to the actuall files in the servers
-    public static final String REGISTER_URL = "http://my.chatapp.info/order_api/insertData/insert_users_into_db.php";
-    public static final String LOGIN_URL = "http://my.chatapp.info/order_api/insertData/user_login.php";
+    public static final String REGISTER_URL = "http://api.chatapp.info/order_api/insertData/insert_users_into_db.php";
+    public static final String LOGIN_URL = "http://api.chatapp.info/order_api/insertData/user_login.php";
 
-    public static final String WHISKEYS_URL = "http://my.chatapp.info/order_api/files/getwhiskys.php";
-    public static final String LIQUERS_URL = "http://my.chatapp.info/order_api/files/getliquers.php";
-    public static final String VODKAS_URL = "http://my.chatapp.info/order_api/files/getvodkas.php";
-    public static final String TEQUILAS_URL = "http://my.chatapp.info/order_api/files/gettequilas.php";
-    public static final String RUMS_URL = "http://my.chatapp.info/order_api/files/getrums.php";
-    public static final String GINS_URL = "http://my.chatapp.info/order_api/files/getgins.php";
+    public static final String WHISKEYS_URL = "http://api.chatapp.info/order_api/files/getwhiskys.php";
+    public static final String LIQUERS_URL = "http://api.chatapp.info/order_api/files/getliquers.php";
+    public static final String VODKAS_URL = "http://api.chatapp.info/order_api/files/getvodkas.php";
+    public static final String TEQUILAS_URL = "http://api.chatapp.info/order_api/files/gettequilas.php";
+    public static final String RUMS_URL = "http://api.chatapp.info/order_api/files/getrums.php";
+    public static final String GINS_URL = "http://api.chatapp.info/order_api/files/getgins.php";
 
 
-    public static final String SWEETS_URL = "http://my.chatapp.info/order_api/files/getsweets.php";
-    public static final String SPIRITS_URL = "http://my.chatapp.info/order_api/files/getspirits.php";
-    public static final String SNACKS_URL = "http://my.chatapp.info/order_api/files/getsnacks.php";
-    public static final String COFFEES_URL = "http://my.chatapp.info/order_api/files/getkafedes.php";
-    public static final  String BEVERAGES_URL = "http://my.chatapp.info/order_api/files/getbeverages.php";
-    public static final String BEERS_URL = "http://my.chatapp.info/order_api/files/getbeers.php";
+    public static final String SWEETS_URL = "http://api.chatapp.info/order_api/files/getsweets.php";
+    public static final String SPIRITS_URL = "http://api.chatapp.info/order_api/files/getspirits.php";
+    public static final String SNACKS_URL = "http://api.chatapp.info/order_api/files/getsnacks.php";
+    public static final String COFFEES_URL = "http://api.chatapp.info/order_api/files/getkafedes.php";
+    public static final  String BEVERAGES_URL = "http://api.chatapp.info/order_api/files/getbeverages.php";
+    public static final String BEERS_URL = "http://api.chatapp.info/order_api/files/getbeers.php";
+    public static final String CART_URL = "http://api.chatapp.info/order_api/files/getcartitems.php";
 
-    public static final String COFFEES_ADD_TO_CART_URL = "http://my.chatapp.info/order_api/insertData/insert_coffees_to_cart.php";
-    public static final String SNACKS_ADD_TO_CART_URL = "http://my.chatapp.info/order_api/insertData/insert_snacks_to_cart.php";
-    public static final String SWEETS_ADD_TO_CART_URL = "http://my.chatapp.info/order_api/insertData/insert_sweets_to_cart.php";
-    public static final String BEVERAGES_ADD_TO_CART_URL = "http://my.chatapp.info/order_api/insertData/insert_beverages_to_cart.php";
+    public static final String COFFEES_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_coffees_to_cart.php";
+    public static final String SNACKS_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_snacks_to_cart.php";
+    public static final String SWEETS_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_sweets_to_cart.php";
+    public static final String BEVERAGES_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_beverages_to_cart.php";
+    public static final String SPIRIT_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_spirits_to_cart.php";
 
-    public static final String RATINGS_URL = "http://my.chatapp.info/order_api/insertData/insert_ratings.php";
+    public static final String RATINGS_URL = "http://api.chatapp.info/order_api/insertData/insert_ratings.php";
 
 
     //JSON Arrays
@@ -74,6 +76,7 @@ public class AppConstant {
     public static final String PRODUCT_WAITER_ID_VALUE_PAIR = "servitoros_id";
     public static final String PRODUCT_TABLE_ID_VALUE_PAIR = "trapezi";
     public static final String PRODUCT_COMMENT_VALUE_PAIR = "comment";
+    public static final String PRODUCT_COMPONENT_VALUE_PAIR = "component";
 
 
     //help and complaints email
@@ -136,5 +139,5 @@ public class AppConstant {
     public static final String LIQUER_KEY = "liquer_file";
 
 
-
+    public static String CART_JSON_ARRAY = "cart";
 }

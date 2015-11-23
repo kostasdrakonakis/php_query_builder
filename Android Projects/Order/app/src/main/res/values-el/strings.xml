@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Παραγγελειοληψεία</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Ρυθμίσεις</string>
     <string name="signin">Είσοδος</string>
     <string name="signup">Εγγραφή</string>
@@ -10,16 +9,6 @@
     <string-array name="credentials_titles">
         <item>Εισοδος</item>
         <item>Εγγραφη</item>
-    </string-array>
-
-    <string-array name="coffee_flavors">
-        <item>Καμία Γεύση</item>
-        <item>Καραμέλα</item>
-        <item>Σοκολάτα</item>
-        <item>Φράουλα</item>
-        <item>Baileys</item>
-        <item>Καρύδα</item>
-        <item>Μπανάνα</item>
     </string-array>
 
     <string-array name="products">
@@ -31,28 +20,10 @@
         <item>Μπυρες</item>
     </string-array>
 
-
-    <string-array name="refreshments_array">
-        <item>Σκετο</item>
-        <item>Με Πάγο</item>
-        <item>Coca Cola</item>
-        <item>Coca Cola Light</item>
-        <item>Coca Cola Zero</item>
-        <item>Sprite</item>
-        <item>Λεμονάδα</item>
-        <item>Πορτοκαλάδα</item>
-        <item>Red Bull</item>
-        <item>Σόδα</item>
-        <item>Νερό</item>
-        <item>Tonic</item>
-    </string-array>
-
     <string name="user_profile">Προφίλ Χρήστη</string>
     <string name="logout">Έξοδος</string>
     <string name="new_order">Νέα Παραγγελία</string>
     <string name="action">Παρακαλώ επιλέξτε:</string>
-    <string name="neworder">Νέα Παραγγελία</string>
-    <string name="kind">Παρακαλώ επιλέξτε είδος</string>
     <string name="quantity">Ποσότητα:</string>
     <string name="sugar">Ζάχαρη:</string>
     <string name="milk_ebap">Γάλα:</string>
@@ -63,7 +34,6 @@
     <string name="flavor">Γεύση:</string>
     <string name="cart">Προσθήκη στο Καλάθι</string>
     <string name="verysweet">Πολύ γλυκός</string>
-    <string name="with">Προτίμηση Ζάχαρης:</string>
     <string name="blacksugar">Μαύρη Ζάχαρη</string>
     <string name="zaxarini">Ζαχαρίνη</string>
     <string name="monos">Μονός</string>
@@ -71,26 +41,21 @@
     <string name="sxolia">Σχόλια:</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
-    <string name="zero">0</string>
-    <string name="current_price">0</string>
     <string name="waiter">Σερβιτόρος:</string>
     <string name="date">Ημερομηνία:</string>
     <string name="time">Ώρα:</string>
-    <string name="register_now">Εγγραφή</string>
-    <string name="retype_pass">Επιβεβαίωση Κωδικού:</string>
     <string name="title_activity_tables">Τραπέζια</string>
     <string name="small">Μικρό</string>
     <string name="mediumSize">Μέτριο</string>
     <string name="large">Μεγάλο</string>
     <string name="table_text_intro">Τραπέζι:</string>
     <string name="price">Τιμή:</string>
-    <string name="product_quantity">Ποσότητα προϊόντος:</string>
     <string name="wifi_off_message">Δεν υπάρχει σύνδεση δικτύου. Παρακαλώ προσπαθήστε αργότερα.</string>
     <string name="wifi_off_title">Χωρίς Σύνδεση στο διαδίκτυο</string>
     <string name="cancel">Άκυρο</string>
     <string name="waiting">Παρακαλώ Περιμένετε</string>
-    <string name="get_stocks">Φόρτωση Δεδομένων…</string>
-    <string name="payment">Πληρωμή</string>
+    <string name="get_stocks">Φόρτωση Δεδομένων#8230</string>
+    <string name="payment">Διαχείρηση</string>
     <string name="gin_flavor">Επιλέξτε Μάρκα Gin:</string>
     <string name="glass_pref">Ποτήρι:</string>
     <string name="short_glass">Κοντό</string>
@@ -102,34 +67,27 @@
     <string name="vodka_flavor">Επιλέξτε Μάρκα Vodka:</string>
     <string name="tequila_flavor">Επιλέξτε Μάρκα Tequila:</string>
     <string name="stroll">Καλαμάκι:</string>
-    <string name="image_saved">"Η εικόνα αποθηκεύτηκε στην τοποθεσία "</string>
-    <string name="as">" σαν "</string>
     <string name="mobile_message">Η εφαρμογή αυτή μπορεί να χρησιμοποιηθεί μόνο απο σύνδεση Wifi</string>
     <string name="mobile_title">Χωρίς σύνδεση Wifi</string>
-    <string name="payment_details">Λεπτομέριες Πληρωμής</string>
-    <string name="payment_message">Δεν υπάρχει παραγγελία. \nΚάντε μια παραγγελία και μετά πατήστε για πληρωμή.</string>
-    <string name="canceled">Ακυρώθηκε</string>
+    <string name="payment_details">Διαχείρηση Παραγγελιών</string>
+    <string name="payment_message">Δεν υπάρχει παραγγελία. \nΚάντε μια παραγγελία και μετά πατήστε για διαχείρηση.</string>
     <string name="no">Όχι</string>
     <string name="yes">Ναι</string>
     <string name="table_id">"Τραπέζι: "</string>
     <string name="cart_success_msg">" προστέθηκε στο καλάθι."</string>
-    <string name="error">Λάθος</string>
     <string name="glass_error_msg">Πρέπει να επιλέξετε ποτήρι</string>
     <string name="glass_preference">" ποτήρι"</string>
     <string name="plus_with">" με "</string>
     <string name="product">"Το προϊόν "</string>
-    <string name="success">Επιτυχές</string>
-    <string name="title_activity_searchable">Searchable Activity</string>
     <string name="uname_or_password_not_found">Ο Κωδικός ή το Όνομα χρήστη δεν βρέθηκαν</string>
-    <string name="uname_required">Απαιτήται το όνομα χρήστη</string>
+    <string name="uname_required">Το όνομα χρήστη είναι υποχρεωτικό</string>
     <string name="search">Αναζήτηση</string>
     <string name="retype_pass_required">Επιβεβαιώστε τον κωδικό σας</string>
     <string name="rateDialogTitle">Βαθμολογήστε την εφαρμογή μας</string>
-    <string name="rateBarText">Σας άρεσε η εφαρμογή μας;</string>
     <string name="rateBarCommentHint">Γράψτε ένα σχόλιο</string>
     <string name="password_required">Απαιτήται κωδικός πρόσβασης</string>
     <string name="posButtonRate">Υποβολη</string>
-    <string name="dialog_rate_data_submit">Παρακαλώ Περιμένετε...</string>
+    <string name="dialog_rate_data_submit">Παρακαλώ Περιμένετε#8230</string>
     <string name="confirmRateText">Σας ευχαριστούμε για την ψήφο σας</string>
     <string name="tableNumEmptyMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι κενός</string>
     <string name="tableNumZeroMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι 0</string>
@@ -154,17 +112,14 @@
     <string name="help_dialog_message">Μπορείτε να επικοινωνήσετε μαζί μας οποιαδήποτε στιγμή καλώντας στο </string>
     <string name="send">Αποστολη</string>
     <string name="switch_text">Δεν μπορείτε να μας βρείτε στο τηλέφωνο;\n Θέλετε περισσότερη βοήθεια;</string>
-    <string name="tel">+30-6949290612</string>
+    <string name="tel">+30#82116949290612</string>
     <string name="message_empty">Το πεδίο μηνύματος δεν μπορεί να είναι κενό</string>
     <string name="subject_empty">Το πεδίο θέματος δεν μπορεί να είναι κενό</string>
     <string name="subject_or_message_empty">Τα πεδία είναι υποχρεωτικά</string>
-    <string name="chef_special">Σπέσιαλ Σεφ</string>
     <string name="cooking_time">Χρόνος Ψησίματος:</string>
     <string name="extra">Έξτρα:</string>
-    <string name="home_special">Σπέσιαλ Μαγαζιού</string>
     <string name="medium_cooked">Μέτριο</string>
     <string name="rare">Άψητο</string>
-    <string name="sauce">Σως:</string>
     <string name="title_activity_snacks_layout">SnacksLayoutActivity</string>
     <string name="very_well_done">Πολύ Καλοψημένο</string>
     <string name="well_done">Καλοψημένο</string>
@@ -211,24 +166,24 @@
     <string name="pref_title_system_sync_settings">Σύχρονισμός Συστήματος</string>
     <string name="pref_title_subscription">Ειδοποιήσεις Συνδρομής</string>
     <string name="pref_header_data_sync">Συγχρονισμός</string>
-    <string name="pref_default_beer_file">http://my.chatapp.info/order_api/files/getbeers.php</string>
+    <string name="pref_default_beer_file">http://api.chatapp.info/order_api/files/getbeers.php</string>
     <string name="pref_title_beer_file">Διαδρομή αρχείου Μπύρας</string>
     <string name="pref_title_beverage_file">Διαδρομή αρχείου Αναψυκτικών</string>
     <string name="pref_title_coffee_file">Διαδρομή Αρχείου Καφέδων</string>
     <string name="pref_title_snack_file">Διαδρομή Αρχείου Σνάκ</string>
     <string name="pref_title_spirit_file">Διαδρομή Αρχείου Ποτών</string>
     <string name="pref_title_sweet_file">Διαδρομή Αρχείου Γλυκών</string>
-    <string name="pref_default_coffee_file">http://my.chatapp.info/order_api/files/getkafedes.php</string>
-    <string name="pref_default_snack_file">http://my.chatapp.info/order_api/files/getsnacks.php</string>
-    <string name="pref_default_sweet_file">http://my.chatapp.info/order_api/files/getsweets.php</string>
-    <string name="pref_default_beverage_file">http://my.chatapp.info/order_api/files/getbeverages.php</string>
-    <string name="pref_default_spirit_file">http://my.chatapp.info/order_api/files/getspirits.php</string>
-    <string name="pref_default_gin_file">http://my.chatapp.info/order_api/files/getgins.php</string>
-    <string name="pref_default_tequila_file">http://my.chatapp.info/order_api/files/gettequilas.php</string>
-    <string name="pref_default_vodka_file">http://my.chatapp.info/order_api/files/getvodkas.php</string>
-    <string name="pref_default_whiskey_file">http://my.chatapp.info/order_api/files/getwhiskeys.php</string>
-    <string name="pref_default_rum_file">http://my.chatapp.info/order_api/files/getrums.php</string>
-    <string name="pref_default_liquer_file">http://my.chatapp.info/order_api/files/getliquers.php</string>
+    <string name="pref_default_coffee_file">http://api.chatapp.info/order_api/files/getkafedes.php</string>
+    <string name="pref_default_snack_file">http://api.chatapp.info/order_api/files/getsnacks.php</string>
+    <string name="pref_default_sweet_file">http://api.chatapp.info/order_api/files/getsweets.php</string>
+    <string name="pref_default_beverage_file">http://api.chatapp.info/order_api/files/getbeverages.php</string>
+    <string name="pref_default_spirit_file">http://api.chatapp.info/order_api/files/getspirits.php</string>
+    <string name="pref_default_gin_file">http://api.chatapp.info/order_api/files/getgins.php</string>
+    <string name="pref_default_tequila_file">http://api.chatapp.info/order_api/files/gettequilas.php</string>
+    <string name="pref_default_vodka_file">http://api.chatapp.info/order_api/files/getvodkas.php</string>
+    <string name="pref_default_whiskey_file">http://api.chatapp.info/order_api/files/getwhiskeys.php</string>
+    <string name="pref_default_rum_file">http://api.chatapp.info/order_api/files/getrums.php</string>
+    <string name="pref_default_liquer_file">http://api.chatapp.info/order_api/files/getliquers.php</string>
     <string name="pref_title_new_offers_notifications">Ειδοποιήσεις Προσφορών</string>
     <string name="title_activity_settings">Ρυθμίσεις</string>
 
@@ -277,5 +232,11 @@
     <string name="glass_required">Πρέπει να επιλέξετε ποτήρι</string>
     <string name="ice_required">Πρέπει να επιλέξετε αν θέλετε πάγο ή όχι</string>
     <string name="stroll_required">Πρέπει να επιλέξετε αν θέλετε καλαμάκι ή όχι</string>
+    <string name="checkout">Ταμειο</string>
+    <string name="modify">Τροποποιηση</string>
+    <string name="preferation">Προτίμηση:</string>
+    <string name="total_price">Τελικό Ποσό:</string>
+    <string name="cart_menu_title">Καλάθι</string>
+    <string name="retry">Επανασυνδεση</string>
 
 </resources>

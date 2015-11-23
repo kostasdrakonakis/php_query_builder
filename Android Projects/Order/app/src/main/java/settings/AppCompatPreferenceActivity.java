@@ -1,4 +1,4 @@
-package com.order.app.order;
+package settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

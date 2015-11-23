@@ -8,7 +8,7 @@
         app:showAsAction="always"
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"/>
     <item android:id="@+id/cart"
-        android:title="@string/cart"
+        android:title="@string/cart_menu_title"
         android:visible="true"
         app:showAsAction="always"
         android:icon="@drawable/shopping_cart"/>

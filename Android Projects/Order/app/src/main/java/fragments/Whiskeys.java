@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,13 +24,18 @@ import android.widget.Toast;
 
 import com.order.app.order.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -63,6 +69,11 @@ public class Whiskeys extends AppCompatActivity {
     private JSONArray jsonMainNode;
     private HttpURLConnection urlConnection;
     private URL url;
+    private List<NameValuePair> nameValuePairs;
+    private BufferedWriter bufferedWriter;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+    private double priceCalculated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +83,11 @@ public class Whiskeys extends AppCompatActivity {
         spDrinks = (Spinner)findViewById(R.id.flavor_whisky_spinner);
         components = new ArrayList<>();
         checkNetworkInfo();
-        getSpinnerSelectedPreference();
         findItems();
         setupListeners();
         populateSpiritComponentsList();
         buildRefreshmentsSpinner();
+        getSpinnerSelectedPreference();
         checkQuantity();
     }
 
@@ -85,6 +96,8 @@ public class Whiskeys extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 whiskeyPreference = customSpinner.get(position).getName();
+                image = customSpinner.get(position).getImage();
+                price = customSpinner.get(position).getPrice();
             }
 
             @Override
@@ -102,7 +115,7 @@ public class Whiskeys extends AppCompatActivity {
             DialogMessageDisplay.displayWifiSettingsDialog(Whiskeys.this, Whiskeys.this, getString(R.string.wifi_off_title), getString(R.string.wifi_off_message));
         } else {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                accessWebService();
+                readDataWebService();
             }
         }
     }
@@ -222,7 +235,9 @@ public class Whiskeys extends AppCompatActivity {
             public void onClick(View v) {
                 quantityPreference = quantity.getText().toString();
                 quantityNumberFinal = Integer.parseInt(quantityPreference);
+                priceCalculated = Double.parseDouble(price) * quantityNumberFinal;
                 comment = sxolia.getText().toString();
+                getSpinnerSelectedPreference();
                 if (comment == null) {
                     comment = " ";
                 }
@@ -231,7 +246,7 @@ public class Whiskeys extends AppCompatActivity {
                 } else if (strollPreference == null) {
                     Toast.makeText(Whiskeys.this, getString(R.string.stroll_required), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Whiskeys.this, "Success", Toast.LENGTH_SHORT).show();
+                    writeDataWebService();
                 }
 
             }
@@ -333,12 +348,83 @@ public class Whiskeys extends AppCompatActivity {
             ListDrawer(customSpinner);
             pDialog.dismiss();
         }
-    }// end async task
+    }
 
-    public void accessWebService() {
+    private class MyInsertDataTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Whiskeys.this);
+            pDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.setIndeterminate(true);
+            pDialog.setMessage(getString(R.string.dialog_rate_data_submit));
+            pDialog.setCancelable(false);
+            pDialog.setInverseBackgroundForced(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            nameValuePairs = new ArrayList<>();
+            try {
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setConnectTimeout(15000);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                setupDataToDB();
+                outputStream = urlConnection.getOutputStream();
+                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+                bufferedWriter.write(StringGenerator.queryResults(nameValuePairs));
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                urlConnection.connect();
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pDialog.dismiss();
+            Toast.makeText(Whiskeys.this, getString(R.string.cart_addition_successfull), Toast.LENGTH_LONG).show();
+            Whiskeys.this.finish();
+        }
+    }
+
+    private void setupDataToDB() {
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, whiskeyPreference));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair("glass", glassPreference));
+        nameValuePairs.add(new BasicNameValuePair("stroll", strollPreference));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPONENT_VALUE_PAIR, componentPreference));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
+        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+    }
+
+    public void readDataWebService() {
         JsonReadTask task = new JsonReadTask();
         task.execute(AppConstant.WHISKEYS_URL);
     }
+
+    public void writeDataWebService() {
+        MyInsertDataTask task = new MyInsertDataTask();
+        task.execute(AppConstant.SPIRIT_ADD_TO_CART_URL);
+    }
+
+
 
     public void ListDrawer(List<SpiritList> customSpinner) {
         adapterWhiskys = new SpiritsListAdapter(Whiskeys.this ,customSpinner);
