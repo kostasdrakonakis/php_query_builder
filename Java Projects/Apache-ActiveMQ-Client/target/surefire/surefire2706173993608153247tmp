@@ -1,0 +1,8 @@
+#surefire
+#Sun Nov 29 10:27:08 EET 2015
+maven.ext.class.path=C\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
+user.dir=C\:\\Users\\Matrix\\Documents\\NetBeansProjects\\Apache-ActiveMQ-Client
+file.encoding=UTF-8
+localRepository=C\:\\Users\\Matrix\\.m2\\repository
+basedir=C\:\\Users\\Matrix\\Documents\\NetBeansProjects\\Apache-ActiveMQ-Client
+test=kostas.drakonakis.apache.queue.client.ListenerTest

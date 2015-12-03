@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="kostas.drakonakis.apache.queue.server.SenderNGTest" duration-ms="361" started-at="2015-11-29T08:26:31Z" finished-at="2015-11-29T08:26:31Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="361" started-at="2015-11-29T08:26:31Z" finished-at="2015-11-29T08:26:31Z">
+      <class name="kostas.drakonakis.apache.queue.server.SenderNGTest">
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:kostas.drakonakis.apache.queue.server.SenderNGTest@46e48d4]" name="setUpClass" is-config="true" duration-ms="7" started-at="2015-11-29T10:26:31Z" finished-at="2015-11-29T10:26:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method status="PASS" signature="setUpMethod()[pri:0, instance:kostas.drakonakis.apache.queue.server.SenderNGTest@46e48d4]" name="setUpMethod" is-config="true" duration-ms="313" started-at="2015-11-29T10:26:31Z" finished-at="2015-11-29T10:26:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpMethod -->
+        <test-method status="PASS" signature="testMain()[pri:0, instance:kostas.drakonakis.apache.queue.server.SenderNGTest@46e48d4]" name="testMain" duration-ms="35" started-at="2015-11-29T10:26:31Z" finished-at="2015-11-29T10:26:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMain -->
+        <test-method status="PASS" signature="tearDownMethod()[pri:0, instance:kostas.drakonakis.apache.queue.server.SenderNGTest@46e48d4]" name="tearDownMethod" is-config="true" duration-ms="0" started-at="2015-11-29T10:26:31Z" finished-at="2015-11-29T10:26:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownMethod -->
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:kostas.drakonakis.apache.queue.server.SenderNGTest@46e48d4]" name="tearDownClass" is-config="true" duration-ms="0" started-at="2015-11-29T10:26:31Z" finished-at="2015-11-29T10:26:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- kostas.drakonakis.apache.queue.server.SenderNGTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- kostas.drakonakis.apache.queue.server.SenderNGTest -->
+</testng-results>
