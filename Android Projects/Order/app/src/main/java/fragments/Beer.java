@@ -13,7 +13,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +57,7 @@ public class Beer extends Fragment {
     private boolean network_connected;
     private JSONArray jsonMainNode;
     private JSONObject jsonResponse, jsonChildNode;
-    private LinearLayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
     private HttpURLConnection urlConnection;
     private URL url;
     private String name, image, price;
@@ -67,8 +67,7 @@ public class Beer extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.beer_fragment, container, false);
         recyclerView = (RecyclerView)rootView.findViewById(R.id.beerRecyclerView);
-        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        checkOrientation();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
@@ -96,6 +95,14 @@ public class Beer extends Fragment {
         return rootView;
     }
 
+    private void checkOrientation() {
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        }else{
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1);
+
+        }
+    }
 
     private AlertDialog onDetectNetworkState() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity().getApplicationContext());
@@ -228,7 +235,7 @@ public class Beer extends Fragment {
     }
 
     public void ListDrawer(List<ProductList> customList) {
-        productsAdapter = new ProductsAdapter(customList);
+        productsAdapter = new ProductsAdapter(customList, getActivity().getApplicationContext());
         productsAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(productsAdapter);
     }

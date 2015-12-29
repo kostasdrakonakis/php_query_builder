@@ -137,6 +137,9 @@ public class AppConstant {
     public static final String RUM_KEY = "rum_file";
     public static final String WHISKEY_KEY = "whiskey_file";
     public static final String LIQUER_KEY = "liquer_file";
+    public static final String BADGE_COUNT = "CountValue";
+    public static final String BADGE_COUNT_VALUE = "counter_value";
+    public static final String DELETE_URL = "http://api.chatapp.info/order_api/deleteData/deletecartitems.php";
 
 
     public static String CART_JSON_ARRAY = "cart";

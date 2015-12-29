@@ -34,7 +34,6 @@ public class UserAccountAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-
                 return new Login();
             }
             case 1: {

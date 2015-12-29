@@ -66,7 +66,7 @@ public class Login extends Fragment {
     private JSONObject data;
     private AlertDialog.Builder builder;
     private String isActivated, servitorosId, message;
-    private boolean accountExists = false;
+    private boolean accountExists;
     private String magaziId;
 
 
@@ -144,20 +144,18 @@ public class Login extends Fragment {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 userName = username.getText().toString();
                 userPass = password.getText().toString();
                 if (!userName.isEmpty() || !userPass.isEmpty()) {
                     checkConnection();
                 }
-
             }
         });
     }
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(new String[]{AppConstant.LOGIN_URL});
+        task.execute(AppConstant.LOGIN_URL);
     }
 
 
@@ -272,24 +270,33 @@ public class Login extends Fragment {
                     result.append(line);
                 }
                 Log.e("Responce", result.toString());
-                if (result != null) {
-                    data = new JSONObject(result.toString());
-                    isRegistered = data.getBoolean("res");
-                    isActivated = data.getString("activated");
-                    servitorosId = data.getString("servitoros_id");
-                    magaziId = data.getString("magazi_id");
-                }
+                data = new JSONObject(result.toString());
+                accountExists = data.getBoolean("reg");
+                isRegistered = data.getBoolean("res");
+                isActivated = data.getString("activated");
+                servitorosId = data.getString("servitoros_id");
+                magaziId = data.getString("magazi_id");
 
-                if (isActivated.equals("0")) {
-                    isRegistered = false;
-                    message = getString(R.string.account_not_active);
-                } else {
-                    message = getString(R.string.uname_or_password_not_found);
-                }
             } catch (Exception e) {
                 Log.e("Fail 1", e.toString());
             }
-            return isRegistered;
+            if (accountExists){
+                if(!isRegistered){
+                    message = getString(R.string.wrong_password);
+                    return false;
+                }else {
+
+                    if(isActivated.equals("0")){
+                        message = getString(R.string.account_not_active);
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }else {
+                message = getString(R.string.wrong_username);
+                return false;
+            }
         }
 
         @Override

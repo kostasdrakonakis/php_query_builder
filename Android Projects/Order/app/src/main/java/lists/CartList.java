@@ -4,6 +4,9 @@ package lists;
 public class CartList {
 
     private String name, price, image, preferation1, preferation2, preferation3, preferation4, quantity;
+    boolean checkboxIsVisible=false;
+    boolean isChecked=false;
+    private int CheckedItemsNumber;
 
     public CartList(String name, String price, String image, String preferation1, String preferation2, String preferation3, String preferation4, String quantity) {
         this.name = name;
@@ -78,5 +81,30 @@ public class CartList {
 
     public void setPreferation4(String preferation4) {
         this.preferation4 = preferation4;
+    }
+
+
+    public boolean isCheckboxIsVisible() {
+        return checkboxIsVisible;
+    }
+
+    public void setCheckboxIsVisible(boolean checkboxIsVisible) {
+        this.checkboxIsVisible = checkboxIsVisible;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
+    public int getCheckedItemsNumber() {
+        return CheckedItemsNumber;
+    }
+
+    public void setCheckedItemsNumber(int checkedItemsNumber) {
+        CheckedItemsNumber = checkedItemsNumber;
     }
 }

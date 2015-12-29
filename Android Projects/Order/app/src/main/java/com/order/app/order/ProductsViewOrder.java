@@ -2,6 +2,7 @@ package com.order.app.order;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -52,6 +53,9 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
     private String name, image, price;
     private List<ProductList> coffeesList, snacksList, sweetsList, ginsList;
     private TextView cartCount;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private int counter, sum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.table_id) + title);
         }
+
         mAdapter = new ProductsTabPagerAdapter(getSupportFragmentManager(), ProductsViewOrder.this, ProductsViewOrder.this);
         viewPager.setAdapter(mAdapter);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -104,8 +109,9 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
         coffeesList = new ArrayList<>();
         snacksList = new ArrayList<>();
         sweetsList = new ArrayList<>();
-
         if (toolbar != null) {
+
+
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -115,7 +121,7 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
                             showSearchResults();
                             break;
                         }
-                        case R.id.cart: {
+                        case R.id.cart_menu: {
                             showCart();
                             break;
                         }
@@ -129,6 +135,7 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
 
     private void showCart() {
         Intent intent = new Intent(ProductsViewOrder.this, CartActivity.class);
+        intent.putExtra(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id);
         intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
         intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
         startActivity(intent);
@@ -138,7 +145,23 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_new_order, menu);
+        /*MenuItem item = menu.findItem(R.id.cart_menu);
+        item = MenuItemCompat.setActionView(item, R.layout.cart_items_count);
+
+        View view = MenuItemCompat.getActionView(item);
+        ViewBadgerListener viewBadgerListener = new ViewBadgerListener(view, "Cart") {
+            @Override
+            public void onClick(View v) {
+                showCart();
+            }
+        };*/
         return true;
+    }
+
+    private int updateCount() {
+        sharedPreferences = getSharedPreferences(AppConstant.BADGE_COUNT, MODE_PRIVATE);
+        counter = sharedPreferences.getInt(AppConstant.BADGE_COUNT_VALUE, 0);
+        return counter;
     }
 
     private void showSearchResults() {

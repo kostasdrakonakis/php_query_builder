@@ -410,6 +410,6 @@ public class UserProfile extends AppCompatActivity{
 
     public void accessWebService(){
         task = new MyInsertDataTask();
-        task.execute(new String[]{AppConstant.RATINGS_URL});
+        task.execute(AppConstant.RATINGS_URL);
     }
 }

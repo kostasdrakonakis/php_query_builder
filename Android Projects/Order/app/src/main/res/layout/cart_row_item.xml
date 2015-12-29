@@ -88,6 +88,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/quantity"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
                         android:id="@+id/textView83" />
@@ -96,6 +99,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="New Text"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:focusable="false"
                         android:id="@+id/quantity_text_cart" />
                 </LinearLayout>
 
@@ -112,6 +118,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/preferation"
                         android:layout_marginRight="5dp"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:layout_marginEnd="5dp"
                         android:id="@+id/textView18" />
 
@@ -120,6 +129,9 @@
                         android:layout_height="wrap_content"
                         android:text="New Text"
                         android:inputType="textMultiLine"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:singleLine="false"
                         android:id="@+id/pref1_text_cart" />
                 </LinearLayout>
@@ -137,6 +149,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/preferation"
                         android:layout_marginRight="5dp"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:layout_marginEnd="5dp"
                         android:id="@+id/textView21" />
 
@@ -144,6 +159,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="New Text"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:inputType="textMultiLine"
                         android:singleLine="false"
                         android:id="@+id/pref2_text_cart" />
@@ -161,6 +179,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/preferation"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
                         android:id="@+id/textView23" />
@@ -170,6 +191,9 @@
                         android:layout_height="wrap_content"
                         android:text="New Text"
                         android:inputType="textMultiLine"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:singleLine="false"
                         android:id="@+id/pref3_text_cart" />
                 </LinearLayout>
@@ -188,6 +212,9 @@
                         android:text="@string/sxolia"
                         android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:id="@+id/textView25" />
 
                     <TextView
@@ -195,6 +222,9 @@
                         android:layout_height="wrap_content"
                         android:text="New Text"
                         android:singleLine="false"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:longClickable="false"
                         android:inputType="textMultiLine"
                         android:id="@+id/pref4_text_cart" />
                 </LinearLayout>

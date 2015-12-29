@@ -2,6 +2,8 @@ package functions;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 
@@ -44,5 +46,9 @@ public class StringGenerator {
             result.append(URLEncoder.encode(pair.getValue(), AppConstant.CHARACTER_ENCODING));
         }
         return result.toString();
+    }
+
+    public static void showToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

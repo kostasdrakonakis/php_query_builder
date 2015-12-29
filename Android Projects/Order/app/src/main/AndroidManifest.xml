@@ -39,52 +39,50 @@
         <activity
             android:name=".UserProfile"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/user_profile"/>
+            android:label="@string/user_profile" />
         <activity
             android:name=".Tables"
             android:configChanges="keyboardHidden|screenSize"
-            android:label="@string/title_activity_tables"/>
+            android:label="@string/title_activity_tables" />
         <activity
             android:name=".ProductsViewOrder"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="keyboardHidden" />
         <activity
             android:name="fragments.Whiskeys"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="fragments.Gins"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="fragments.Rums"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="fragments.Vodkas"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="fragments.Tequilas"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="fragments.Liquers"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="cart.CoffeesLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_coffees_layout" >
-        </activity>
+            android:label="@string/title_activity_coffees_layout"/>
         <activity
             android:name="settings.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Preference"
-            android:label="@string/action_settings" >
-        </activity>
+            android:label="@string/action_settings"
+            android:theme="@style/Preference"/>
         <activity
             android:name="cart.SnacksLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_snacks_layout" >
-        </activity>
+            android:label="@string/title_activity_snacks_layout"/>
         <activity
             android:name="cart.SweetsLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_sweets_layout"/>
+            android:label="@string/title_activity_sweets_layout" />
+
         <receiver
             android:name="receivers.CheckSubscriptionReceiver"
             android:exported="false">
@@ -96,10 +94,11 @@
         <activity
             android:name="cart.BeveragesLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_beverages_layout"/>
-
-        <activity android:name="cart.CartActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:label="@string/title_activity_beverages_layout" />
+        <activity
+            android:name="cart.CartActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name="cart.CheckoutActivity"/>
     </application>
 
 </manifest>

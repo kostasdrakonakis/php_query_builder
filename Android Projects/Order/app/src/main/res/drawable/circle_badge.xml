@@ -2,16 +2,16 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="ring"
     android:useLevel="false"
-    android:thickness="11dp"
+    android:thickness="9dp"
     android:innerRadius="0dp"
     >
 
     <solid
-        android:color="@color/btn_login"
+        android:color="@color/orange"
         />
     <stroke
         android:width="1dip"
-        android:color="#FFF" />
+        android:color="@color/white" />
 
     <padding
         android:top="2dp"

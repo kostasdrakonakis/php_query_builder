@@ -319,7 +319,7 @@ public class SweetsLayoutActivity extends AppCompatActivity {
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
-        nameValuePairs.add(new BasicNameValuePair("iceCreamScoops", String.valueOf(quantityIceCreamNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair("iceCreamScoops", String.valueOf(quantityIceCreamNumberFinal) + " " + getString(R.string.iceCreamQuantity)));
         nameValuePairs.add(new BasicNameValuePair("iceCreamFlavors", iceCreamPreference.toString()));
         nameValuePairs.add(new BasicNameValuePair("syrupFlavors", syrupPreference.toString()));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));

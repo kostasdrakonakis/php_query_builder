@@ -2,7 +2,9 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@color/btn_login</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>

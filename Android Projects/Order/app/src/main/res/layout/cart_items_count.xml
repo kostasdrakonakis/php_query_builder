@@ -2,27 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:focusable="true"
     android:clickable="true">
 
     <ImageView
         android:id="@+id/cart_bell"
-        android:src="@drawable/shopping_cart"
+        android:src="@drawable/ic_shopping_cart_36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="0dp"
-        android:contentDescription="bell"
+        android:gravity="left"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cart_count"
         android:layout_width="wrap_content"
         android:textSize="12sp"
-        android:text="2"
-        android:padding="2dp"
+        android:text=""
+        android:paddingBottom="2dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:layout_marginBottom="9dp"
         android:layout_alignRight="@id/cart_bell"
         android:layout_alignEnd="@id/cart_bell"
-
         android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:background="@drawable/circle_badge"/>

@@ -17,16 +17,6 @@
             android:padding="15dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:baselineAligned="false">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
                     <LinearLayout
                         android:orientation="vertical"
                         android:padding="10dp"
@@ -38,17 +28,18 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/waiter"
+                                android:textSize="20sp"
                                 android:textColor="@color/black"
                                 android:layout_weight="1"
                                 android:id="@+id/textView" />
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
-                                android:gravity="end"
+                                android:gravity="start"
                                 android:layout_weight="1"
                                 android:text=""
                                 android:id="@+id/waitersName" />
@@ -59,17 +50,18 @@
                             android:layout_marginTop="15dp"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/date"
+                                android:textSize="20sp"
                                 android:layout_weight="1"
                                 android:textColor="@color/black"
                                 android:id="@+id/textView2" />
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:gravity="end"
+                                android:gravity="start"
                                 android:textColor="@color/black"
                                 android:layout_weight="1"
                                 android:id="@+id/date" />
@@ -80,15 +72,16 @@
                             android:layout_marginTop="15dp"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/time"
                                 android:layout_weight="1"
+                                android:textSize="20sp"
                                 android:textColor="@color/black"
                                 android:id="@+id/textView4" />
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:gravity="end"
+                                android:layout_width="match_parent"
+                                android:gravity="start"
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:textColor="@color/black"
@@ -102,15 +95,16 @@
                             android:layout_marginTop="15dp"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/waiter_id"
+                                android:textSize="20sp"
                                 android:layout_weight="1"
                                 android:textColor="@color/black"
                                 android:id="@+id/textView5" />
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:gravity="end"
+                                android:layout_width="match_parent"
+                                android:gravity="start"
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:textColor="@color/black"
@@ -124,24 +118,23 @@
                             android:layout_marginTop="15dp"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/company_id"
                                 android:layout_weight="1"
+                                android:textSize="20sp"
                                 android:textColor="@color/black"
                                 android:id="@+id/textView6" />
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:gravity="end"
+                                android:layout_width="match_parent"
+                                android:gravity="start"
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:textColor="@color/black"
                                 android:layout_weight="1"
                                 android:id="@+id/magaziId" />
                         </LinearLayout>
-                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
             <Button
                 android:id="@+id/btnnewworder"

@@ -175,21 +175,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end">
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="CLEAR"
-                                android:layout_weight="1"
-                                android:drawableBottom="@drawable/ic_clear_white_24dp"
-                                android:id="@+id/btnClear" />
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="DEL"
-                                android:layout_weight="1"
-                                android:drawableBottom="@drawable/ic_backspace_white_24dp"
-                                android:id="@+id/btnDel" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -449,8 +435,25 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="336dp"
+                    android:layout_height="wrap_content"
+                    android:text="CLEAR"
+                    android:layout_weight="1"
+                    android:drawableBottom="@drawable/ic_clear_white_24dp"
+                    android:id="@+id/btnClear" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DEL"
+                    android:layout_weight="1"
+                    android:drawableBottom="@drawable/ic_backspace_white_24dp"
+                    android:id="@+id/btnDel" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     android:text="OK"
                     android:drawableBottom="@drawable/ic_done_white_24dp"
                     android:id="@+id/btnOk" />

@@ -1,6 +1,7 @@
 package cart;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,6 +54,9 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
     private InputStream inputStream;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -377,6 +381,13 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
         }
     }
 
+    public void createBdgeCount(){
+        preferences = getSharedPreferences(AppConstant.BADGE_COUNT, MODE_PRIVATE);
+        editor = preferences.edit();
+        editor.putInt(AppConstant.BADGE_COUNT_VALUE, counter);
+        editor.apply();
+    }
+
     private void setupDataToDB() {
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, productName));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
@@ -390,6 +401,4 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
         nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
     }
-
-
 }

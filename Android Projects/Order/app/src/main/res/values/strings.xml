@@ -23,7 +23,6 @@
     <string name="user_profile">User Profile</string>
     <string name="logout">Exit</string>
     <string name="new_order">New Order</string>
-    <string name="action">Please choose an action</string>
     <string name="quantity">Quantity:</string>
     <string name="sugar">Sugar:</string>
     <string name="milk_ebap">Milk:</string>
@@ -45,16 +44,13 @@
     <string name="date">Date:</string>
     <string name="time">Time:</string>
     <string name="title_activity_tables">Tables</string>
-    <string name="small">Small</string>
-    <string name="mediumSize">Medium</string>
-    <string name="large">Large</string>
     <string name="table_text_intro">Table:</string>
     <string name="price">Price:</string>
     <string name="wifi_off_message">Network connection error. Please check your internet connection settings.</string>
     <string name="wifi_off_title">No Network Connection</string>
     <string name="cancel">Cancel</string>
     <string name="waiting">Please wait</string>
-    <string name="get_stocks">Loading Products#8230</string>
+    <string name="get_stocks">Loading Products...</string>
     <string name="payment">Manage</string>
     <string name="gin_flavor">Choose Gin Brand:</string>
     <string name="glass_pref">Preferred Glass:</string>
@@ -74,13 +70,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="table_id">"Table: "</string>
-    <string name="glass_error_msg">You have to choose preferred glass</string>
-    <string name="product">"Your product "</string>
-    <string name="plus_with">" with "</string>
-    <string name="glass_preference">" glass preference"</string>
-    <string name="cart_success_msg">" has been added to the cart."</string>
     <string name="search">Search</string>
-    <string name="uname_or_password_not_found">Username or Password not found</string>
     <string name="account_not_active">You haven\'t activated your account.\nPlease ask your Manager.</string>
     <string name="uname_required">Username is required</string>
     <string name="password_required">Password is required</string>
@@ -88,7 +78,7 @@
     <string name="rateBarCommentHint">Write a comment</string>
     <string name="rateDialogTitle">Rate our App</string>
     <string name="posButtonRate">Confirm</string>
-    <string name="dialog_rate_data_submit">Please Wait#8230</string>
+    <string name="dialog_rate_data_submit">Please Wait...</string>
     <string name="confirmRateText">Thank you for voting</string>
     <string name="tableNumEmptyMessage">The table number cannot be empty</string>
     <string name="tableNumZeroMessage">The table number cannot be zero</string>
@@ -262,5 +252,16 @@
     <string name="total_price">Total:</string>
     <string name="cart_menu_title">Cart</string>
     <string name="retry">Retry</string>
+    <string name="iceCreamQuantity">Ice-Cream Scoops</string>
+    <string name="delete">Delete</string>
+    <string name="selected_modifiable_items">Modify</string>
+    <string name="delete_msg">Are you sure you want to delete the selected items?</string>
+    <string name="delete_items_loading">Deleting items...</string>
+    <string name="add">Add</string>
+    <string name="function_unavailable">This function is not available at the moment</string>
+    <string name="checkout_message_dialog">Are you sure you would like to checkout order?</string>
+    <string name="wrong_password">Incorrect password. Please try again.</string>
+    <string name="wrong_username">Invalid Username. Please try again.</string>
+    <string name="edit">Edit</string>
 
 </resources>
