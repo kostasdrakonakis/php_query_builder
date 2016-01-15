@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Οδηγός για σκονάκια</string>
+    <string name="welcome_text">Καλως ήλθατε στον οδηγό για σκονάκια.</string>
+    <string name="intro_text">Συνταγές για σκονάκια και διακρίσεις σε σχολεία και πανεπιστήμια.\n\n Σκοπός της εφαρμογής αυτής ΔΕΝ είναι να σας παραπέμψει σε αυτήν την λύση αλλα εφόσον η κατάσταση με τους αιώνιους φοιτητές είναι δραματική ας το κάνετε σωστά.</string>
+    <string name="intro_button">Συνεχεια</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_next">Τρόποι</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_lista_adapter">yolo</string>
+    <string name="image_description">Φυσικά μπορεί το να διαβάσεις να είναι τελικά πιο γρήγορη λύση αλλά εξετάσεις χωρίς σκονάκια γίνετε;
+Δεν γίνετε!!!</string>
+    <string name="buy">Αγορασε το</string>
+    <string name="nothing">nothing</string>
+    <string name="textMessage">Νομίζεις οτι παραλήψαμε κάποιον άλλο τρόπο που εσύ θεωρείς σημαντικό? Στείλε μας τον τώρα.</string>
+    <string name="subject">Θέμα</string>
+    <string name="message">Μήνυμα</string>
+    <string name="cancel">Άκυρο</string>
+
+    <string-array name="items">
+        <item>Κλασικό Σκονάκι</item>
+        <item>Θρανίο</item>
+        <item>Χαρτί μέσα σε στυλό</item>
+        <item>Σμίκρυνση</item>
+        <item>Μπουκάλι για σκονάκι</item>
+        <item>Διαφάνειες</item>
+        <item>Χαραγμα πάνω σε στυλό</item>
+        <item>Στυλό για σκονάκι</item>
+        <item>Bluetooth</item>
+        <item>Ψείρα</item>
+        <item>Αριθμομηχανή</item>
+        <item>Ζώνη παντελονιού</item>
+        <item>Τιράντες</item>
+        <item>Γάζες</item>
+        <item>Κινητό τηλέφωνο</item>
+        <item>Μαυρη Διαφάνεια</item>
+        <item>Αλλαγη κόλλας σε τουαλλετα</item>
+        <item>Χαρτομάντηλα</item>
+        <item>Αντιγραφή απο διπλανό</item>
+        <item>Ηχογράφηση</item>
+        <item>Φωτογραφία τα θέματα</item>
+        <item>Σόλες Παποουτσιών</item>
+        <item>Αλλαγή φωτογραφίας πάσου</item>
+        <item>Σημεία του σώματος</item>
+        <item>Κασετίνα</item>
+        <item>Στυλός με αόρατο μελάνι</item>
+        <item>Γυαλιά με κάμερα</item>
+        <item>Ρολόι για σκονάκι</item>
+    </string-array>
+
+
+</resources>
