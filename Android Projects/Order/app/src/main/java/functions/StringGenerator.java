@@ -3,7 +3,10 @@ package functions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
+
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.apache.http.NameValuePair;
 
@@ -50,5 +53,17 @@ public class StringGenerator {
 
     public static void showToast(Context context, String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Shows a custom error or info message in a snackbar
+     * @param type The Snackbar type SINGLE_LINE or MULTI_LINE
+     * @param message The message to display
+     * @param context The Context of the activity to be shown in
+     * @param color The color of the displayed message
+     * @param activity The activity to be shown
+     */
+    public static void showSnackMessage(@Nullable SnackbarType type, String message, Context context, int color, Activity activity){
+        com.nispok.snackbar.Snackbar.with(context).text(message).color(color).type(type).show(activity);
     }
 }

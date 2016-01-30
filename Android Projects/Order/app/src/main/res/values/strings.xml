@@ -263,5 +263,8 @@
     <string name="wrong_password">Incorrect password. Please try again.</string>
     <string name="wrong_username">Invalid Username. Please try again.</string>
     <string name="edit">Edit</string>
+    <string name="confirm_phone_permission">You need to grant phone permission in order to make a direct phone call</string>
+    <string name="checkout_success_message">Your order has successfully been checked out</string>
+    <string name="checkout_failure_message">You have no products to checkout</string>
 
 </resources>

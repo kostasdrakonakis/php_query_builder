@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.order.app.order.R;
@@ -74,6 +75,8 @@ public class CartActivity extends AppCompatActivity {
     private boolean connected;
     float sum = 0;
     private ActionMode actionMode;
+    private LinearLayout rootLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,7 @@ public class CartActivity extends AppCompatActivity {
         totalText = (TextView) findViewById(R.id.totalText);
         modify = (Button) findViewById(R.id.modifyButton);
         checkout = (Button) findViewById(R.id.checkoutButton);
+        rootLayout = (LinearLayout)findViewById(R.id.linear_cart_empty);
         setupButtonCallbacks();
         checkNetwork();
     }
@@ -106,15 +110,20 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder checkOutDialog = new AlertDialog.Builder(CartActivity.this);
                 checkOutDialog.setTitle(getString(R.string.checkout));
-                checkOutDialog.setMessage(getString(R.string.checkout_message_dialog) + " " + table);
+                checkOutDialog.setMessage(getString(R.string.checkout_message_dialog));
                 checkOutDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        for (int position = 0; position < cartItems.size(); position++) {
+                            nameAdapter = cartItems.get(position).getName();
+                            deleteDataWebService(nameAdapter);
+                        }
                         Intent intent = new Intent(CartActivity.this, UserProfile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         CartActivity.this.finish();
                         overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left);
+                        StringGenerator.showToast(CartActivity.this, getString(R.string.checkout_success_message));
                     }
                 });
                 checkOutDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -142,7 +151,7 @@ public class CartActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
             switch (item.getItemId()){
                 case R.id.deleteCartItemModification:{
                     names = adapter.getNames();
@@ -159,6 +168,7 @@ public class CartActivity extends AppCompatActivity {
                             }
                             sum = 0;
                             setupTotalValue();
+                            mode.finish();
                             accessWebService();
                         }
                     });
@@ -293,9 +303,23 @@ public class CartActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<CartList> cartLists) {
             super.onPostExecute(cartLists);
-            adapter = new CartAdapter(cartLists, CartActivity.this);
-            recyclerView.setAdapter(adapter);
-            setupTotalValue();
+            if (cartLists.isEmpty()){
+                if (rootLayout.getVisibility() == View.GONE){
+                    rootLayout.setVisibility(View.VISIBLE);
+                }else {
+                    rootLayout.setVisibility(View.GONE);
+                }
+                checkout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        StringGenerator.showToast(CartActivity.this, getString(R.string.checkout_failure_message));
+                    }
+                });
+            }else {
+                adapter = new CartAdapter(cartLists, CartActivity.this);
+                recyclerView.setAdapter(adapter);
+                setupTotalValue();
+            }
         }
     }
 

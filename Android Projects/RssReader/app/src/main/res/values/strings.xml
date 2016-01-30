@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RSS Reader</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="feeds">Τα RSS Feeds μου</string>
+    <string name="kouneli">Τρελό Κουνέλι</string>
+    <string name="tromaktiko">Τρομακτικό</string>
+    <string name="xda">XDA-Developers</string>
+    <string name="enimerwsi">Stack Overflow</string>
+    <string name="title_activity_xd">XDA</string>
+    <string name="title_activity_kouneli">Kouneli</string>
+    <string name="title_activity_tromaktiko">Tromaktiko</string>
+    <string name="title_activity_enimerwsi">StackOverflow</string>
+
+</resources>

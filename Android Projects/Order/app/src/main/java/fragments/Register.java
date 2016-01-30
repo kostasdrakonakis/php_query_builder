@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -311,14 +312,7 @@ public class Register extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(getActivity().getApplicationContext());
-            pDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.setIndeterminate(true);
-            pDialog.setMessage(getString(R.string.dialog_rate_data_submit));
-            pDialog.setCancelable(false);
-            pDialog.setInverseBackgroundForced(true);
-            pDialog.show();
+            checkDrawOverlayPermission();
         }
 
         @Override
@@ -362,7 +356,15 @@ public class Register extends Fragment {
         @Override
         protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
-            pDialog.dismiss();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (pDialog != null){
+                    pDialog.dismiss();
+                }
+            }else {
+                if (pDialog != null){
+                    pDialog.dismiss();
+                }
+            }
             if (aVoid){
                 Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
             }else {
@@ -372,6 +374,34 @@ public class Register extends Fragment {
                 getActivity().finish();
             }
 
+        }
+    }
+
+    public void checkDrawOverlayPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(getActivity().getApplicationContext())) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getActivity().getPackageName()));
+                startActivityForResult(intent, AppConstant.MY_PERMISSION_CODE);
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        if (requestCode == AppConstant.MY_PERMISSION_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Settings.canDrawOverlays(getActivity().getApplicationContext())) {
+                    pDialog = new ProgressDialog(getActivity().getApplicationContext());
+                    pDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                    pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    pDialog.setIndeterminate(true);
+                    pDialog.setMessage(getString(R.string.dialog_rate_data_submit));
+                    pDialog.setCancelable(false);
+                    pDialog.setInverseBackgroundForced(true);
+                    pDialog.show();
+                }
+            }
         }
     }
 

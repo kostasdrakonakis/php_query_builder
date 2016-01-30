@@ -19,9 +19,44 @@
             android:layout_width="match_parent"
             android:id="@+id/cartRecyclerView"
             android:paddingBottom="100dp"
+
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:listSelector="@android:color/transparent"
             android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/amber"
+        android:id="@+id/linear_cart_empty"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="70dp"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="130dp"
+            android:src="@drawable/ic_shopping_basket_white"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Your cart is empty"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Please add products to the cart"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"

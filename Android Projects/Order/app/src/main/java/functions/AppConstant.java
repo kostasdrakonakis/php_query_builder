@@ -140,6 +140,7 @@ public class AppConstant {
     public static final String BADGE_COUNT = "CountValue";
     public static final String BADGE_COUNT_VALUE = "counter_value";
     public static final String DELETE_URL = "http://api.chatapp.info/order_api/deleteData/deletecartitems.php";
+    public static final int MY_PERMISSION_CODE = 1;
 
 
     public static String CART_JSON_ARRAY = "cart";

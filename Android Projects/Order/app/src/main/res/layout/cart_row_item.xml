@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:padding="15dp"
                     android:visibility="gone"
-                    android:focusable="false"
+                    android:focusable="true"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/deleteCheckCartItem" />
 

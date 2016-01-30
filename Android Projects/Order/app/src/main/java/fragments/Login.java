@@ -1,18 +1,24 @@
 package fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -45,9 +51,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import functions.AppConstant;
+import functions.StringGenerator;
 import sessions.SessionManager;
 
 public class Login extends Fragment {
+    private static final int MY_PERMISSION_CODE = 1;
     private EditText username, password;
     private Button signIn;
     private View rootView;
@@ -80,6 +88,31 @@ public class Login extends Fragment {
             getActivity().finish();
         }
         setupView();
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW},
+                        MY_PERMISSION_CODE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
         setupClickEvent();
         return rootView;
     }
@@ -240,14 +273,7 @@ public class Login extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(getActivity().getApplicationContext());
-            pDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.setIndeterminate(true);
-            pDialog.setMessage(getString(R.string.dialog_rate_data_submit));
-            pDialog.setCancelable(false);
-            pDialog.setInverseBackgroundForced(true);
-            pDialog.show();
+            checkDrawOverlayPermission();
         }
 
 
@@ -302,9 +328,16 @@ public class Login extends Fragment {
         @Override
         protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
-            if (pDialog.isShowing()) {
-                pDialog.dismiss();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (pDialog != null){
+                    pDialog.dismiss();
+                }
+            }else {
+                if (pDialog != null){
+                    pDialog.dismiss();
+                }
             }
+
             if (aVoid) {
                 session.createLoginSession(userName, servitorosId, magaziId);
                 Intent intent = new Intent(getActivity().getApplicationContext(), UserProfile.class);
@@ -312,10 +345,39 @@ public class Login extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 getActivity().finish();
             } else {
-                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(message).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
+                StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, message, getActivity().getApplicationContext(), Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), getActivity());
             }
         }
     }
+
+    public void checkDrawOverlayPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(getActivity().getApplicationContext())) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getActivity().getPackageName()));
+                startActivityForResult(intent, MY_PERMISSION_CODE);
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        if (requestCode == MY_PERMISSION_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Settings.canDrawOverlays(getActivity().getApplicationContext())) {
+                    pDialog = new ProgressDialog(getActivity().getApplicationContext());
+                    pDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                    pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    pDialog.setIndeterminate(true);
+                    pDialog.setMessage(getString(R.string.dialog_rate_data_submit));
+                    pDialog.setCancelable(false);
+                    pDialog.setInverseBackgroundForced(true);
+                    pDialog.show();
+                }
+            }
+        }
+    }
+
 
 
 }

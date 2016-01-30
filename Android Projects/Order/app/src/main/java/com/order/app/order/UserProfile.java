@@ -1,5 +1,6 @@
 package com.order.app.order;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -8,12 +9,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -33,6 +38,7 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -52,6 +58,7 @@ import java.util.HashMap;
 
 import dialogs.DialogMessageDisplay;
 import functions.AppConstant;
+import functions.StringGenerator;
 import receivers.CheckSubscriptionReceiver;
 import sessions.SessionManager;
 import settings.SettingsActivity;
@@ -259,6 +266,7 @@ public class UserProfile extends AppCompatActivity{
         subject = (EditText)helpView.findViewById(R.id.subject);
         message = (EditText)helpView.findViewById(R.id.message);
         helpSwitch = (Switch)helpView.findViewById(R.id.helpSwitch);
+
         contactLayout = (LinearLayout)helpView.findViewById(R.id.contactLayout);
         helpDialog.setTitle(getString(R.string.help))
                 .setMessage(getString(R.string.help_dialog_message)+ " \n" + AppConstant.TEL )
@@ -269,11 +277,12 @@ public class UserProfile extends AppCompatActivity{
                         subjectTXT = subject.getText().toString();
                         messageTXT = message.getText().toString();
                         if (subjectTXT.isEmpty() && messageTXT.isEmpty()){
-                            Toast.makeText(helpDialog.getContext(), getString(R.string.subject_or_message_empty), Toast.LENGTH_SHORT).show();
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_or_message_empty),UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
                         }else if (subjectTXT.isEmpty()){
-                            Toast.makeText(helpView.getContext(), getString(R.string.subject_empty), Toast.LENGTH_SHORT).show();
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_empty), UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
                         }else if (messageTXT.isEmpty()){
-                            Toast.makeText(helpView.getContext(), getString(R.string.message_empty), Toast.LENGTH_SHORT).show();
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.message_empty), UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
+
                         }else {
                             sendIntent = new Intent(Intent.ACTION_SEND);
                             sendIntent.setData(Uri.parse("mailto:"));
@@ -296,16 +305,42 @@ public class UserProfile extends AppCompatActivity{
                 .setNeutralButton(getString(R.string.call), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        number = Uri.parse("tel:" + AppConstant.TEL);
-                        callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(number);
-                        startActivity(callIntent);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            if (ContextCompat.checkSelfPermission(UserProfile.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+                                // Should we show an explanation?
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(UserProfile.this,
+                                        Manifest.permission.CALL_PHONE)) {
+
+                                    // Show an expanation to the user *asynchronously* -- don't block
+                                    // this thread waiting for the user's response! After the user
+                                    // sees the explanation, try again to request the permission.
+
+                                } else {
+                                    ActivityCompat.requestPermissions(UserProfile.this,
+                                            new String[]{Manifest.permission.CALL_PHONE},
+                                            AppConstant.MY_PERMISSION_CODE);
+                                }
+                            }else {
+                                number = Uri.parse("tel:" + AppConstant.TEL);
+                                callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(number);
+                                startActivity(callIntent);
+                            }
+                        }else {
+                            number = Uri.parse("tel:" + AppConstant.TEL);
+                            callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(number);
+                            startActivity(callIntent);
+                        }
+
                     }
                 })
                 .create();
 
-        helpDialog.show();
-
+        final AlertDialog dialog = helpDialog.show();
+        dialog.show();
+        Button btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        btn.setEnabled(false);
         if (helpSwitch!= null){
             helpSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -316,17 +351,45 @@ public class UserProfile extends AppCompatActivity{
                         } else {
                             contactLayout.setVisibility(View.GONE);
                         }
-                    }else {
+                        Button btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                        btn.setEnabled(true);
+                    } else {
                         if (contactLayout.getVisibility() == View.GONE) {
                             contactLayout.setVisibility(View.VISIBLE);
                         } else {
                             contactLayout.setVisibility(View.GONE);
                         }
+                        Button btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                        btn.setEnabled(false);
                     }
                 }
             });
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case AppConstant.MY_PERMISSION_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    number = Uri.parse("tel:" + AppConstant.TEL);
+                    callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(number);
+                    startActivity(callIntent);
+
+                } else {
+                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE,getString(R.string.confirm_phone_permission),UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
+                    ActivityCompat.requestPermissions(UserProfile.this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            AppConstant.MY_PERMISSION_CODE);
+                }
+                return;
+            }
+
+        }
     }
 
 

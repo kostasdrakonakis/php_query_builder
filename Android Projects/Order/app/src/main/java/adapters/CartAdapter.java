@@ -66,7 +66,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 if (holder.checkBox.isChecked()){
                     cartItems.get(position).setIsChecked(true);
                     names.add(new CartList(cartItems.get(position).getName(), cartItems.get(position).getPrice(), cartItems.get(position).getImage(), cartItems.get(position).getPreferation1()
-                    , cartItems.get(position).getPreferation2(), cartItems.get(position).getPreferation3(), cartItems.get(position).getPreferation4(), cartItems.get(position).getQuantity()));
+                            , cartItems.get(position).getPreferation2(), cartItems.get(position).getPreferation3(), cartItems.get(position).getPreferation4(), cartItems.get(position).getQuantity()));
+
                 }else {
                     cartItems.get(position).setIsChecked(false);
                     names.remove(position);

@@ -239,5 +239,8 @@
     <string name="wrong_password">Ο κωδικός είναι λάθος. Παρακαλώ προσπαθήστε πάλι.</string>
     <string name="wrong_username">Το όνομα χρήστη είναι λάθος. Παρακαλώ προσπαθήστε πάλι.</string>
     <string name="edit">Επεξεργασία</string>
+    <string name="checkout_failure_message">Δεν υπάρχουν προϊόντα στο καλάθι σας για να προχωρήσετε. παρακαλώ προσθέστε προϊόντα.</string>
+    <string name="checkout_success_message">Η παραγγελεία σας έχει αποσταλεί επιτυχώς</string>
+    <string name="confirm_phone_permission">Θα πρέπει να παραχωρηθεί η άδεια κλήσης τηλεφώνου για να μπορέσετε να μας καλέσετε</string>
 
 </resources>
