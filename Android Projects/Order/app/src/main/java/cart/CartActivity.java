@@ -14,6 +14,7 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +89,30 @@ public class CartActivity extends AppCompatActivity {
         checkout = (Button) findViewById(R.id.checkoutButton);
         rootLayout = (LinearLayout)findViewById(R.id.linear_cart_empty);
         setupButtonCallbacks();
+        enableSwipeFunctions();
         checkNetwork();
+    }
+
+    private void enableSwipeFunctions() {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int pos = viewHolder.getAdapterPosition();
+                deleteDataWebService(cartItems.get(pos).getName());
+                adapter.remove(pos);
+                sum = 0;
+                setupTotalValue();
+                accessWebService();
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
 
@@ -169,7 +193,21 @@ public class CartActivity extends AppCompatActivity {
                             sum = 0;
                             setupTotalValue();
                             mode.finish();
-                            accessWebService();
+                            if (names.isEmpty()){
+                                if (rootLayout.getVisibility() == View.GONE){
+                                    rootLayout.setVisibility(View.VISIBLE);
+                                }else {
+                                    rootLayout.setVisibility(View.GONE);
+                                }
+                                checkout.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        StringGenerator.showToast(CartActivity.this, getString(R.string.checkout_failure_message));
+                                    }
+                                });
+                            }else {
+                                accessWebService();
+                            }
                         }
                     });
                     builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
