@@ -311,9 +311,13 @@ public class UserProfile extends AppCompatActivity{
                                 if (ActivityCompat.shouldShowRequestPermissionRationale(UserProfile.this,
                                         Manifest.permission.CALL_PHONE)) {
 
-                                    // Show an expanation to the user *asynchronously* -- don't block
-                                    // this thread waiting for the user's response! After the user
-                                    // sees the explanation, try again to request the permission.
+                                    StringGenerator.showSnackMessage(
+                                            SnackbarType.MULTI_LINE,
+                                            "In order to get in touch with the Support Team you have to accept permission",
+                                            UserProfile.this,
+                                            Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR),
+                                            UserProfile.this);
+
 
                                 } else {
                                     ActivityCompat.requestPermissions(UserProfile.this,
@@ -386,7 +390,6 @@ public class UserProfile extends AppCompatActivity{
                             new String[]{Manifest.permission.CALL_PHONE},
                             AppConstant.MY_PERMISSION_CODE);
                 }
-                return;
             }
 
         }
