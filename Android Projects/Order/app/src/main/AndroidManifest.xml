@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission-sdk-23 android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-permission-sdk-23 android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -38,7 +40,7 @@
         </activity>
         <activity
             android:name=".UserProfile"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboardHidden|screenSize"
             android:label="@string/user_profile" />
         <activity
             android:name=".Tables"
@@ -68,16 +70,16 @@
         <activity
             android:name="cart.CoffeesLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_coffees_layout"/>
+            android:label="@string/title_activity_coffees_layout" />
         <activity
             android:name="settings.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/action_settings"
-            android:theme="@style/Preference"/>
+            android:theme="@style/Preference" />
         <activity
             android:name="cart.SnacksLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_snacks_layout"/>
+            android:label="@string/title_activity_snacks_layout" />
         <activity
             android:name="cart.SweetsLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -98,7 +100,11 @@
         <activity
             android:name="cart.CartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="cart.CheckoutActivity"/>
+        <activity android:name="cart.CheckoutActivity" />
+        <activity
+            android:name="cart.BeersLayoutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_beers_layout"/>
     </application>
 
 </manifest>

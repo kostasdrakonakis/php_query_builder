@@ -11,6 +11,16 @@
         <item>Register</item>
     </string-array>
 
+    <string-array name="beer_companions">
+        <item>Lime</item>
+        <item>Lemonade</item>
+        <item>Sprite</item>
+        <item>Grenadine</item>
+        <item>Brut Sparkling Wine</item>
+        <item>Banana Juice</item>
+        <item>Blackberry Currant</item>
+    </string-array>
+
     <string-array name="products">
         <item>Coffees</item>
         <item>Sweets</item>
@@ -266,5 +276,11 @@
     <string name="confirm_phone_permission">You need to grant phone permission in order to make a direct phone call</string>
     <string name="checkout_success_message">Your order has successfully been checked out</string>
     <string name="checkout_failure_message">You have no products to checkout</string>
+    <string name="title_activity_beers_layout">BeersLayoutActivity</string>
+    <string name="bottle">Bottle</string>
+    <string name="draught">Draught</string>
+    <string name="size">Size:</string>
+    <string name="big">Big</string>
+    <string name="small">Small</string>
 
 </resources>

@@ -11,6 +11,16 @@
         <item>Εγγραφη</item>
     </string-array>
 
+    <string-array name="beer_companions">
+        <item>Lime</item>
+        <item>Λεμονάδα</item>
+        <item>Sprite</item>
+        <item>Γρεναδίνη</item>
+        <item>Brut Αφρώδες Οίνος</item>
+        <item>Χυμός Μπανάνα</item>
+        <item>Blackberry Currant</item>
+    </string-array>
+
     <string-array name="products">
         <item>Καφεδες</item>
         <item>Γλυκα</item>
@@ -242,5 +252,11 @@
     <string name="checkout_failure_message">Δεν υπάρχουν προϊόντα στο καλάθι σας για να προχωρήσετε. παρακαλώ προσθέστε προϊόντα.</string>
     <string name="checkout_success_message">Η παραγγελεία σας έχει αποσταλεί επιτυχώς</string>
     <string name="confirm_phone_permission">Θα πρέπει να παραχωρηθεί η άδεια κλήσης τηλεφώνου για να μπορέσετε να μας καλέσετε</string>
+    <string name="title_activity_beers_layout">BeersLayoutActivity</string>
+    <string name="big">Μεγάλο</string>
+    <string name="bottle">Μπουκάλι</string>
+    <string name="draught">Ποτήρι</string>
+    <string name="size">Μέγεθος:</string>
+    <string name="small">Μικρό</string>
 
 </resources>

@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.order.app.order.R;
 
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ProductsAdapter;
+import cart.BeersLayoutActivity;
 import functions.AppConstant;
 import functions.StringGenerator;
 import listeners.RecyclerItemClickListener;
@@ -60,7 +60,7 @@ public class Beer extends Fragment {
     private GridLayoutManager layoutManager;
     private HttpURLConnection urlConnection;
     private URL url;
-    private String name, image, price;
+    private String name, image, price, table, servitoros_id, magazi_id;
 
 
     @Override
@@ -71,6 +71,9 @@ public class Beer extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
+        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -137,7 +140,14 @@ public class Beer extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getActivity().getApplicationContext(), "You have chosen " + customList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), BeersLayoutActivity.class);
+                intent.putExtra(AppConstant.BEER_NAME, customList.get(position).getName());
+                intent.putExtra(AppConstant.BEER_PRICE, customList.get(position).getPrice());
+                intent.putExtra(AppConstant.BEER_IMAGE, customList.get(position).getImage());
+                intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                startActivity(intent);
             }
         }));
     }

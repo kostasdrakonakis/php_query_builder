@@ -35,14 +35,6 @@
             android:id="@+id/tableNumberEditText" />
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="fill"
-        android:layout_gravity="fill"
-        android:paddingTop="20dp"
-        android:id="@+id/scrollView">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -206,6 +198,7 @@
                             android:layout_height="70dp"
                             android:text="DEL"
                             android:drawableEnd="@drawable/ic_backspace_white_24dp"
+                            android:drawableRight="@drawable/ic_backspace_white_24dp"
                             android:id="@+id/btnDel" />
                     </LinearLayout>
 
@@ -429,8 +422,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>
 

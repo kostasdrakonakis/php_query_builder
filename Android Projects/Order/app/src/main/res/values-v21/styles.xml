@@ -15,7 +15,6 @@
     </style>
 
 
-
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:colorPrimary">@color/btn_login</item>
         <item name="android:colorAccent">@color/btn_login</item>
@@ -35,13 +34,12 @@
     </style>
 
 
-
-        <style name="EditTextThemeCustom" parent="Theme.AppCompat.Light">
-            <!-- Customize your theme here. -->
-            <item name="android:editTextColor">@color/black</item>
-            <item name="android:textColor">@color/black</item>
-            <item name="colorAccent">@color/btn_login</item>
-        </style>
+    <style name="EditTextThemeCustom" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorAccent">@color/btn_login</item>
+    </style>
 
 
 </resources>

@@ -13,6 +13,9 @@ public class AppConstant {
     public static final String SNACK_NAME = "snackName";
     public static final String SNACK_IMAGE = "snackImage";
     public static final String SNACK_PRICE = "snackPrice";
+    public static final String BEER_NAME = "beerName";
+    public static final String BEER_IMAGE = "beerImage";
+    public static final String BEER_PRICE = "beerPrice";
     public static final String COFFEE_NAME = "coffeeName";
     public static final String COFFEE_IMAGE = "coffeeImage";
     public static final String COFFEE_PRICE = "coffeePrice";
