@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QuizGame</string>
+    <string name="quiz_game">Παιχνίδι Γνώσεων</string>
+    <string name="start_game">Νεο Παιχνιδι</string>
+    <string name="categories">Κατηγοριες</string>
+    <string name="options">Ρυθμισεις</string>
+</resources>
