@@ -6,30 +6,54 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
-    <include android:id="@+id/toolBar" layout="@layout/toolbar"/>
+    <include android:id="@+id/toolBar" layout="@layout/toolbar" />
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
         android:id="@+id/languageLayout"
         android:layout_height="wrap_content">
-        <TextView
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/language"
-            android:textSize="25sp"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:id="@+id/textView2" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/english"
-            android:textSize="19sp"
-            android:paddingLeft="30dp"
-            android:paddingStart="30dp"
-            android:layout_marginTop="-15dp"
-            android:id="@+id/textView3" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_language"
+                android:id="@+id/imageViewLanguage" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language"
+                    android:textSize="25sp"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:id="@+id/textView2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english"
+                    android:textSize="19sp"
+                    android:paddingLeft="30dp"
+                    android:paddingStart="30dp"
+                    android:layout_marginTop="-15dp"
+                    android:id="@+id/textView3" />
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -37,13 +61,20 @@
         android:layout_width="match_parent"
         android:padding="25dp"
         android:layout_height="wrap_content">
-
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_action_heart"
+            android:id="@+id/imageViewLife" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.8"
             android:text="@string/lifes"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"
@@ -106,6 +137,31 @@
                 android:id="@+id/buttonPlus" />
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:padding="25dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_action_info"
+            android:id="@+id/imageView" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/about"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:id="@+id/textView" />
 
     </LinearLayout>
 
