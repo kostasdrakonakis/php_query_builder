@@ -11,14 +11,14 @@ import com.library.quizgame.R;
 
 import java.util.List;
 
-import lists.CategoryList;
+import lists.SingleCategories;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>{
 
-    List<CategoryList> categories;
+    List<SingleCategories> categories;
     private Context context;
 
-    public CategoriesAdapter(List<CategoryList> categories, Context context){
+    public CategoriesAdapter(List<SingleCategories> categories, Context context){
         this.categories = categories;
         this.context = context;
     }
@@ -32,7 +32,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(CategoriesViewHolder holder, int position) {
-        holder.button.setText(categories.get(position).getName());
+        holder.button.setText(categories.get(position).getCategoryName());
     }
 
     @Override
