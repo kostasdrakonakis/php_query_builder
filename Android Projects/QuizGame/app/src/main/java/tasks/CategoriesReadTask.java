@@ -83,7 +83,6 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
         /**
          * εδώ γίνεται η κύρια διεργασία του AsyncTask
          */
-
         //Αρχικοποίηση του δυναμικού πίνακα που θα φιλοξενίσει τις κατηγορίες
         this.categories = new ArrayList<>();
         try {
@@ -153,6 +152,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(context, QuestionsActivity.class);
                 intent.putExtra(Constants.CATEGORIES_INTENT_NAME, categoryLists.get(position).getCategoryName());
+                intent.putExtra(Constants.CATEGORIES_INTENT_ID, categoryLists.get(position).getId());
                 context.startActivity(intent);
             }
         }));

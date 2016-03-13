@@ -40,5 +40,6 @@ public class Constants {
     public static final String LANGUAGE_PREFS_FILE = "DisplayLanguage";
     public static final String LIFES_PREFS_FILE = "Lifes";
     public static final String CATEGORIES_INTENT_NAME= "name";
+    public static final String CATEGORIES_INTENT_ID= "id";
     public static final String CHARACTER_ENCODING = "UTF-8";
 }

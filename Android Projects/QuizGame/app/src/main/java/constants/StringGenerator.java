@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 
 public class StringGenerator {
 
@@ -59,6 +60,65 @@ public class StringGenerator {
             result.append(URLEncoder.encode(pair.getValue(), Constants.CHARACTER_ENCODING));
         }
         return result.toString();
+    }
+
+    /**
+     * Μέθοδος που χρησιμοποιούμε για να μετατρέψουμε την γλώσσα που επιλέγει ο χρήστης
+     * σε Language Code: Greek = el, English = en, French = fr, German = de
+     * @param language
+     * @return String in language code
+     */
+    public static String checkLanguageCode(String language){
+        String langCode = null;
+        switch (language){
+            case "English":{
+                langCode = "en";
+                break;
+            }case "Greek":{
+                langCode = "el";
+                break;
+            }case "Αγγλικά": {
+                langCode = "en";
+                break;
+            }case "Ελληνικά":{
+                langCode = "el";
+                break;
+            }
+        }
+
+        return langCode;
+    }
+
+    /**
+     * Μέθοδος που χρησιμοποιούμε για να μετατρέψουμε το Language Code
+     * σε γλώσσα που επιλέγει ο χρήστης : el = Greek, en = English, fr = French, de = German
+     * @param language
+     * @return String in Language
+     */
+    public static String revertLanguageCode(String language){
+        String lang = null;
+        String locale = Locale.getDefault().getLanguage();
+        switch (language){
+            case "en":{
+                if (locale.equals("en")){
+                    lang = "English";
+
+                }else {
+                    lang = "Αγγλικά";
+                }
+                break;
+            }case "el":{
+                if (locale.equals("el")){
+                    lang = "Ελληνικά";
+
+                }else {
+                    lang = "Greek";
+                }
+                break;
+            }
+        }
+
+        return lang;
     }
 
     /**

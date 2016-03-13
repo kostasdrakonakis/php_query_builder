@@ -38,6 +38,7 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
         displayLanguage = (TextView)findViewById(R.id.displayLanguageText);
+
         setupToolbar();
         setupLanguage();
         checkLifes();
@@ -45,10 +46,14 @@ public class OptionsActivity extends AppCompatActivity {
         loadUserPrefs();
     }
 
+    /**
+     * Μέθοδος για να φόρτώσουμε τις ρυθμίσεις του χρήστη απο το αρχείο μας.
+     */
     private void loadUserPrefs() {
         sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
         langFromPrefs = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
         lifesFromPrefs = sharedPreferences.getString(Constants.LIFES_PREFS_FILE, String.valueOf(0));
+        langFromPrefs = StringGenerator.revertLanguageCode(langFromPrefs);
         displayLanguage.setText(langFromPrefs);
         lifes.setText(lifesFromPrefs);
     }
@@ -72,6 +77,9 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Μέθοδος για να φτιαξουμε το Toolbar μας.
+     */
     private void setupToolbar() {
         toolBar = (Toolbar)findViewById(R.id.toolBar);
         toolBar.setTitle(getString(R.string.options));
@@ -81,8 +89,14 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Μέθοδος για να αποθηκεύσουμε τις ρυθμίσεις που θα επιλέξει ο χρήστης
+     * στην εφαρμογή μας. Η αποθήκευση γίνεται με .xml και το αρχείο μπορεί
+     * να το βρεί κάποιος με root πρόσβαση στο data/data/com.library.quizgame/shared_prefs/filename.xml
+     */
     private void commitChangesToPrefs() {
         lifesText = lifes.getText().toString();
+        langText = StringGenerator.checkLanguageCode(langText);
         sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString(Constants.LANGUAGE_PREFS_FILE, langText);
@@ -91,8 +105,10 @@ public class OptionsActivity extends AppCompatActivity {
         StringGenerator.showToast(OptionsActivity.this, getString(R.string.options_saved));
     }
 
+    /**
+     * Μέθοδος η οποία μας εμφανίζει το διάλογο για να επιλέξουμε γλώσσα και τον διάλογο About
+     */
     private void setupLanguage() {
-
         languageLayout = (LinearLayout)findViewById(R.id.languageLayout);
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +141,10 @@ public class OptionsActivity extends AppCompatActivity {
         return languageDialog.create();
     }
 
+    /**
+     * Μέθοδος με την οποία σιγουρευόμαστε οτι ο χρήστης δεν μπορεί να επιλέξει αρνητικό αριθμό
+     * για το εύρος ζωών στο παιχνίδι και δεν μπορεί να επιλέξει πάνω απο 3.
+     */
     private void checkLifes() {
             lifes = (EditText) findViewById(R.id.lifeEdittext);
             plus = (Button) findViewById(R.id.buttonPlus);
