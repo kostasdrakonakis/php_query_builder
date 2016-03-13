@@ -1,6 +1,7 @@
 package com.library.quizgame;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -38,12 +39,12 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
         displayLanguage = (TextView)findViewById(R.id.displayLanguageText);
-
         setupToolbar();
         setupLanguage();
         checkLifes();
         setupMenu();
         loadUserPrefs();
+
     }
 
     /**
@@ -64,6 +65,12 @@ public class OptionsActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.saveOptions){
                     commitChangesToPrefs();
+                    StringGenerator.setLocale(langText, OptionsActivity.this);
+
+                    Intent refresh = new Intent(OptionsActivity.this, StartActivity.class);
+                    refresh.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(refresh);
+                    OptionsActivity.this.finish();
                 }
                 return true;
             }
@@ -86,7 +93,6 @@ public class OptionsActivity extends AppCompatActivity {
         toolBar.setTitleTextColor(Color.WHITE);
         toolBar.setLogo(R.drawable.ic_settings);
         setSupportActionBar(toolBar);
-
     }
 
     /**
@@ -130,7 +136,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         languageDialog = new AlertDialog.Builder(OptionsActivity.this);
         languageDialog.setTitle(getString(R.string.languageTitle));
-        languageDialog.setSingleChoiceItems(languages, 1, new DialogInterface.OnClickListener() {
+        languageDialog.setSingleChoiceItems(languages, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 langText = languages[which].toString();

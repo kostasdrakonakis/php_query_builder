@@ -3,6 +3,9 @@ package constants;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -16,7 +19,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class StringGenerator {
-
     /**
      * Χρησιμοποιούμε την μέθοδο αυτήν για να μετατρέψουμε τα bytes που μας επέστρεψε το BufferedInputStream
      * σε String.
@@ -128,5 +130,14 @@ public class StringGenerator {
      */
     public static void showToast(Context context, String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void setLocale(String lang, Context context) {
+        Locale myLocale = new Locale(lang);
+        Resources resources = context.getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = myLocale;
+        resources.updateConfiguration(configuration, displayMetrics);
     }
 }
