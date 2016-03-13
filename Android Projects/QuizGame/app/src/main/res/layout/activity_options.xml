@@ -44,10 +44,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/english"
+                    android:text="@string/ta_to_select"
                     android:textSize="19sp"
-                    android:paddingLeft="30dp"
-                    android:paddingStart="30dp"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:layout_marginTop="-15dp"
                     android:id="@+id/displayLanguageText" />
             </LinearLayout>

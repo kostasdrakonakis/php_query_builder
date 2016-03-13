@@ -36,8 +36,7 @@ public class Constants {
     public static final String KATALOGOS_ARRAY = "katalogos";
     public static final String KATALOGOS_ARRAY_EN = "katalogosen";
 
-    public static final String SAVE_TO_PREFS = "savedValues";
-    public static final String LOAD_FROM_PREFS = "loadedValues";
+    public static final String PREFERENCES_FILE = "option-preferences";
     public static final String LANGUAGE_PREFS_FILE = "DisplayLanguage";
     public static final String LIFES_PREFS_FILE = "Lifes";
     public static final String CATEGORIES_INTENT_NAME= "name";

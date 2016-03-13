@@ -8,7 +8,7 @@
     <string name="language">Γλώσσα</string>
     <string name="english">Αγγλικά</string>
     <string name="lifes">Ζωές</string>
-    <string name="loading">Φόρτωση...</string>
+    <string name="loading">Φόρτωση&#8230;</string>
     <string name="max_span">(Μεγ:3)</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
@@ -19,4 +19,5 @@
     <string name="enlang">Αγγλικά</string>
     <string name="grlang">Ελληνικά</string>
     <string name="languageTitle">Επιλέξτε Γλώσσα Εμφάνισης</string>
+    <string name="next">Επομενη</string>
 </resources>

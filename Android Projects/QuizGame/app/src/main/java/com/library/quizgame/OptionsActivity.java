@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import constants.Constants;
+import constants.StringGenerator;
 import dialogs.DialogMessageDisplay;
 
 public class OptionsActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class OptionsActivity extends AppCompatActivity {
     private AlertDialog.Builder languageDialog;
     private String[] languages;
     private TextView displayLanguage;
-    private String langText, lifesText;
+    private String langText, lifesText, langFromPrefs, lifesFromPrefs;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -36,10 +37,20 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        displayLanguage = (TextView)findViewById(R.id.displayLanguageText);
         setupToolbar();
         setupLanguage();
         checkLifes();
         setupMenu();
+        loadUserPrefs();
+    }
+
+    private void loadUserPrefs() {
+        sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
+        langFromPrefs = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
+        lifesFromPrefs = sharedPreferences.getString(Constants.LIFES_PREFS_FILE, String.valueOf(0));
+        displayLanguage.setText(langFromPrefs);
+        lifes.setText(lifesFromPrefs);
     }
 
     private void setupMenu() {
@@ -71,17 +82,13 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private void commitChangesToPrefs() {
-        if (langText!= null){
-            langText = displayLanguage.getText().toString();
-        }else {
-            langText = "";
-        }
         lifesText = lifes.getText().toString();
-        sharedPreferences = getSharedPreferences(Constants.SAVE_TO_PREFS, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString(Constants.LANGUAGE_PREFS_FILE, langText);
         editor.putString(Constants.LIFES_PREFS_FILE, lifesText);
         editor.apply();
+        StringGenerator.showToast(OptionsActivity.this, getString(R.string.options_saved));
     }
 
     private void setupLanguage() {
@@ -104,12 +111,13 @@ public class OptionsActivity extends AppCompatActivity {
 
     private AlertDialog displayLanguageDialog() {
         languages = new String[]{getString(R.string.grlang), getString(R.string.enlang)};
-        displayLanguage = (TextView)findViewById(R.id.displayLanguageText);
+
         languageDialog = new AlertDialog.Builder(OptionsActivity.this);
         languageDialog.setTitle(getString(R.string.languageTitle));
-        languageDialog.setSingleChoiceItems(languages, -1, new DialogInterface.OnClickListener() {
+        languageDialog.setSingleChoiceItems(languages, 1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                langText = languages[which].toString();
                 displayLanguage.setText(languages[which]);
                 dialog.dismiss();
             }
