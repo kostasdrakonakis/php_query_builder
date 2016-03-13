@@ -4,10 +4,13 @@ package tasks;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
+import com.library.quizgame.QuestionsActivity;
 import com.library.quizgame.R;
 
 import org.json.JSONArray;
@@ -23,10 +26,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import adapters.CategoriesAdapter;
 import constants.Constants;
 import constants.StringGenerator;
+import listeners.RecyclerItemClickListener;
 import lists.SingleCategories;
 
 public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCategories>>{
@@ -47,7 +52,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     private StringBuilder jsonResult;
     private JSONObject jsonResponse, jsonChildNode;
     private JSONArray jsonMainNode;
-    private String categoryName;
+    private String categoryName, locale;
     private int id;
 
     public CategoriesReadTask(ProgressDialog progressDialog, Context context, List<SingleCategories> categories, CategoriesAdapter adapter, RecyclerView recyclerView) {
@@ -69,7 +74,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
          * Όσο ο χρήστης περιμένει η εφαρμογή να φορτώσει δεδομένα απο το Internet
          * του δείχνουμε ένα διάλογο Loading...
          */
-        progressDialog.setMessage(String.valueOf(R.string.loading));
+        progressDialog.setMessage(this.context.getString(R.string.loading));
         progressDialog.show();
     }
 
@@ -115,7 +120,9 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
             jsonResponse = new JSONObject(jsonResult.toString());
             Log.e("Response: ", jsonResult.toString());
             //Αρχικοποιούμε το JSONArray μας
-            jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY_EN);
+            locale = Locale.getDefault().getLanguage();
+            checkDisplayLanguage(locale);
+
             for (int i = 0; i < jsonMainNode.length(); i++) {
                 jsonChildNode = jsonMainNode.getJSONObject(i);
                 //Για κάθε κατηγορία επιλέγουμε το όνομα και το id.
@@ -132,7 +139,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     }
 
     @Override
-    protected void onPostExecute(List<SingleCategories> categoryLists) {
+    protected void onPostExecute(final List<SingleCategories> categoryLists) {
         super.onPostExecute(categoryLists);
         if (progressDialog.isShowing()){
             progressDialog.dismiss();
@@ -141,5 +148,22 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
         //τις περνάμε στον adapter και φτιάχνουμε το RecyclerView μας.
         this.adapter = new CategoriesAdapter(categoryLists, this.context);
         this.recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(context, QuestionsActivity.class);
+                intent.putExtra(Constants.CATEGORIES_INTENT_NAME, categoryLists.get(position).getCategoryName());
+                context.startActivity(intent);
+            }
+        }));
+    }
+
+
+    private void checkDisplayLanguage(String locale){
+        if (locale.equals("en")){
+            jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY_EN);
+        }else if (locale.equals("el")){
+            jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY);
+        }
     }
 }

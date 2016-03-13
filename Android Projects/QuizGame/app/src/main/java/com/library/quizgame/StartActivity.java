@@ -1,6 +1,7 @@
 package com.library.quizgame;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ public class StartActivity extends AppCompatActivity {
 
     private void setupToolBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
     }
 

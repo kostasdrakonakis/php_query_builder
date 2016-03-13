@@ -1,7 +1,10 @@
 package com.library.quizgame;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,14 +13,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import constants.Constants;
+import dialogs.DialogMessageDisplay;
 
 public class OptionsActivity extends AppCompatActivity {
 
     private EditText lifes;
     private Button plus, minus;
-    private LinearLayout languageLayout;
+    private LinearLayout languageLayout, aboutLayout;
     private Toolbar toolBar;
+    private AlertDialog.Builder languageDialog;
+    private String[] languages;
+    private TextView displayLanguage;
+    private String langText, lifesText;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +47,7 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.saveOptions){
-                    Toast.makeText(OptionsActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    commitChangesToPrefs();
                 }
                 return true;
             }
@@ -54,23 +67,60 @@ public class OptionsActivity extends AppCompatActivity {
         toolBar.setTitleTextColor(Color.WHITE);
         toolBar.setLogo(R.drawable.ic_settings);
         setSupportActionBar(toolBar);
+
+    }
+
+    private void commitChangesToPrefs() {
+        if (langText!= null){
+            langText = displayLanguage.getText().toString();
+        }else {
+            langText = "";
+        }
+        lifesText = lifes.getText().toString();
+        sharedPreferences = getSharedPreferences(Constants.SAVE_TO_PREFS, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString(Constants.LANGUAGE_PREFS_FILE, langText);
+        editor.putString(Constants.LIFES_PREFS_FILE, lifesText);
+        editor.apply();
     }
 
     private void setupLanguage() {
+
         languageLayout = (LinearLayout)findViewById(R.id.languageLayout);
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OptionsActivity.this, "Hi", Toast.LENGTH_SHORT).show();
+                displayLanguageDialog().show();
             }
         });
+        aboutLayout = (LinearLayout)findViewById(R.id.aboutLayout);
+        aboutLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogMessageDisplay.displayInfoMessage(OptionsActivity.this, getString(R.string.aboutMe), getString(R.string.messageAboutDialog));
+            }
+        });
+    }
+
+    private AlertDialog displayLanguageDialog() {
+        languages = new String[]{getString(R.string.grlang), getString(R.string.enlang)};
+        displayLanguage = (TextView)findViewById(R.id.displayLanguageText);
+        languageDialog = new AlertDialog.Builder(OptionsActivity.this);
+        languageDialog.setTitle(getString(R.string.languageTitle));
+        languageDialog.setSingleChoiceItems(languages, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                displayLanguage.setText(languages[which]);
+                dialog.dismiss();
+            }
+        });
+        return languageDialog.create();
     }
 
     private void checkLifes() {
             lifes = (EditText) findViewById(R.id.lifeEdittext);
             plus = (Button) findViewById(R.id.buttonPlus);
             minus = (Button) findViewById(R.id.buttonMinus);
-
             plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -14,4 +14,10 @@
     <string name="save">Save</string>
     <string name="about">About</string>
     <string name="loading">Loading...</string>
+    <string name="aboutMe">About</string>
+    <string name="messageAboutDialog" >Surname Name\nStudent Number = XXXX\nDepartment of Informatics Engineering\nFinal Thesis</string>
+    <string name="languageTitle">Select Display Language</string>
+    <string name="grlang">Greek</string>
+    <string name="enlang">English</string>
+    <string name="next">Next</string>
 </resources>
