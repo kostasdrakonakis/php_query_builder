@@ -1,22 +1,20 @@
 package com.library.quizgame;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import adapters.CategoriesAdapter;
 import constants.Constants;
-import listeners.RecyclerItemClickListener;
+import constants.StringGenerator;
 import lists.SingleCategories;
 import tasks.CategoriesReadTask;
 
@@ -29,10 +27,14 @@ public class CategoryActivity extends AppCompatActivity {
     private List<SingleCategories> categories;
     private ProgressDialog pDialog;
     private String locale;
+    private String langText;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadFromPrefs();
+        StringGenerator.setLocale(langText, CategoryActivity.this);
         setContentView(R.layout.activity_category);
         //Αρχικοποιούμε τα widgets μας, στην περιπτωσή μας το RecyclerView και το LayoutManager που
         //θα χρησιμοποιείσει
@@ -55,13 +57,17 @@ public class CategoryActivity extends AppCompatActivity {
         //Τρέχουμε το Asynctask με τις παραμέτρους και όταν κάνουμε execute του δίνουμε το URL που θέλουμε
         categories = new ArrayList<>();
         task = new CategoriesReadTask(pDialog, CategoryActivity.this, categories, adapter, categoriesList);
-        locale = Locale.getDefault().getLanguage();
-        if (locale.equals("en")){
+        if (langText.equals("en")){
             task.execute(Constants.CATEGORIES_EN_URL);
-        }else if (locale.equals("el")){
+        }else if (langText.equals("el")){
             task.execute(Constants.CATEGORIES_URL);
         }
 
+    }
+
+    private void loadFromPrefs() {
+        sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
+        langText = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
     }
 
 

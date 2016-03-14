@@ -29,7 +29,7 @@ public class OptionsActivity extends AppCompatActivity {
     private AlertDialog.Builder languageDialog;
     private String[] languages;
     private TextView displayLanguage;
-    private String langText, lifesText, langFromPrefs, lifesFromPrefs;
+    private String langText, lifesText, langFromPrefs, lifesFromPrefs, loadLang;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -37,6 +37,8 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLangFromPrefs();
+        StringGenerator.setLocale(loadLang, OptionsActivity.this);
         setContentView(R.layout.activity_options);
         displayLanguage = (TextView)findViewById(R.id.displayLanguageText);
         setupToolbar();
@@ -45,6 +47,11 @@ public class OptionsActivity extends AppCompatActivity {
         setupMenu();
         loadUserPrefs();
 
+    }
+
+    private void loadLangFromPrefs(){
+        sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
+        loadLang = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
     }
 
     /**

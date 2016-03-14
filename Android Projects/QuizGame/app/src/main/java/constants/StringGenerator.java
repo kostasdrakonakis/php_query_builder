@@ -139,5 +139,6 @@ public class StringGenerator {
         Configuration configuration = resources.getConfiguration();
         configuration.locale = myLocale;
         resources.updateConfiguration(configuration, displayMetrics);
+
     }
 }

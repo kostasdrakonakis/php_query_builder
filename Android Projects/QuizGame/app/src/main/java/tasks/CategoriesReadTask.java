@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +27,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import adapters.CategoriesAdapter;
 import constants.Constants;
@@ -54,8 +54,11 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     private JSONArray jsonMainNode;
     private String categoryName, locale;
     private int id;
+    private String langText;
+    private SharedPreferences sharedPreferences;
 
-    public CategoriesReadTask(ProgressDialog progressDialog, Context context, List<SingleCategories> categories, CategoriesAdapter adapter, RecyclerView recyclerView) {
+    public CategoriesReadTask(ProgressDialog progressDialog, Context context, List<SingleCategories> categories,
+                              CategoriesAdapter adapter, RecyclerView recyclerView) {
         /**
          * Αρχικοποίηση των Objects στον constructor
          */
@@ -70,6 +73,8 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        loadFromPrefs();
+        StringGenerator.setLocale(langText, context);
         /**
          * Όσο ο χρήστης περιμένει η εφαρμογή να φορτώσει δεδομένα απο το Internet
          * του δείχνουμε ένα διάλογο Loading...
@@ -119,8 +124,8 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
             jsonResponse = new JSONObject(jsonResult.toString());
             Log.e("Response: ", jsonResult.toString());
             //Αρχικοποιούμε το JSONArray μας
-            locale = Locale.getDefault().getLanguage();
-            checkDisplayLanguage(locale);
+            //locale = Locale.getDefault().getLanguage();
+            checkDisplayLanguage(langText);
 
             for (int i = 0; i < jsonMainNode.length(); i++) {
                 jsonChildNode = jsonMainNode.getJSONObject(i);
@@ -165,5 +170,10 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
         }else if (locale.equals("el")){
             jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY);
         }
+    }
+
+    private void loadFromPrefs() {
+        sharedPreferences = this.context.getSharedPreferences(Constants.PREFERENCES_FILE, context.MODE_PRIVATE);
+        langText = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, context.getString(R.string.ta_to_select));
     }
 }

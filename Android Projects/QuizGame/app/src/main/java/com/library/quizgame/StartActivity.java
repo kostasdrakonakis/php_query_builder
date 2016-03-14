@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,9 +22,10 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
         loadFromPrefs();
         StringGenerator.setLocale(langText, StartActivity.this);
+        //recreate();
+        setContentView(R.layout.activity_start);
         options = (Button)findViewById(R.id.buttonOptions);
         categories = (Button)findViewById(R.id.buttonCategories);
         start = (Button)findViewById(R.id.buttonStartGame);
@@ -36,7 +36,6 @@ public class StartActivity extends AppCompatActivity {
     private void loadFromPrefs() {
         sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
         langText = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
-        Log.e("onCreate Locale: ", langText);
     }
 
     private void setupToolBar() {
