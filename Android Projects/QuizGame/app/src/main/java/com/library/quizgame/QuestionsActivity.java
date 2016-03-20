@@ -23,6 +23,7 @@ public class QuestionsActivity extends AppCompatActivity {
         StringGenerator.setLocale(langText, QuestionsActivity.this);
         setContentView(R.layout.activity_questions);
         setupToolbar();
+        StringGenerator.showToast(QuestionsActivity.this, "The id is: " + id);
     }
 
     private void setupToolbar() {
