@@ -21,10 +21,11 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/buttonStartGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/start_game"
-                android:id="@+id/buttonStartGame" />
+                 />
 
             <Button
                 android:layout_width="match_parent"

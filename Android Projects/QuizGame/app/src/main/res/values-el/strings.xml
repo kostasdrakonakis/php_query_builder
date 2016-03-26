@@ -20,4 +20,8 @@
     <string name="grlang">Ελληνικά</string>
     <string name="languageTitle">Επιλέξτε Γλώσσα Εμφάνισης</string>
     <string name="next">Επομενη</string>
+    <string name="noquestionslayouttext">Ερωτήσεις για την συγκεκριμένη κατηγορία θα είναι διαθέσιμες σύντομα</string>
+    <string name="options_saved">Οι ρυθμίσεις σας έχουν αποθηκευτεί</string>
+    <string name="ta_to_select">Πατήστε για να επιλέξετε γλώσσα</string>
+    <string name="unavailable">Μη διαθέσιμο</string>
 </resources>

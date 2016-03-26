@@ -22,4 +22,6 @@
     <string name="next">Next</string>
     <string name="ta_to_select">Tap to select display language</string>
     <string name="options_saved">Your options are saved</string>
+    <string name="noquestionslayouttext">Questions for this category will be available soon</string>
+    <string name="unavailable">Unavailable</string>
 </resources>

@@ -53,7 +53,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     private JSONObject jsonResponse, jsonChildNode;
     private JSONArray jsonMainNode;
     private String categoryName, locale;
-    private int id;
+    private String id;
     private String langText;
     private SharedPreferences sharedPreferences;
 
@@ -131,7 +131,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
                 jsonChildNode = jsonMainNode.getJSONObject(i);
                 //Για κάθε κατηγορία επιλέγουμε το όνομα και το id.
                 categoryName = jsonChildNode.optString("cat_name");
-                id = jsonChildNode.optInt("cat_id");
+                id = jsonChildNode.optString("cat_id");
                 //Φτιάχνουμε την λίστα μας χρησιμοποιώντας κάθε φορά ενα αντικείμενο τύπου SingleCategories
                 this.categories.add(new SingleCategories(categoryName, id));
             }
@@ -145,9 +145,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     @Override
     protected void onPostExecute(final List<SingleCategories> categoryLists) {
         super.onPostExecute(categoryLists);
-        if (progressDialog.isShowing()){
-            progressDialog.dismiss();
-        }
+        progressDialog.dismiss();
         //Εφόσον έχουμε πάρει τις τιμές απο το URL
         //τις περνάμε στον adapter και φτιάχνουμε το RecyclerView μας.
         this.adapter = new CategoriesAdapter(categoryLists, this.context);

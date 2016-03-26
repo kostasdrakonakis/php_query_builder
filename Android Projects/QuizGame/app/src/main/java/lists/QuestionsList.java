@@ -1,15 +1,33 @@
 package lists;
 
 
+import java.util.List;
+
 public class QuestionsList {
     private String name;
-    private String[] answers;
-    private String[] correct;
+    private List<String> answers;
+    private List<String> iscorrect;
 
-    public QuestionsList(String name, String[] answers, String[] correct) {
+    public QuestionsList(String name, List<String> answers, List<String> iscorrect) {
         this.name = name;
         this.answers = answers;
-        this.correct = correct;
+        this.iscorrect = iscorrect;
+    }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
+    public List<String> getIscorrect() {
+        return iscorrect;
+    }
+
+    public void setIscorrect(List<String> iscorrect) {
+        this.iscorrect = iscorrect;
     }
 
     public String getName() {
@@ -20,19 +38,5 @@ public class QuestionsList {
         this.name = name;
     }
 
-    public String[] getAnswers() {
-        return answers;
-    }
 
-    public void setAnswers(String[] answers) {
-        this.answers = answers;
-    }
-
-    public String[] getCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(String[] correct) {
-        this.correct = correct;
-    }
 }

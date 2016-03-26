@@ -18,6 +18,7 @@ public class Constants {
     public static final String CATEGORIES_ARRAY = "categories";
     public static final String CATEGORIES_ARRAY_EN = "categories_en";
     public static final String QUESTIONS_BY_CATEGORY_ARRAY = "quiz";
+    public static final String QUESTIONS_BY_CATEGORY_EN_ARRAY = "quizen";
     public static final String QUESTIONS_ANSWERS_ARRAY = "question_answers";
     public static final String CATEGORY_NAME_JSON_NAME = "category_name";
     public static final String CATEGORY_ID_JSON_NAME = "category_id";

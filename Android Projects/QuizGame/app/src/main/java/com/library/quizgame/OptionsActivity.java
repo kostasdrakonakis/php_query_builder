@@ -61,11 +61,14 @@ public class OptionsActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
         langFromPrefs = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
         lifesFromPrefs = sharedPreferences.getString(Constants.LIFES_PREFS_FILE, String.valueOf(0));
-        langFromPrefs = StringGenerator.revertLanguageCode(langFromPrefs);
+        langFromPrefs = StringGenerator.revertLanguageCode(langFromPrefs, OptionsActivity.this);
         displayLanguage.setText(langFromPrefs);
         lifes.setText(lifesFromPrefs);
     }
 
+    /**
+     * Κάνουμε setup το menu στην Toolbar μας.
+     */
     private void setupMenu() {
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -73,7 +76,6 @@ public class OptionsActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.saveOptions){
                     commitChangesToPrefs();
                     StringGenerator.setLocale(langText, OptionsActivity.this);
-
                     Intent refresh = new Intent(OptionsActivity.this, StartActivity.class);
                     refresh.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(refresh);
@@ -138,6 +140,10 @@ public class OptionsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Φτιάχνουμε τον διάλογο που δείχνουμε στον χρήστη για να επιλέξει γλώσσα εμφάνισης
+     * @return Returns an AlertDialog
+     */
     private AlertDialog displayLanguageDialog() {
         languages = new String[]{getString(R.string.grlang), getString(R.string.enlang)};
 

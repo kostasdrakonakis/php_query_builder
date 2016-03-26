@@ -97,9 +97,9 @@ public class StringGenerator {
      * @param language
      * @return String in Language
      */
-    public static String revertLanguageCode(String language){
+    public static String revertLanguageCode(String language, Context context){
         String lang = null;
-        String locale = Locale.getDefault().getLanguage();
+        String locale = context.getResources().getConfiguration().locale.toString();
         switch (language){
             case "en":{
                 if (locale.equals("en")){
@@ -132,6 +132,11 @@ public class StringGenerator {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Κάνουμε set το language που έχει επιλέξει ο χρήστης σε όλα τα Activities
+     * @param lang The language loaded from SharedPreferences
+     * @param context The Activity Context
+     */
     public static void setLocale(String lang, Context context) {
         Locale myLocale = new Locale(lang);
         Resources resources = context.getResources();

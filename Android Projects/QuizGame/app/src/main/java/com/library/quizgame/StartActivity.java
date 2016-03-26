@@ -24,7 +24,6 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadFromPrefs();
         StringGenerator.setLocale(langText, StartActivity.this);
-        //recreate();
         setContentView(R.layout.activity_start);
         options = (Button)findViewById(R.id.buttonOptions);
         categories = (Button)findViewById(R.id.buttonCategories);
