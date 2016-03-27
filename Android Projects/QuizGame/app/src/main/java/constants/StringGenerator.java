@@ -8,6 +8,8 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
+import com.library.quizgame.R;
+
 import org.apache.http.NameValuePair;
 
 import java.io.BufferedReader;
@@ -73,17 +75,17 @@ public class StringGenerator {
     public static String checkLanguageCode(String language){
         String langCode = null;
         switch (language){
-            case "English":{
-                langCode = "en";
+            case Constants.EN_EN_FULL:{
+                langCode = Constants.EN;
                 break;
-            }case "Greek":{
-                langCode = "el";
+            }case Constants.GR_EN_FULL:{
+                langCode = Constants.GR;
                 break;
-            }case "Αγγλικά": {
-                langCode = "en";
+            }case Constants.EN_FULL: {
+                langCode = Constants.EN;
                 break;
-            }case "Ελληνικά":{
-                langCode = "el";
+            }case Constants.GR_FULL:{
+                langCode = Constants.GR;
                 break;
             }
         }
@@ -101,23 +103,24 @@ public class StringGenerator {
         String lang = null;
         String locale = context.getResources().getConfiguration().locale.toString();
         switch (language){
-            case "en":{
-                if (locale.equals("en")){
-                    lang = "English";
+            case Constants.EN:{
+                if (locale.equals(Constants.EN)){
+                    lang = Constants.EN_EN_FULL;
 
                 }else {
-                    lang = "Αγγλικά";
+                    lang = Constants.EN_FULL;
                 }
                 break;
-            }case "el":{
-                if (locale.equals("el")){
-                    lang = "Ελληνικά";
-
+            }case Constants.GR:{
+                if (locale.equals(Constants.GR)){
+                    lang = Constants.GR_FULL;
                 }else {
-                    lang = "Greek";
+                    lang = Constants.GR_EN_FULL;
                 }
                 break;
-            }
+            }default:
+                lang = context.getString(R.string.ta_to_select);
+                break;
         }
 
         return lang;

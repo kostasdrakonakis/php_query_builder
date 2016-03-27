@@ -15,7 +15,7 @@
     <string name="save">Αποθηκευση</string>
     <string name="zero">0</string>
     <string name="aboutMe">Σχετικά</string>
-    <string name="messageAboutDialog">Μπακέλα Κωνσταντίνα\nΑριθμός Μητρώου = 2308\nΤμήμα Μηχανικών Πληροφορικής\nΠτυχιακή Εργασία</string>
+    <string name="messageAboutDialog">Project Σχεδιασμένο για τις ανάγκες της βιβλιοθήκης του Τει Κρήτης\nΤμήμα Μηχανικών Πληροφορικής\nΠτυχιακή Εργασία</string>
     <string name="enlang">Αγγλικά</string>
     <string name="grlang">Ελληνικά</string>
     <string name="languageTitle">Επιλέξτε Γλώσσα Εμφάνισης</string>
@@ -24,4 +24,9 @@
     <string name="options_saved">Οι ρυθμίσεις σας έχουν αποθηκευτεί</string>
     <string name="ta_to_select">Πατήστε για να επιλέξετε γλώσσα</string>
     <string name="unavailable">Μη διαθέσιμο</string>
+    <string name="wifi_off_message">Δεν υπάρχει σύνδεση δικτύου. Παρακαλώ προσπαθήστε αργότερα.</string>
+    <string name="wifi_off_title">Χωρίς Σύνδεση στο διαδίκτυο</string>
+    <string name="correctAnswer">Η απάντηση είναι σωστή</string>
+    <string name="noanswerselected">Πρέπει να επιλέξετε μια απάντηση</string>
+    <string name="wrongAnswer">Η απάντηση είναι λάθος</string>
 </resources>

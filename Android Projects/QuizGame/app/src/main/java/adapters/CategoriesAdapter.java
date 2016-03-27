@@ -17,12 +17,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     List<SingleCategories> categories;
     private Context context;
-
     public CategoriesAdapter(List<SingleCategories> categories, Context context){
         this.categories = categories;
         this.context = context;
     }
-
     @Override
     public CategoriesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_categories, parent, false);
@@ -34,7 +32,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public void onBindViewHolder(CategoriesViewHolder holder, int position) {
         holder.button.setText(categories.get(position).getCategoryName());
     }
-
     @Override
     public int getItemCount() {
         return categories.size();

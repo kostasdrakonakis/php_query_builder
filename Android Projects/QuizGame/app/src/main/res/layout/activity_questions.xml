@@ -6,57 +6,90 @@
     android:orientation="vertical">
     <include android:id="@+id/toolBar" layout="@layout/toolbar"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="This is where the question will be placed. Is it good?"
-        android:padding="25dp"
-        android:id="@+id/questionText"
-        android:gravity="center" />
-
     <LinearLayout
+        android:id="@+id/noQuestions"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageView2"
+            android:src="@drawable/ic_sentiment_dissatisfied_black"
+            android:layout_marginTop="150dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/noquestionslayouttext"
+            android:padding="25dp"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:id="@+id/textView3" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/rootLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <RadioGroup
+        <TextView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="This is where the question will be placed. Is it good?"
             android:padding="25dp"
-            android:layout_height="match_parent">
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Answer 1"
-                android:layout_margin="10dp"
-                android:id="@+id/radioanswer1" />
+            android:id="@+id/questionText"
+            android:gravity="center" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Answer 2"
-                android:layout_margin="10dp"
-                android:id="@+id/radioanswer2" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <RadioButton
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Answer 3"
-                android:layout_margin="10dp"
-                android:id="@+id/radioanswer3" />
-        </RadioGroup>
+                android:padding="25dp"
+                android:layout_height="match_parent">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Answer 1"
+                    android:layout_margin="10dp"
+                    android:id="@+id/radioanswer1" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Answer 2"
+                    android:layout_margin="10dp"
+                    android:id="@+id/radioanswer2" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Answer 3"
+                    android:layout_margin="10dp"
+                    android:id="@+id/radioanswer3" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom|center_horizontal|center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/questions_button_margin"
+            android:layout_marginStart="@dimen/questions_button_margin"
+            android:layout_marginRight="@dimen/questions_button_margin"
+            android:layout_marginEnd="@dimen/questions_button_margin"
+            android:text="@string/next"
+            android:id="@+id/btnNext" />
     </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom|center_horizontal|center_vertical"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/questions_button_margin"
-        android:layout_marginStart="@dimen/questions_button_margin"
-        android:layout_marginRight="@dimen/questions_button_margin"
-        android:layout_marginEnd="@dimen/questions_button_margin"
-        android:text="@string/next"
-        android:id="@+id/btnNext" />
 
 
 </LinearLayout>

@@ -15,7 +15,7 @@
     <string name="about">About</string>
     <string name="loading">Loading&#8230;</string>
     <string name="aboutMe">About</string>
-    <string name="messageAboutDialog" >Bakela Konstantina\nStudent Number = 2308\nDepartment of Informatics Engineering\nFinal Thesis</string>
+    <string name="messageAboutDialog" >Project Designed for the Library of Tei Crete\nDepartment of Informatics Engineering\nFinal Thesis</string>
     <string name="languageTitle">Select Display Language</string>
     <string name="grlang">Greek</string>
     <string name="enlang">English</string>
@@ -24,4 +24,9 @@
     <string name="options_saved">Your options are saved</string>
     <string name="noquestionslayouttext">Questions for this category will be available soon</string>
     <string name="unavailable">Unavailable</string>
+    <string name="wifi_off_title">No Internet Connection</string>
+    <string name="wifi_off_message">Network connection error. Please check your internet connection settings.</string>
+    <string name="wrongAnswer">Your Answer is wrong</string>
+    <string name="correctAnswer">Your Answer is correct</string>
+    <string name="noanswerselected">You have to make a selection</string>
 </resources>

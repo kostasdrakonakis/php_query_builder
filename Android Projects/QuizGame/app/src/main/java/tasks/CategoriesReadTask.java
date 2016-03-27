@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.library.quizgame.QuestionsActivity;
@@ -19,10 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,9 +43,7 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
     RecyclerView recyclerView;
     private URL url;
     private HttpURLConnection httpURLConnection;
-    private OutputStream outputStream;
     private InputStream inputStream;
-    private BufferedWriter bufferedWriter;
     private StringBuilder jsonResult;
     private JSONObject jsonResponse, jsonChildNode;
     private JSONArray jsonMainNode;
@@ -106,7 +101,6 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
             //Κάνουμε την σύνδεση. Αν δεν πάει καλά για οποιονδήποτε λόγο μας πετάει Exception
             //γιαυτό και χρησιμοποιούμε την try/catch
             httpURLConnection.connect();
-
             /**
              *  Χρησιμοποιούμε BufferedInputStream για τον εξής λόγο:
              *  Κάθε network call για να διαβάσουμε συγκεκριμένο μήνυμα απο bytes
@@ -114,7 +108,6 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
              *  Ο BufferedInputStream το μειώνει κάνοντας ένα "μεγάλο" διάβασμα ας πούμε 8Κ bytes
              *  για κάθε syscall.
              */
-
             inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
             /**
              * Θα βρείς την εξήγηση το constants.StringGenerator.java
@@ -122,16 +115,18 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
             jsonResult = StringGenerator.inputStreamToString(inputStream,(Activity) this.context);
             //Αρχικοποιούμε το JSONObject μας
             jsonResponse = new JSONObject(jsonResult.toString());
-            Log.e("Response: ", jsonResult.toString());
             //Αρχικοποιούμε το JSONArray μας
             //locale = Locale.getDefault().getLanguage();
-            checkDisplayLanguage(langText);
-
+            if (langText.equals(context.getString(R.string.ta_to_select))|| langText.equals(null)){
+                jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY_EN);
+            }else {
+                checkDisplayLanguage(langText);
+            }
             for (int i = 0; i < jsonMainNode.length(); i++) {
                 jsonChildNode = jsonMainNode.getJSONObject(i);
                 //Για κάθε κατηγορία επιλέγουμε το όνομα και το id.
-                categoryName = jsonChildNode.optString("cat_name");
-                id = jsonChildNode.optString("cat_id");
+                categoryName = jsonChildNode.optString(Constants.CATEGORY_JSON_NAME);
+                id = jsonChildNode.optString(Constants.CATEGORY_ID_JSON_NAME);
                 //Φτιάχνουμε την λίστα μας χρησιμοποιώντας κάθε φορά ενα αντικείμενο τύπου SingleCategories
                 this.categories.add(new SingleCategories(categoryName, id));
             }
@@ -163,9 +158,9 @@ public class CategoriesReadTask extends AsyncTask<String, Void, List<SingleCateg
 
 
     private void checkDisplayLanguage(String locale){
-        if (locale.equals("en")){
+        if (locale.equals(Constants.EN)){
             jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY_EN);
-        }else if (locale.equals("el")){
+        }else if (locale.equals(Constants.GR)){
             jsonMainNode = jsonResponse.optJSONArray(Constants.CATEGORIES_ARRAY);
         }
     }

@@ -7,11 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,6 +31,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import constants.Constants;
@@ -38,16 +43,18 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private String name, id;
-    private String langText, ans1, ans2, ans3, questionName, answer1, answer2, answer3, iscorrect1, iscorrect2, iscorrect3, answer, iscorrect;
+    private String langText, ans1, ans2, ans3, questionName, answer, iscorrect, curName, is1, is2, is3, correctAnswerText, key, value,
+            text;
     private SharedPreferences sharedPreferences;
     private QuestionsReadTask questionsReadTask;
     private ProgressDialog pDialog;
-    private List<QuestionsList> questionsLists;
-    private TextView question;
-    private RadioButton ranswer1, ranswer2, ranswer3;
-    private int position, pos;
+    private List<QuestionsList> questionsLists, questionsArray;
+    private TextView question, wrongText, correctText;
+    private RadioButton ranswer1, ranswer2, ranswer3, correct;
+    private RadioGroup group;
+    private int position = 0, score = 0;
     private Button next;
-    private List<String> question_iscorrect, question_answers, answersArray, array;
+    private List<String> question_iscorrect, question_answers, curArray, curIscorrect;
     private URL url;
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
@@ -57,6 +64,12 @@ public class QuestionsActivity extends AppCompatActivity {
     private JSONObject jsonResponse, jsonChildNode, jsonSecondChildNode;
     private JSONArray jsonMainNode, jsonArray;
     private List<NameValuePair> nameValuePairs;
+    private LinearLayout rootLayout, noQuestionsLayout;
+    private HashMap<String, String> map = new HashMap<>();
+    private Iterator iterator;
+    private Toast correctToast, wrongToast;
+    private View correctToastView, wrongToastView;
+    private Thread correctThread, wrongThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,28 +80,141 @@ public class QuestionsActivity extends AppCompatActivity {
         setupToolbar();
         initializeComponents();
         accessWebService();
-    }
-
-    private void initializeComponents() {
-        question = (TextView)findViewById(R.id.questionText);
-        ranswer1 = (RadioButton)findViewById(R.id.radioanswer1);
-        ranswer2 = (RadioButton)findViewById(R.id.radioanswer2);
-        ranswer3 = (RadioButton)findViewById(R.id.radioanswer3);
-        next = (Button)findViewById(R.id.btnNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                position++;
+                if (getUserSelection()){
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                                QuestionsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        moveToNextQuestion();
+                                    }
+                                });
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    thread.start();
+                }else {
+                    StringGenerator.showToast(QuestionsActivity.this, getString(R.string.noanswerselected));
+                }
             }
         });
     }
 
+    private void moveToNextQuestion() {
+        position = position + 3;
+        if (position < questionsArray.size()) {
+            curName = questionsArray.get(position).getName();
+            curArray = questionsArray.get(position).getAnswers();
+            curIscorrect = questionsArray.get(position).getIscorrect();
+            setupQuestionView(curName, curArray, curIscorrect);
+        } else {
+            StringGenerator.showToast(QuestionsActivity.this, "Your score : " + score + "/" + (questionsArray.size() / 3));
+        }
+    }
+
+    private boolean getUserSelection() {
+        correct = (RadioButton)findViewById(group.getCheckedRadioButtonId());
+        if (correct == null){
+            return false;
+        }else {
+            correctAnswerText = correct.getText().toString();
+            if (map.get(correctAnswerText).equals(Constants.CORRECTANSWER)) {
+                score++;
+                setCorrectMessage();
+                return true;
+            } else {
+                setWrongMessage();
+                return true;
+            }
+        }
+    }
+
+    private void setCorrectMessage() {
+        correctToast = new Toast(QuestionsActivity.this);
+        correctToastView = getLayoutInflater().inflate(R.layout.correct, (ViewGroup) findViewById(R.id.correctRootLayout));
+        correctText = (TextView)correctToastView.findViewById(R.id.correctTextView);
+        correctText.setText(getString(R.string.correctAnswer));
+        correctToast.setDuration(Toast.LENGTH_SHORT);
+        correctToast.setView(correctToastView);
+        correctToast.show();
+        correctThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                correctToast.cancel();
+            }
+        });
+        correctThread.start();
+    }
+
+    private void setWrongMessage() {
+        wrongToast = new Toast(QuestionsActivity.this);
+        wrongToastView = getLayoutInflater().inflate(R.layout.wrong, (ViewGroup) findViewById(R.id.wrongRootLayout));
+        wrongText = (TextView)wrongToastView.findViewById(R.id.wrongTextView);
+        wrongText.setText(getString(R.string.wrongAnswer));
+        wrongToast.setDuration(Toast.LENGTH_SHORT);
+        wrongToast.setView(wrongToastView);
+        wrongToast.show();
+        wrongThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                wrongToast.cancel();
+            }
+        });
+        wrongThread.start();
+    }
+
+    private String findCorrectValue() {
+        iterator = map.keySet().iterator();
+        while (iterator.hasNext()){
+            key = (String) iterator.next();
+            value = map.get(key);
+            if (value.equals(Constants.CORRECTANSWER)){
+                text = key;
+            }
+        }
+        return text;
+    }
+
+    private void initializeComponents() {
+        question = (TextView)findViewById(R.id.questionText);
+        group = (RadioGroup)findViewById(R.id.radioGroup);
+        ranswer1 = (RadioButton)findViewById(R.id.radioanswer1);
+        ranswer2 = (RadioButton)findViewById(R.id.radioanswer2);
+        ranswer3 = (RadioButton)findViewById(R.id.radioanswer3);
+        rootLayout = (LinearLayout)findViewById(R.id.rootLayout);
+        noQuestionsLayout = (LinearLayout)findViewById(R.id.noQuestions);
+        next = (Button)findViewById(R.id.btnNext);
+
+    }
+
     private void accessWebService() {
         questionsReadTask = new QuestionsReadTask();
-        if (langText.equals("en")){
+        if (langText.equals(getString(R.string.ta_to_select)) || langText.equals(null)){
             questionsReadTask.execute(Constants.QUESTIONS_BY_CATEGORY_EN_URL);
-        }else if (langText.equals("el")){
-            questionsReadTask.execute(Constants.QUESTIONS_BY_CATEGORY_URL);
+        }else {
+            if (langText.equals("en")) {
+                questionsReadTask.execute(Constants.QUESTIONS_BY_CATEGORY_EN_URL);
+            } else if (langText.equals("el")) {
+                questionsReadTask.execute(Constants.QUESTIONS_BY_CATEGORY_URL);
+            }
         }
     }
 
@@ -138,7 +264,11 @@ public class QuestionsActivity extends AppCompatActivity {
                 inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
                 jsonResult = StringGenerator.inputStreamToString(inputStream, QuestionsActivity.this);
                 jsonResponse = new JSONObject(jsonResult.toString());
-                checkDisplayLanguage(langText);
+                if (langText.equals(getString(R.string.ta_to_select)) || langText.equals(null)){
+                    jsonMainNode = jsonResponse.optJSONArray(Constants.QUESTIONS_BY_CATEGORY_EN_ARRAY);
+                }else {
+                    checkDisplayLanguage(langText);
+                }
                 questionsLists = new ArrayList<>();
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
@@ -149,8 +279,8 @@ public class QuestionsActivity extends AppCompatActivity {
                     jsonSecondChildNode = new JSONObject();
                     for (int j = 0; j < jsonArray.length(); j++) {
                         jsonSecondChildNode = jsonArray.getJSONObject(j);
-                        answer = jsonSecondChildNode.optString("answer" + (j+1));
-                        iscorrect = jsonSecondChildNode.optString("iscorrect" + (j+1));
+                        answer = jsonSecondChildNode.optString(Constants.ANSWER_NAME_JSON_NAME + (j+1));
+                        iscorrect = jsonSecondChildNode.optString(Constants.ISCORRECT_NAME_JSON_NAME + (j+1));
                         question_answers.add(answer);
                         question_iscorrect.add(iscorrect);
                         questionsLists.add(new QuestionsList(questionName, question_answers, question_iscorrect));
@@ -166,24 +296,39 @@ public class QuestionsActivity extends AppCompatActivity {
         protected void onPostExecute(List<QuestionsList> lists) {
             super.onPostExecute(lists);
             pDialog.dismiss();
+            questionsArray = new ArrayList<>();
+            questionsArray = lists;
+            curName = questionsArray.get(position).getName();
+            curArray = questionsArray.get(position).getAnswers();
+            curIscorrect = questionsArray.get(position).getIscorrect();
             if (lists.size() == 0){
-                //StringGenerator.showToast(QuestionsActivity.this, "This Category does not have answers");
-                setContentView(R.layout.noquestions);
-                toolbar.setTitle(R.string.unavailable);
+                if (noQuestionsLayout.getVisibility() == View.GONE){
+                    noQuestionsLayout.setVisibility(View.VISIBLE);
+                    rootLayout.setVisibility(View.GONE);
+                }else {
+                    noQuestionsLayout.setVisibility(View.GONE);
+                    rootLayout.setVisibility(View.VISIBLE);
+                }
             }else{
-                position = 0;
-                question.setText(lists.get(position).getName());
-                answersArray = lists.get(position).getAnswers();
-                ans1 = answersArray.get(position);
-                ans2 = answersArray.get(position+1);
-                ans3 = answersArray.get(position+2);
-                ranswer1.setText(ans1);
-                ranswer2.setText(ans2);
-                ranswer3.setText(ans3);
+                setupQuestionView(curName, curArray, curIscorrect);
             }
-
         }
+    }
 
+    private void setupQuestionView(String name, List<String> array, List<String> correct){
+        question.setText(name);
+        ans1 = array.get(0);
+        ans2 = array.get(1);
+        ans3 = array.get(2);
+        is1 = correct.get(0);
+        is2 = correct.get(1);
+        is3 = correct.get(2);
+        ranswer1.setText(ans1);
+        ranswer2.setText(ans2);
+        ranswer3.setText(ans3);
+        map.put(ans1, is1);
+        map.put(ans2, is2);
+        map.put(ans3, is3);
     }
 
     private void setupDataToDB() {
@@ -197,12 +342,10 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void checkDisplayLanguage(String locale){
-        if (locale.equals("en")){
+        if (locale.equals(Constants.EN)){
             jsonMainNode = jsonResponse.optJSONArray(Constants.QUESTIONS_BY_CATEGORY_EN_ARRAY);
-            Log.e("English Array: ", jsonMainNode.toString());
-        }else if (locale.equals("el")){
+        }else if (locale.equals(Constants.GR)){
             jsonMainNode = jsonResponse.optJSONArray(Constants.QUESTIONS_BY_CATEGORY_ARRAY);
-            Log.e("Greek Array: ", jsonMainNode.toString());
         }
     }
 

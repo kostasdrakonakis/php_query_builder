@@ -20,21 +20,13 @@ public class Constants {
     public static final String QUESTIONS_BY_CATEGORY_ARRAY = "quiz";
     public static final String QUESTIONS_BY_CATEGORY_EN_ARRAY = "quizen";
     public static final String QUESTIONS_ANSWERS_ARRAY = "question_answers";
-    public static final String CATEGORY_NAME_JSON_NAME = "category_name";
-    public static final String CATEGORY_ID_JSON_NAME = "category_id";
     public static final String QUESTION_NAME_JSON_NAME = "question_name";
     public static final String ISCORRECT_NAME_JSON_NAME = "iscorrect";
     public static final String ANSWER_NAME_JSON_NAME = "answer";
-    public static final String ANSWER_ID_JSON_NAME = "anser_id";
-    public static final String ANSWER_QUESTION_ID_JSON_NAME = "quest_id";
-    public static final String QUESTION_ID_JSON_NAME = "question_id";
+    public static final String CATEGORY_JSON_NAME = "cat_name";
+    public static final String CATEGORY_ID_JSON_NAME = "cat_id";
     public static final String CATEGORY_ID_POST_NAME = "category_id";
-    public static final String FIRST_ANSWER_POST_NAME = "answer1";
-    public static final String SECOND_ANSWER_POST_NAME = "answer2";
-    public static final String THIRD_ANSWER_POST_NAME = "answer3";
-    public static final String FIRST_ISCORRECT_POST_NAME = "iscorrect1";
-    public static final String SECOND_ISCORRECT_POST_NAME = "iscorrect2";
-    public static final String THIRD_ISCORRECT_POST_NAME = "iscorrect3";
+    public static final String CORRECTANSWER = "001";
 
     public static final String PREFERENCES_FILE = "option-preferences";
     public static final String LANGUAGE_PREFS_FILE = "DisplayLanguage";
@@ -42,4 +34,10 @@ public class Constants {
     public static final String CATEGORIES_INTENT_NAME= "name";
     public static final String CATEGORIES_INTENT_ID= "id";
     public static final String CHARACTER_ENCODING = "UTF-8";
+    public static final String EN = "en";
+    public static final String GR = "el";
+    public static final String GR_FULL = "Ελληνικά";
+    public static final String GR_EN_FULL = "Greek";
+    public static final String EN_FULL = "Αγγλικά";
+    public static final String EN_EN_FULL = "English";
 }
