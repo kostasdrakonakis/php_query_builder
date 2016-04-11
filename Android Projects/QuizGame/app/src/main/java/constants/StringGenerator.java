@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import com.library.quizgame.R;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.apache.http.NameValuePair;
 
@@ -148,5 +150,9 @@ public class StringGenerator {
         configuration.locale = myLocale;
         resources.updateConfiguration(configuration, displayMetrics);
 
+    }
+
+    public static void showSnackMessage(@Nullable SnackbarType type, String message, Context context, int color, Activity activity){
+        com.nispok.snackbar.Snackbar.with(context).text(message).color(color).type(type).show(activity);
     }
 }

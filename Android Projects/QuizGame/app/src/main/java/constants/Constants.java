@@ -10,10 +10,14 @@ public class Constants {
      * static finals έτσι ώστε αν χρειαστεί να αλλάξουμε κάτι να το αλλάξουμε μόνο εδώ και όχι να
      * ψάχνουμε στα αρχεία.
      */
-    public static final String CATEGORIES_URL = "http://my.chatapp.info/quiz/getcategories.php";
-    public static final String CATEGORIES_EN_URL = "http://my.chatapp.info/quiz/getcategoriesen.php";
-    public static final String QUESTIONS_BY_CATEGORY_URL = "http://my.chatapp.info/quiz/getquestionsforeachcategory.php";
-    public static final String QUESTIONS_BY_CATEGORY_EN_URL = "http://my.chatapp.info/quiz/getquestionsforeachcategoryen.php";
+    public static final String HOST = "http://my.chatapp.info";
+    public static final String PATH = "/quiz/";
+    public static final String CATEGORIES_URL = HOST + PATH + "getcategories.php";
+    public static final String CATEGORIES_EN_URL = HOST + PATH + "getcategoriesen.php";
+    public static final String QUESTIONS_BY_CATEGORY_URL = HOST + PATH + "getquestionsforeachcategory.php";
+    public static final String QUESTIONS_BY_CATEGORY_EN_URL = HOST + PATH + "getquestionsforeachcategoryen.php";
+    public static final String QUESTIONS_EN_URL = HOST + PATH + "getallquestionsen.php";
+    public static final String QUESTIONS_URL = HOST + PATH + "getallquestions.php";
 
     public static final String CATEGORIES_ARRAY = "categories";
     public static final String CATEGORIES_ARRAY_EN = "categories_en";
@@ -40,4 +44,14 @@ public class Constants {
     public static final String GR_EN_FULL = "Greek";
     public static final String EN_FULL = "Αγγλικά";
     public static final String EN_EN_FULL = "English";
+    public static final String ADMIN_EMAIL = "libreq@staff.teicrete.gr";
+    public static final String ENABLED_BUTTON_COLOR = "#FF4081";
+    public static final String TEL = "+30 - 2810 - 379330";
+    public static final int MY_PERMISSION_CODE = 1;
+    public static final int TOTAL_PAGES = 2;
+    public static final String PLAYER_SCORE = "player_score";
+    public static final String LIST_SIZE = "list_size";
+    public static final String USER_SAW_WELCOME_ACTIVITY = "user_saw";
+    public static final String USER_SAW = "userSaw";
+    public static final String USER_LIFES = "userlifenumber";
 }

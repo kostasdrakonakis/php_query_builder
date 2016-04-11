@@ -1,15 +1,19 @@
 package com.library.quizgame;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,21 +43,25 @@ import constants.Constants;
 import constants.StringGenerator;
 import lists.QuestionsList;
 
+import static android.view.View.SCROLL_AXIS_HORIZONTAL;
+import static android.view.View.SCROLL_AXIS_VERTICAL;
+import static android.view.View.TEXT_ALIGNMENT_CENTER;
+import static android.view.View.TEXT_ALIGNMENT_GRAVITY;
+
 public class QuestionsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private String name, id;
-    private String langText, ans1, ans2, ans3, questionName, answer, iscorrect, curName, is1, is2, is3, correctAnswerText, key, value,
-            text;
+    private String langText, ans1, ans2, ans3, questionName, answer, iscorrect, curName, is1, is2, is3, correctAnswerText;
     private SharedPreferences sharedPreferences;
     private QuestionsReadTask questionsReadTask;
     private ProgressDialog pDialog;
     private List<QuestionsList> questionsLists, questionsArray;
-    private TextView question, wrongText, correctText;
+    private TextView question, wrongText, correctText, rowTextView;
     private RadioButton ranswer1, ranswer2, ranswer3, correct;
     private RadioGroup group;
-    private int position = 0, score = 0;
-    private Button next;
+    private int position = 0, score = 0, p=-1;
+    private FloatingActionButton next;
     private List<String> question_iscorrect, question_answers, curArray, curIscorrect;
     private URL url;
     private HttpURLConnection httpURLConnection;
@@ -64,12 +72,17 @@ public class QuestionsActivity extends AppCompatActivity {
     private JSONObject jsonResponse, jsonChildNode, jsonSecondChildNode;
     private JSONArray jsonMainNode, jsonArray;
     private List<NameValuePair> nameValuePairs;
-    private LinearLayout rootLayout, noQuestionsLayout;
+    private LinearLayout rootLayout;
+    private LinearLayout noQuestionsLayout;
+    private LinearLayout textViewLayout;
     private HashMap<String, String> map = new HashMap<>();
     private Iterator iterator;
     private Toast correctToast, wrongToast;
     private View correctToastView, wrongToastView;
     private Thread correctThread, wrongThread;
+    private TextView[] myTextViews;
+    private LinearLayout.LayoutParams params;
+    private HorizontalScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +93,12 @@ public class QuestionsActivity extends AppCompatActivity {
         setupToolbar();
         initializeComponents();
         accessWebService();
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getUserSelection()){
-                    Thread thread = new Thread(new Runnable() {
+                    final Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -93,6 +107,15 @@ public class QuestionsActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         moveToNextQuestion();
+                                        p++;
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                            myTextViews[p].setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                        }
+                                        scrollView.setFocusable(false);
+                                        scrollView.setVerticalScrollBarEnabled(false);
+                                        scrollView.setHorizontalScrollBarEnabled(false);
+                                        scrollView.smoothScrollBy(myTextViews[p].getWidth(), 0);
+
                                     }
                                 });
                             } catch (InterruptedException e) {
@@ -108,6 +131,49 @@ public class QuestionsActivity extends AppCompatActivity {
         });
     }
 
+    private void generateTextViews(List<QuestionsList> lista) {
+        int number = lista.size();
+        myTextViews = new TextView[number]; // create an empty array;
+            for (int i = 0; i < lista.size()/3; i++) {
+                // create a new textview
+                rowTextView = new TextView(QuestionsActivity.this);
+                params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(20, 20, 20, 20);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    params.setLayoutDirection(TEXT_ALIGNMENT_CENTER);
+                }
+                rowTextView.setWidth(180);
+                rowTextView.setHeight(180);
+                rowTextView.setPadding(70, 40, 40, 40);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    rowTextView.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
+                rowTextView.setTextColor(getResources().getColor(R.color.white));
+                // set some properties of rowTextView or something
+                rowTextView.setText(String.valueOf(i+1));
+                // add the textview to the linearlayout
+                textViewLayout.addView(rowTextView, params);
+                textViewLayout.setScrollContainer(true);
+                textViewLayout.setOrientation(LinearLayout.HORIZONTAL);
+                textViewLayout.setHorizontalScrollBarEnabled(true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    textViewLayout.setGravity(TEXT_ALIGNMENT_GRAVITY);
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    textViewLayout.setScrollIndicators(View.SCROLL_INDICATOR_LEFT|View.SCROLL_INDICATOR_RIGHT);
+                }
+                textViewLayout.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textViewLayout.setScrollX(SCROLL_AXIS_VERTICAL);
+                    textViewLayout.setScrollY(SCROLL_AXIS_HORIZONTAL);
+                }
+
+                // save a reference to the textview for later
+                myTextViews[i] = rowTextView;
+            }
+
+    }
+
     private void moveToNextQuestion() {
         position = position + 3;
         if (position < questionsArray.size()) {
@@ -116,7 +182,12 @@ public class QuestionsActivity extends AppCompatActivity {
             curIscorrect = questionsArray.get(position).getIscorrect();
             setupQuestionView(curName, curArray, curIscorrect);
         } else {
-            StringGenerator.showToast(QuestionsActivity.this, "Your score : " + score + "/" + (questionsArray.size() / 3));
+            int number = questionsArray.size() / 3;
+            StringGenerator.showToast(QuestionsActivity.this, getString(R.string.endofgame));
+            Intent intent = new Intent(QuestionsActivity.this, ResultActivity.class);
+            intent.putExtra(Constants.PLAYER_SCORE, score);
+            intent.putExtra(Constants.LIST_SIZE, number);
+            startActivity(intent);
         }
     }
 
@@ -144,6 +215,7 @@ public class QuestionsActivity extends AppCompatActivity {
         correctText.setText(getString(R.string.correctAnswer));
         correctToast.setDuration(Toast.LENGTH_SHORT);
         correctToast.setView(correctToastView);
+        correctToast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL, 0, 0);
         correctToast.show();
         correctThread = new Thread(new Runnable() {
             @Override
@@ -166,6 +238,7 @@ public class QuestionsActivity extends AppCompatActivity {
         wrongText.setText(getString(R.string.wrongAnswer));
         wrongToast.setDuration(Toast.LENGTH_SHORT);
         wrongToast.setView(wrongToastView);
+        wrongToast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL, 0, 0);
         wrongToast.show();
         wrongThread = new Thread(new Runnable() {
             @Override
@@ -181,17 +254,6 @@ public class QuestionsActivity extends AppCompatActivity {
         wrongThread.start();
     }
 
-    private String findCorrectValue() {
-        iterator = map.keySet().iterator();
-        while (iterator.hasNext()){
-            key = (String) iterator.next();
-            value = map.get(key);
-            if (value.equals(Constants.CORRECTANSWER)){
-                text = key;
-            }
-        }
-        return text;
-    }
 
     private void initializeComponents() {
         question = (TextView)findViewById(R.id.questionText);
@@ -201,7 +263,9 @@ public class QuestionsActivity extends AppCompatActivity {
         ranswer3 = (RadioButton)findViewById(R.id.radioanswer3);
         rootLayout = (LinearLayout)findViewById(R.id.rootLayout);
         noQuestionsLayout = (LinearLayout)findViewById(R.id.noQuestions);
-        next = (Button)findViewById(R.id.btnNext);
+        textViewLayout = (LinearLayout)findViewById(R.id.textViewGenerator);
+        scrollView = (HorizontalScrollView)findViewById(R.id.horizontalScroll);
+        next = (FloatingActionButton)findViewById(R.id.btnNext);
 
     }
 
@@ -296,12 +360,15 @@ public class QuestionsActivity extends AppCompatActivity {
         protected void onPostExecute(List<QuestionsList> lists) {
             super.onPostExecute(lists);
             pDialog.dismiss();
+            generateTextViews(lists);
             questionsArray = new ArrayList<>();
             questionsArray = lists;
-            curName = questionsArray.get(position).getName();
-            curArray = questionsArray.get(position).getAnswers();
-            curIscorrect = questionsArray.get(position).getIscorrect();
-            if (lists.size() == 0){
+            if (position < questionsArray.size()) {
+                curName = questionsArray.get(position).getName();
+                curArray = questionsArray.get(position).getAnswers();
+                curIscorrect = questionsArray.get(position).getIscorrect();
+            }
+            if (questionsArray.size() == 0){
                 if (noQuestionsLayout.getVisibility() == View.GONE){
                     noQuestionsLayout.setVisibility(View.VISIBLE);
                     rootLayout.setVisibility(View.GONE);

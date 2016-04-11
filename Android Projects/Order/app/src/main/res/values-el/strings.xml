@@ -60,7 +60,7 @@
     <string name="wifi_off_title">Χωρίς Σύνδεση στο διαδίκτυο</string>
     <string name="cancel">Άκυρο</string>
     <string name="waiting">Παρακαλώ Περιμένετε</string>
-    <string name="get_stocks">Φόρτωση Δεδομένων...</string>
+    <string name="get_stocks">Φόρτωση Δεδομένων …</string>
     <string name="payment">Διαχείρηση</string>
     <string name="gin_flavor">Επιλέξτε Μάρκα Gin:</string>
     <string name="glass_pref">Ποτήρι:</string>
@@ -87,7 +87,7 @@
     <string name="rateBarCommentHint">Γράψτε ένα σχόλιο</string>
     <string name="password_required">Απαιτείται ο κωδικός πρόσβασης</string>
     <string name="posButtonRate">Υποβολη</string>
-    <string name="dialog_rate_data_submit">Παρακαλώ Περιμένετε...</string>
+    <string name="dialog_rate_data_submit">Παρακαλώ Περιμένετε …</string>
     <string name="confirmRateText">Σας ευχαριστούμε για την ψήφο σας</string>
     <string name="tableNumEmptyMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι κενός</string>
     <string name="tableNumZeroMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι 0</string>
@@ -112,7 +112,7 @@
     <string name="help_dialog_message">Μπορείτε να επικοινωνήσετε μαζί μας οποιαδήποτε στιγμή καλώντας στο </string>
     <string name="send">Αποστολη</string>
     <string name="switch_text">Δεν μπορείτε να μας βρείτε στο τηλέφωνο;\n Θέλετε περισσότερη βοήθεια;</string>
-    <string name="tel">+30#82116949290612</string>
+    <string name="tel">+30–6949290612</string>
     <string name="message_empty">Το πεδίο μηνύματος δεν μπορεί να είναι κενό</string>
     <string name="subject_empty">Το πεδίο θέματος δεν μπορεί να είναι κενό</string>
     <string name="subject_or_message_empty">Τα πεδία είναι υποχρεωτικά</string>
@@ -241,7 +241,7 @@
     <string name="iceCreamQuantity">Μπάλες Παγωτού</string>
     <string name="delete">Διαγραφή</string>
     <string name="selected_modifiable_items">Παραμετροποίηση</string>
-    <string name="delete_items_loading">Διαγραφή προϊόντων...</string>
+    <string name="delete_items_loading">Διαγραφή προϊόντων …</string>
     <string name="delete_msg">Είστε σίγουροι οτι θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
     <string name="add">Προσθήκη</string>
     <string name="function_unavailable">Η λειτουργία αυτή δεν είναι διαθέσιμη προς το παρόν</string>
@@ -258,5 +258,7 @@
     <string name="draught">Ποτήρι</string>
     <string name="size">Μέγεθος:</string>
     <string name="small">Μικρό</string>
+    <string name="size_preference">Πρέπει να επιλέξετε μέγεθος</string>
+    <string name="way_preference">Πρέπει να επιλέξετε προτίμηση</string>
 
 </resources>

@@ -24,7 +24,7 @@
                 android:id="@+id/buttonStartGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="@string/start_game"
                  />
 

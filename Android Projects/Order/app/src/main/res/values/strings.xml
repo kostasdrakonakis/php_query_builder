@@ -60,7 +60,7 @@
     <string name="wifi_off_title">No Network Connection</string>
     <string name="cancel">Cancel</string>
     <string name="waiting">Please wait</string>
-    <string name="get_stocks">Loading Products...</string>
+    <string name="get_stocks">Loading Products &#8230;</string>
     <string name="payment">Manage</string>
     <string name="gin_flavor">Choose Gin Brand:</string>
     <string name="glass_pref">Preferred Glass:</string>
@@ -88,7 +88,7 @@
     <string name="rateBarCommentHint">Write a comment</string>
     <string name="rateDialogTitle">Rate our App</string>
     <string name="posButtonRate">Confirm</string>
-    <string name="dialog_rate_data_submit">Please Wait...</string>
+    <string name="dialog_rate_data_submit">Please Wait &#8230;</string>
     <string name="confirmRateText">Thank you for voting</string>
     <string name="tableNumEmptyMessage">The table number cannot be empty</string>
     <string name="tableNumZeroMessage">The table number cannot be zero</string>
@@ -111,7 +111,7 @@
     <string name="help">Help</string>
     <string name="help_dialog_message">Contact us any time at </string>
     <string name="send">Send</string>
-    <string name="tel">+30#82116949290612</string>
+    <string name="tel">+30–6949290612</string>
     <string name="call">Call</string>
     <string name="subject_or_message_empty">Both fields are required</string>
     <string name="subject_empty">Subject cannot be empty</string>
@@ -266,7 +266,7 @@
     <string name="delete">Delete</string>
     <string name="selected_modifiable_items">Modify</string>
     <string name="delete_msg">Are you sure you want to delete the selected items?</string>
-    <string name="delete_items_loading">Deleting items...</string>
+    <string name="delete_items_loading">Deleting items &#8230;</string>
     <string name="add">Add</string>
     <string name="function_unavailable">This function is not available at the moment</string>
     <string name="checkout_message_dialog">Are you sure you would like to checkout order?</string>
@@ -282,5 +282,7 @@
     <string name="size">Size:</string>
     <string name="big">Big</string>
     <string name="small">Small</string>
+    <string name="way_preference">You have to make a selection beer or bottle</string>
+    <string name="size_preference">You have to select the size</string>
 
 </resources>

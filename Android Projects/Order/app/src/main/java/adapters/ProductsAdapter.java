@@ -1,8 +1,10 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.koushikdutta.ion.Ion;
 import com.order.app.order.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 import lists.ProductList;
@@ -32,14 +35,14 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.productlist_row_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row_item, parent, false);
         ProductViewHolder pvh = new ProductViewHolder(v);
         return pvh;
     }
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        holder.productName.setText(products.get(position).getName());
+        initView(position, holder.productName, products.get(position).getName());
         holder.productPrice.setText(products.get(position).getPrice() + " €");
         Ion.with(holder.productImage).placeholder(R.mipmap.placeholder).error(R.mipmap.placeholder).load(products.get(position).getImage());
     }
@@ -64,11 +67,28 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         ProductViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
-            productName = (TextView)itemView.findViewById(R.id.product_name);
-            productPrice = (TextView)itemView.findViewById(R.id.product_price);
-            productImage = (ImageView)itemView.findViewById(R.id.product_image);
-            linearLayout = (LinearLayout)itemView.findViewById(R.id.container);
+            productName = (TextView)itemView.findViewById(R.id.textView_name_product);
+            productPrice = (TextView)itemView.findViewById(R.id.textView_price_product);
+            productImage = (ImageView)itemView.findViewById(R.id.imageView_product);
+            linearLayout = (LinearLayout)itemView.findViewById(R.id.product_container);
         }
+    }
+
+    private void initView(int position, TextView holderTextView, String text) {
+        Paint paint = new Paint();
+        float width = paint.measureText(text);
+        int maxLength = 5; // put whatever length you need here
+        if (width > maxLength) {
+            List<String> arrayList = null;
+            String[] array = (text.split("\\s"));
+            arrayList = Arrays.asList(array);
+            int seventyPercent = (int) (Math.round(arrayList.size() * 0.10)); // play with this if needed
+            String linebreak = arrayList.get(seventyPercent) + "\n";
+            arrayList.set(seventyPercent, linebreak);
+            text = TextUtils.join(" ", arrayList);
+            text.replace(",", " ");
+        }
+        holderTextView.setText(text);
     }
 
 

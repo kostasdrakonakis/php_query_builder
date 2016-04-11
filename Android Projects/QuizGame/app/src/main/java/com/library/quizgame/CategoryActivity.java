@@ -103,7 +103,6 @@ public class CategoryActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
         toolbar.setTitle(getString(R.string.categories));
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setLogo(R.drawable.ic_list);
         setSupportActionBar(toolbar);
     }
 }

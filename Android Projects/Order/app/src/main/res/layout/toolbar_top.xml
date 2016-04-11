@@ -7,7 +7,7 @@
     android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
     android:id="@+id/topBar"
     app:layout_scrollFlags="scroll|enterAlways"
-    android:background="@color/btn_login">
+    android:background="@color/gold">
 
 
 </android.support.v7.widget.Toolbar>

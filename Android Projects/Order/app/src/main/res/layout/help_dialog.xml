@@ -28,7 +28,6 @@
                     android:padding="15dp"
                     android:checked="false"
                     android:gravity="center_horizontal"
-
                     android:text="@string/switch_text"
                     android:id="@+id/helpSwitch" />
             </LinearLayout>

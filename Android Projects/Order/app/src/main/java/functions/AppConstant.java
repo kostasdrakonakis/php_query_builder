@@ -52,6 +52,8 @@ public class AppConstant {
     public static final String SWEETS_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_sweets_to_cart.php";
     public static final String BEVERAGES_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_beverages_to_cart.php";
     public static final String SPIRIT_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_spirits_to_cart.php";
+    public static final String BEERS_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_beers_to_cart.php";
+
 
     public static final String RATINGS_URL = "http://api.chatapp.info/order_api/insertData/insert_ratings.php";
 
@@ -120,14 +122,14 @@ public class AppConstant {
     public static final String TEL = "+30-6949290612";
 
     //change the button color depending on its state
-    public static final String ENABLED_BUTTON_COLOR = "#26ae90";
+    //public static final String ENABLED_BUTTON_COLOR = "#26ae90";
+    public static final String ENABLED_BUTTON_COLOR = "#e6b121";
     public static final String DISABLED_BUTTON_COLOR = "#d8d8d8";
 
     //character encoding used for sending requests and receiving responces to and from the server
     public static final String CHARACTER_ENCODING = "UTF-8";
 
     //preference keys
-
     public static final String COFFEE_KEY = "coffee_file";
     public static final String SWEET_KEY = "sweet_file";
     public static final String SNACK_KEY = "snack_file";
@@ -144,6 +146,7 @@ public class AppConstant {
     public static final String BADGE_COUNT_VALUE = "counter_value";
     public static final String DELETE_URL = "http://api.chatapp.info/order_api/deleteData/deletecartitems.php";
     public static final int MY_PERMISSION_CODE = 1;
+
 
 
     public static String CART_JSON_ARRAY = "cart";

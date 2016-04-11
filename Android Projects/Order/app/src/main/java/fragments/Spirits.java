@@ -94,9 +94,9 @@ public class Spirits extends Fragment {
 
     private void checkOrientation() {
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
         }else{
-            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1);
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
 
         }
     }

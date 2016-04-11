@@ -17,6 +17,7 @@ public class StartActivity extends AppCompatActivity {
     private Button start, categories, options;
     private Toolbar toolbar;
     private String langText;
+    private int lifesNumber;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -35,6 +36,7 @@ public class StartActivity extends AppCompatActivity {
     private void loadFromPrefs() {
         sharedPreferences = getSharedPreferences(Constants.PREFERENCES_FILE, MODE_PRIVATE);
         langText = sharedPreferences.getString(Constants.LANGUAGE_PREFS_FILE, getString(R.string.ta_to_select));
+        lifesNumber = Integer.parseInt(sharedPreferences.getString(Constants.LIFES_PREFS_FILE, String.valueOf(0)));
     }
 
     private void setupToolBar() {
@@ -64,6 +66,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, StartGameActivity.class);
+                intent.putExtra(Constants.USER_LIFES, lifesNumber);
                 startActivity(intent);
             }
         });

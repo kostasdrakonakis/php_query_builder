@@ -1,20 +1,31 @@
 package com.library.quizgame;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import com.nispok.snackbar.enums.SnackbarType;
 
 import constants.Constants;
 import constants.StringGenerator;
@@ -22,16 +33,20 @@ import dialogs.DialogMessageDisplay;
 
 public class OptionsActivity extends AppCompatActivity {
 
-    private EditText lifes;
+    private EditText lifes, subject, message;
     private Button plus, minus;
-    private LinearLayout languageLayout, aboutLayout;
+    private LinearLayout languageLayout, aboutLayout, contactLayout;
     private Toolbar toolBar;
-    private AlertDialog.Builder languageDialog;
+    private AlertDialog.Builder languageDialog, contactDialog;
     private String[] languages;
     private TextView displayLanguage;
-    private String langText, lifesText, langFromPrefs, lifesFromPrefs, loadLang;
+    private String langText, lifesText, langFromPrefs, lifesFromPrefs, loadLang, subjectTXT, messageTXT;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private View contactView;
+    private Switch helpSwitch;
+    private Intent sendIntent, callIntent;
+    private Uri number;
 
 
     @Override
@@ -100,7 +115,6 @@ public class OptionsActivity extends AppCompatActivity {
         toolBar = (Toolbar)findViewById(R.id.toolBar);
         toolBar.setTitle(getString(R.string.options));
         toolBar.setTitleTextColor(Color.WHITE);
-        toolBar.setLogo(R.drawable.ic_settings);
         setSupportActionBar(toolBar);
     }
 
@@ -138,7 +152,132 @@ public class OptionsActivity extends AppCompatActivity {
                 DialogMessageDisplay.displayInfoMessage(OptionsActivity.this, getString(R.string.aboutMe), getString(R.string.messageAboutDialog));
             }
         });
+        contactLayout = (LinearLayout)findViewById(R.id.contactLayout);
+        contactLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactIt();
+            }
+        });
     }
+
+    /**
+     * Δίνουμε στον χρήστη την δυνατότητα είτε να μας στείλει μήνυμα
+     * ή να καλέσει απευθείας στην Βιβλιοθήκη.
+     */
+    private void contactIt() {
+        contactDialog = new AlertDialog.Builder(this);
+        contactView = getLayoutInflater().inflate(R.layout.contact_dialog, (ViewGroup) findViewById(R.id.helpRootLayout));
+        subject = (EditText)contactView.findViewById(R.id.subject);
+        message = (EditText)contactView.findViewById(R.id.TextMessage);
+        helpSwitch = (Switch)contactView.findViewById(R.id.helpSwitch);
+
+        contactLayout = (LinearLayout)contactView.findViewById(R.id.messageLayout);
+        contactDialog.setTitle(getString(R.string.help))
+                .setMessage(getString(R.string.help_dialog_message)+"\n" + Constants.TEL)
+                .setView(contactView)
+                .setPositiveButton(getString(R.string.send), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        subjectTXT = subject.getText().toString();
+                        messageTXT = message.getText().toString();
+                        if (subjectTXT.isEmpty() && messageTXT.isEmpty()){
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_or_message_empty),OptionsActivity.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), OptionsActivity.this);
+                        }else if (subjectTXT.isEmpty()){
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_empty), OptionsActivity.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), OptionsActivity.this);
+                        }else if (messageTXT.isEmpty()){
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.message_empty), OptionsActivity.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), OptionsActivity.this);
+
+                        }else {
+                            sendIntent = new Intent(Intent.ACTION_SEND);
+                            sendIntent.setData(Uri.parse("mailto:"));
+                            sendIntent.setType("text/plain");
+                            sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{Constants.ADMIN_EMAIL});
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT, subjectTXT);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, messageTXT);
+                            startActivity(sendIntent);
+                        }
+
+
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.call), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            if (ContextCompat.checkSelfPermission(OptionsActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(OptionsActivity.this,
+                                        Manifest.permission.CALL_PHONE)) {
+                                    StringGenerator.showSnackMessage(
+                                            SnackbarType.MULTI_LINE,
+                                            "In order to get in touch with the Support Team you have to accept permission",
+                                            OptionsActivity.this,
+                                            Color.parseColor(Constants.ENABLED_BUTTON_COLOR),
+                                            OptionsActivity.this);
+                                } else {
+                                    ActivityCompat.requestPermissions(OptionsActivity.this,
+                                            new String[]{Manifest.permission.CALL_PHONE},
+                                            Constants.MY_PERMISSION_CODE);
+                                }
+                            }else {
+                                number = Uri.parse("tel:" + Constants.TEL);
+                                callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(number);
+                                startActivity(callIntent);
+                            }
+                        }else {
+                            number = Uri.parse("tel:" + Constants.TEL);
+                            callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(number);
+                            startActivity(callIntent);
+                        }
+                    }
+                })
+                .create();
+
+        final AlertDialog dialog = contactDialog.show();
+        dialog.show();
+        Button btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+        btn.setEnabled(false);
+        Button cancel = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        Button call = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        cancel.setTextColor(getResources().getColor(R.color.colorPrimary));
+        call.setTextColor(getResources().getColor(R.color.colorPrimary));
+        if (helpSwitch!= null){
+            helpSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        if (contactLayout.getVisibility() == View.GONE) {
+                            contactLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            contactLayout.setVisibility(View.GONE);
+                        }
+                        Button btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                        btn.setTextColor(getResources().getColor(R.color.colorPrimary));
+                        btn.setEnabled(true);
+                    } else {
+                        if (contactLayout.getVisibility() == View.GONE) {
+                            contactLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            contactLayout.setVisibility(View.GONE);
+                        }
+                        Button btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                        btn.setEnabled(false);
+                    }
+                }
+            });
+        }
+
+    }
+
 
     /**
      * Φτιάχνουμε τον διάλογο που δείχνουμε στον χρήστη για να επιλέξει γλώσσα εμφάνισης

@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include android:id="@+id/toolBar" layout="@layout/toolbar"/>
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/textViewGenerator"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/noQuestions"
@@ -31,64 +44,87 @@
             android:gravity="center"
             android:id="@+id/textView3" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/rootLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="This is where the question will be placed. Is it good?"
-            android:padding="25dp"
-            android:id="@+id/questionText"
-            android:gravity="center" />
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="100dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/amber"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="70dp"
+                    android:src="@drawable/ic_lightbulb_outline"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:padding="15dp"
+                    android:id="@+id/questionText"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_margin="20dp"
+                android:layout_height="wrap_content">
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
-                android:padding="25dp"
+                android:padding="10dp"
                 android:layout_height="match_parent">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Answer 1"
-                    android:layout_margin="10dp"
-                    android:id="@+id/radioanswer1" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Answer 2"
+                    android:text=""
+                    android:layout_margin="10dp"
+                    android:id="@+id/radioanswer1" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
                     android:layout_margin="10dp"
                     android:id="@+id/radioanswer2" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Answer 3"
+                    android:text=""
                     android:layout_margin="10dp"
                     android:id="@+id/radioanswer3" />
             </RadioGroup>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnNext"
             android:layout_width="match_parent"
-            android:layout_gravity="bottom|center_horizontal|center_vertical"
+            android:background="@color/amber"
+            android:src="@drawable/ic_arrow_white"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/questions_button_margin"
-            android:layout_marginStart="@dimen/questions_button_margin"
-            android:layout_marginRight="@dimen/questions_button_margin"
-            android:layout_marginEnd="@dimen/questions_button_margin"
-            android:text="@string/next"
-            android:id="@+id/btnNext" />
+            android:layout_margin="10dp"
+            app:backgroundTint="@color/amber"
+            android:layout_gravity="bottom|right"
+            android:text="@string/next" />
     </LinearLayout>
 
 

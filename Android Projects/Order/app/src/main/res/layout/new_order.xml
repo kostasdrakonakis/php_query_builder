@@ -16,7 +16,7 @@
         android:id="@+id/toolBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="scroll|enterAlways|snap"
-        android:background="@color/btn_login">
+        android:background="@color/gold">
     </android.support.v7.widget.Toolbar>
 
     <com.quinny898.library.persistentsearch.SearchBox
@@ -26,14 +26,14 @@
         android:layout_marginLeft="-10dp"
         android:layout_marginRight="-10dp"
         android:layout_marginTop="-64dp"
-        android:background="@color/btn_login"
+        android:background="@color/gold"
         android:visibility="gone" />
 
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/btn_login" />
+        android:background="@color/gold" />
 </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager

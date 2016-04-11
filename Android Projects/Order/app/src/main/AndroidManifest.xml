@@ -99,7 +99,7 @@
             android:label="@string/title_activity_beverages_layout" />
         <activity
             android:name="cart.CartActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="keyboardHidden|screenSize" />
         <activity android:name="cart.CheckoutActivity" />
         <activity
             android:name="cart.BeersLayoutActivity"

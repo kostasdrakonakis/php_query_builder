@@ -75,6 +75,7 @@ public class CartActivity extends AppCompatActivity {
     private NetworkInfo networkInfo;
     private boolean connected;
     float sum = 0;
+    private int pos;
     private ActionMode actionMode;
     private LinearLayout rootLayout;
 
@@ -83,6 +84,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         setupToolbar();
+        checkNetwork();
         setupRecyclerView();
         totalText = (TextView) findViewById(R.id.totalText);
         modify = (Button) findViewById(R.id.modifyButton);
@@ -90,7 +92,7 @@ public class CartActivity extends AppCompatActivity {
         rootLayout = (LinearLayout)findViewById(R.id.linear_cart_empty);
         setupButtonCallbacks();
         enableSwipeFunctions();
-        checkNetwork();
+
     }
 
     private void enableSwipeFunctions() {
@@ -102,17 +104,31 @@ public class CartActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int pos = viewHolder.getAdapterPosition();
-                deleteDataWebService(cartItems.get(pos).getName());
-                adapter.remove(pos);
-                sum = 0;
-                setupTotalValue();
-                accessWebService();
+                if (cartItems.size() >0){
+                    pos = viewHolder.getAdapterPosition();
+                    removePrice(cartItems.get(pos).getPrice());
+                    deleteDataWebService(cartItems.get(pos).getName());
+                    adapter.remove(pos);
+                    adapter.notifyItemRemoved(pos);
+                    adapter.notifyItemRangeChanged(pos, cartItems.size());
+                }
+
+                //accessWebService();
             }
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void removePrice(String price){
+        if (cartItems.size()>0){
+            float aftersum = Float.parseFloat(totalText.getText().toString().replace("€", " "));
+            aftersum = aftersum - Float.parseFloat(price);
+            String text = String.format("%.2f", aftersum);
+            totalText.setText(String.valueOf(aftersum) + " €");
+        }
+
     }
 
 
