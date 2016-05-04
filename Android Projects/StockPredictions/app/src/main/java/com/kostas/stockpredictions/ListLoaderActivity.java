@@ -47,7 +47,7 @@ import lists.StockList;
 public class ListLoaderActivity extends ActionBarActivity {
 
     private String jsonResult;
-    private String url = "http://www.chatapp.info/myProject/getstocks.php";
+    private String url = "http://my.chatapp.info/myProject/getstocks1.php";
     private ListView startList;
     public static final String PREFS_NAME = "MyPrefsFile1";
     ProgressDialog pDialog;
