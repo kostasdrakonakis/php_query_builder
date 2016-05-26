@@ -146,33 +146,6 @@ public class Spirits extends Fragment {
                         break;
                     }
                     case 1: {
-                        Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
-                        startActivity(intent);
-                        break;
-                    }
-                    case 2: {
-                        Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
-                        startActivity(intent);
-                        break;
-                    }
-                    case 3: {
-                        Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
-                        startActivity(intent);
-                        break;
-                    }
-                    case 4: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Vodkas.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
@@ -181,8 +154,35 @@ public class Spirits extends Fragment {
                         startActivity(intent);
                         break;
                     }
-                    case 5: {
+                    case 2: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Whiskeys.class);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        startActivity(intent);
+                        break;
+                    }
+                    case 3: {
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        startActivity(intent);
+                        break;
+                    }
+                    case 4: {
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
+                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
+                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        startActivity(intent);
+                        break;
+                    }
+                    case 5: {
+                        Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
                         intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
                         intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
                         intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
@@ -254,13 +254,16 @@ public class Spirits extends Fragment {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.connect();
+                urlConnection.setRequestProperty("X-API-KEY", "123456");
+                urlConnection.setRequestMethod("GET");
                 urlConnection.setConnectTimeout(5000);
+                urlConnection.connect();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 jsonResult = StringGenerator.inputStreamToString(in, getActivity());
                 customList = new ArrayList<>();
 
                 jsonResponse = new JSONObject(jsonResult.toString());
+                Log.e("Response spirits: ", jsonResponse.toString());
                 jsonMainNode = jsonResponse.optJSONArray(AppConstant.SPIRITS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);

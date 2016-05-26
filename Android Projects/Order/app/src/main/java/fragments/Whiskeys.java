@@ -318,6 +318,8 @@ public class Whiskeys extends AppCompatActivity {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("X-API-KEY", "123456");
+                urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
                 urlConnection.setConnectTimeout(5000);
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());

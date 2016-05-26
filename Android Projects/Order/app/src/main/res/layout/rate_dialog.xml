@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:material="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/rootLayout"
     android:descendantFocusability="beforeDescendants"
@@ -21,12 +20,11 @@
             android:numStars="5"
             android:layout_marginTop="15dp"
             android:stepSize="0.5"
-            android:progressTint="@color/btn_login"
-            android:backgroundTint="@color/bg_login"
-            android:secondaryProgressTint="@color/btn_login"
-            android:progressBackgroundTint="@color/btn_login"
+            android:progressTint="@color/gold"
+            android:backgroundTint="@color/gold"
+            android:secondaryProgressTint="@color/gold"
+            android:progressBackgroundTint="@color/gold"
             android:layout_height="wrap_content"
-            app:colorPressed="#fff"
             android:id="@+id/ratingBar" />
 
         <EditText

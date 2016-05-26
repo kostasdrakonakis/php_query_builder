@@ -31,20 +31,20 @@ public class AppConstant {
     public static final String REGISTER_URL = "http://api.chatapp.info/order_api/insertData/insert_users_into_db.php";
     public static final String LOGIN_URL = "http://api.chatapp.info/order_api/insertData/user_login.php";
 
-    public static final String WHISKEYS_URL = "http://api.chatapp.info/order_api/files/getwhiskys.php";
-    public static final String LIQUERS_URL = "http://api.chatapp.info/order_api/files/getliquers.php";
-    public static final String VODKAS_URL = "http://api.chatapp.info/order_api/files/getvodkas.php";
-    public static final String TEQUILAS_URL = "http://api.chatapp.info/order_api/files/gettequilas.php";
-    public static final String RUMS_URL = "http://api.chatapp.info/order_api/files/getrums.php";
-    public static final String GINS_URL = "http://api.chatapp.info/order_api/files/getgins.php";
+    public static final String WHISKEYS_URL = "http://client-api.chatapp.info/api/whiskeys/";
+    public static final String LIQUERS_URL = "http://client-api.chatapp.info/api/liquers/";
+    public static final String VODKAS_URL = "http://client-api.chatapp.info/api/vodkas/";
+    public static final String TEQUILAS_URL = "http://client-api.chatapp.info/api/tequilas/";
+    public static final String RUMS_URL = "http://client-api.chatapp.info/api/rums/";
+    public static final String GINS_URL = "http://client-api.chatapp.info/api/gins/";
 
 
-    public static final String SWEETS_URL = "http://api.chatapp.info/order_api/files/getsweets.php";
-    public static final String SPIRITS_URL = "http://api.chatapp.info/order_api/files/getspirits.php";
-    public static final String SNACKS_URL = "http://api.chatapp.info/order_api/files/getsnacks.php";
-    public static final String COFFEES_URL = "http://api.chatapp.info/order_api/files/getkafedes.php";
-    public static final  String BEVERAGES_URL = "http://api.chatapp.info/order_api/files/getbeverages.php";
-    public static final String BEERS_URL = "http://api.chatapp.info/order_api/files/getbeers.php";
+    public static final String SWEETS_URL = "http://client-api.chatapp.info/api/sweets/";
+    public static final String SPIRITS_URL = "http://client-api.chatapp.info/api/spirits/";
+    public static final String SNACKS_URL = "http://client-api.chatapp.info/api/snacks/";
+    public static final String COFFEES_URL = "http://client-api.chatapp.info/api/coffees/";
+    public static final  String BEVERAGES_URL = "http://client-api.chatapp.info/api/beverages/";
+    public static final String BEERS_URL = "http://client-api.chatapp.info/api/beers/";
     public static final String CART_URL = "http://api.chatapp.info/order_api/files/getcartitems.php";
 
     public static final String COFFEES_ADD_TO_CART_URL = "http://api.chatapp.info/order_api/insertData/insert_coffees_to_cart.php";
@@ -59,18 +59,18 @@ public class AppConstant {
 
 
     //JSON Arrays
-    public static final String COFFEE_JSON_ARRAY = "kafedes";
-    public static final String SNACKS_JSON_ARRAY = "snacks";
-    public static final String SWEETS_JSON_ARRAY = "sweets";
-    public static final String BEVERAGES_JSON_ARRAY = "beverages";
-    public static final String SPIRITS_JSON_ARRAY = "spirits";
-    public static final String BEERS_JSON_ARRAY = "beers";
-    public static final String GINS_JSON_ARRAY = "gins";
-    public static final String LIQUERS_JSON_ARRAY = "liquers";
-    public static final String RUMS_JSON_ARRAY = "rums";
-    public static final String TEQUILAS_JSON_ARRAY = "tequilas";
-    public static final String VODKAS_JSON_ARRAY = "vodkas";
-    public static final String WHISKEYS_JSON_ARRAY = "whiskys";
+    public static final String COFFEE_JSON_ARRAY = "response";
+    public static final String SNACKS_JSON_ARRAY = "response";
+    public static final String SWEETS_JSON_ARRAY = "response";
+    public static final String BEVERAGES_JSON_ARRAY = "response";
+    public static final String SPIRITS_JSON_ARRAY = "response";
+    public static final String BEERS_JSON_ARRAY = "response";
+    public static final String GINS_JSON_ARRAY = "response";
+    public static final String LIQUERS_JSON_ARRAY = "response";
+    public static final String RUMS_JSON_ARRAY = "response";
+    public static final String TEQUILAS_JSON_ARRAY = "response";
+    public static final String VODKAS_JSON_ARRAY = "response";
+    public static final String WHISKEYS_JSON_ARRAY = "response";
 
 
     public static final String PRODUCT_NAME_VALUE_PAIR = "productName";
