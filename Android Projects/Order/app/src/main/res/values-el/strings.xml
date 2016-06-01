@@ -166,24 +166,24 @@
     <string name="pref_title_system_sync_settings">Σύχρονισμός Συστήματος</string>
     <string name="pref_title_subscription">Ειδοποιήσεις Συνδρομής</string>
     <string name="pref_header_data_sync">Συγχρονισμός</string>
-    <string name="pref_default_beer_file">http://api.chatapp.info/order_api/files/getbeers.php</string>
+    <string name="pref_default_beer_file">http://client-api.chatapp.info/api/beers/order/name/ASC/</string>
     <string name="pref_title_beer_file">Διαδρομή αρχείου Μπύρας</string>
     <string name="pref_title_beverage_file">Διαδρομή αρχείου Αναψυκτικών</string>
     <string name="pref_title_coffee_file">Διαδρομή Αρχείου Καφέδων</string>
     <string name="pref_title_snack_file">Διαδρομή Αρχείου Σνάκ</string>
     <string name="pref_title_spirit_file">Διαδρομή Αρχείου Ποτών</string>
     <string name="pref_title_sweet_file">Διαδρομή Αρχείου Γλυκών</string>
-    <string name="pref_default_coffee_file">http://api.chatapp.info/order_api/files/getkafedes.php</string>
-    <string name="pref_default_snack_file">http://api.chatapp.info/order_api/files/getsnacks.php</string>
-    <string name="pref_default_sweet_file">http://api.chatapp.info/order_api/files/getsweets.php</string>
-    <string name="pref_default_beverage_file">http://api.chatapp.info/order_api/files/getbeverages.php</string>
-    <string name="pref_default_spirit_file">http://api.chatapp.info/order_api/files/getspirits.php</string>
-    <string name="pref_default_gin_file">http://api.chatapp.info/order_api/files/getgins.php</string>
-    <string name="pref_default_tequila_file">http://api.chatapp.info/order_api/files/gettequilas.php</string>
-    <string name="pref_default_vodka_file">http://api.chatapp.info/order_api/files/getvodkas.php</string>
-    <string name="pref_default_whiskey_file">http://api.chatapp.info/order_api/files/getwhiskeys.php</string>
-    <string name="pref_default_rum_file">http://api.chatapp.info/order_api/files/getrums.php</string>
-    <string name="pref_default_liquer_file">http://api.chatapp.info/order_api/files/getliquers.php</string>
+    <string name="pref_default_coffee_file">http://client-api.chatapp.info/api/coffees/order/name/ASC/</string>
+    <string name="pref_default_snack_file">http://client-api.chatapp.info/api/snacks/order/name/ASC/</string>
+    <string name="pref_default_sweet_file">http://client-api.chatapp.info/api/sweets/order/name/ASC/</string>
+    <string name="pref_default_beverage_file">http://client-api.chatapp.info/api/beverages/order/name/ASC/</string>
+    <string name="pref_default_spirit_file">http://client-api.chatapp.info/api/spirits/order/name/ASC/</string>
+    <string name="pref_default_gin_file">http://client-api.chatapp.info/api/gins/order/name/ASC/</string>
+    <string name="pref_default_tequila_file">http://client-api.chatapp.info/api/tequilas/order/name/ASC/</string>
+    <string name="pref_default_vodka_file">http://client-api.chatapp.info/api/vodkas/order/name/ASC/</string>
+    <string name="pref_default_whiskey_file">http://client-api.chatapp.info/api/whiskeys/order/name/ASC/</string>
+    <string name="pref_default_rum_file">http://client-api.chatapp.info/api/rums/order/name/ASC/</string>
+    <string name="pref_default_liquer_file">http://client-api.chatapp.info/api/liquers/order/name/ASC/</string>
     <string name="pref_title_new_offers_notifications">Ειδοποιήσεις Προσφορών</string>
     <string name="title_activity_settings">Ρυθμίσεις</string>
 
@@ -271,5 +271,15 @@
     <string name="small">Μικρό</string>
     <string name="size_preference">Πρέπει να επιλέξετε μέγεθος</string>
     <string name="way_preference">Πρέπει να επιλέξετε προτίμηση</string>
+    <string name="pref_title_api_key">API Key</string>
+    <string name="pref_default_api_key">123456789</string>
+    <string name="pref_default_method_to_get">GET</string>
+    <string name="pref_default_method_to_post">POST</string>
+    <string name="pref_default_method_to_put">PUT</string>
+    <string name="pref_title_method_to_get">Μέθοδος για λήψη δεδομένων</string>
+    <string name="pref_title_method_to_post">Μέθοδος για αποστολή δεδομένων</string>
+    <string name="pref_title_method_to_put">Μέθοδος για ενημέρωση δεδομένων</string>
+    <string name="pref_general_category">Γενική Κατηγορία</string>
+    <string name="pref_default_custom_header">X-API-KEY</string>
 
 </resources>

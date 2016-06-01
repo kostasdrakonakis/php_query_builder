@@ -57,7 +57,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import dialogs.DialogMessageDisplay;
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import receivers.CheckSubscriptionReceiver;
 import sessions.SessionManager;
@@ -126,17 +126,17 @@ public class UserProfile extends AppCompatActivity{
 
     private void populateShareContentButtons() {
         rateButton = (FloatingActionButton) findViewById(R.id.rate);
-        rateButton.setColorNormal(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+        rateButton.setColorNormal(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
         helpButton = (FloatingActionButton) findViewById(R.id.help);
-        helpButton.setColorNormal(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+        helpButton.setColorNormal(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
     }
 
     private void checkSession() {
         session = new SessionManager(UserProfile.this);
         session.checkLogin();
         user = session.getUserDetails();
-        servitorosId = user.get(AppConstant.KEY_WAITER_ID);
-        magaziID = user.get(AppConstant.KEY_SHOP_ID);
+        servitorosId = user.get(Constants.KEY_WAITER_ID);
+        magaziID = user.get(Constants.KEY_SHOP_ID);
     }
 
 
@@ -160,8 +160,8 @@ public class UserProfile extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfile.this, Tables.class);
-                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitorosId);
-                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magaziID);
+                intent.putExtra(Constants.WAITER_INTENT_ID, servitorosId);
+                intent.putExtra(Constants.COMPANY_INTENT_ID, magaziID);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
@@ -177,7 +177,7 @@ public class UserProfile extends AppCompatActivity{
     }
 
     private void populateProfileData() {
-        name = user.get(AppConstant.KEY_NAME);
+        name = user.get(Constants.KEY_NAME);
         watersName = (TextView) findViewById(R.id.waitersName);
         date = (TextView) findViewById(R.id.date);
         time = (TextView) findViewById(R.id.time);
@@ -196,9 +196,9 @@ public class UserProfile extends AppCompatActivity{
     }
 
     private void retrieveRateFromPrefs() {
-        sharedPreferences = getSharedPreferences(AppConstant.RATING_NAME_FILE_PREFS, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Constants.RATING_NAME_FILE_PREFS, MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        returnedKey = sharedPreferences.getBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
+        returnedKey = sharedPreferences.getBoolean(Constants.RATING_NAME_FILE_PREFS, disabled);
         if (returnedKey){
             rateButton.setEnabled(false);
         }
@@ -239,9 +239,9 @@ public class UserProfile extends AppCompatActivity{
                                 if (ratingComplited) {
                                     rateButton.setEnabled(false);
                                     disabled = true;
-                                    editor.putBoolean(AppConstant.RATING_NAME_FILE_PREFS, disabled);
+                                    editor.putBoolean(Constants.RATING_NAME_FILE_PREFS, disabled);
                                     editor.commit();
-                                    Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(UserProfile.this);
+                                    Snackbar.with(UserProfile.this).text(getString(R.string.confirmRateText)).color(Color.parseColor(Constants.ENABLED_BUTTON_COLOR)).show(UserProfile.this);
                                 }
 
                             }
@@ -269,7 +269,7 @@ public class UserProfile extends AppCompatActivity{
 
         contactLayout = (LinearLayout)helpView.findViewById(R.id.contactLayout);
         helpDialog.setTitle(getString(R.string.help))
-                .setMessage(getString(R.string.help_dialog_message)+ " \n" + AppConstant.TEL )
+                .setMessage(getString(R.string.help_dialog_message)+ " \n" + Constants.TEL )
                 .setView(helpView)
                 .setPositiveButton(getString(R.string.send), new DialogInterface.OnClickListener() {
                     @Override
@@ -277,17 +277,17 @@ public class UserProfile extends AppCompatActivity{
                         subjectTXT = subject.getText().toString();
                         messageTXT = message.getText().toString();
                         if (subjectTXT.isEmpty() && messageTXT.isEmpty()){
-                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_or_message_empty),UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_or_message_empty),UserProfile.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), UserProfile.this);
                         }else if (subjectTXT.isEmpty()){
-                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_empty), UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.subject_empty), UserProfile.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), UserProfile.this);
                         }else if (messageTXT.isEmpty()){
-                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.message_empty), UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
+                            StringGenerator.showSnackMessage(SnackbarType.SINGLE_LINE, getString(R.string.message_empty), UserProfile.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), UserProfile.this);
 
                         }else {
                             sendIntent = new Intent(Intent.ACTION_SEND);
                             sendIntent.setData(Uri.parse("mailto:"));
                             sendIntent.setType("text/plain");
-                            sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{AppConstant.ADMIN_EMAIL});
+                            sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{Constants.ADMIN_EMAIL});
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT, subjectTXT);
                             sendIntent.putExtra(Intent.EXTRA_TEXT, messageTXT);
                             startActivity(sendIntent);
@@ -315,23 +315,23 @@ public class UserProfile extends AppCompatActivity{
                                             SnackbarType.MULTI_LINE,
                                             "In order to get in touch with the Support Team you have to accept permission",
                                             UserProfile.this,
-                                            Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR),
+                                            Color.parseColor(Constants.ENABLED_BUTTON_COLOR),
                                             UserProfile.this);
 
 
                                 } else {
                                     ActivityCompat.requestPermissions(UserProfile.this,
                                             new String[]{Manifest.permission.CALL_PHONE},
-                                            AppConstant.MY_PERMISSION_CODE);
+                                            Constants.MY_PERMISSION_CODE);
                                 }
                             }else {
-                                number = Uri.parse("tel:" + AppConstant.TEL);
+                                number = Uri.parse("tel:" + Constants.TEL);
                                 callIntent = new Intent(Intent.ACTION_DIAL);
                                 callIntent.setData(number);
                                 startActivity(callIntent);
                             }
                         }else {
-                            number = Uri.parse("tel:" + AppConstant.TEL);
+                            number = Uri.parse("tel:" + Constants.TEL);
                             callIntent = new Intent(Intent.ACTION_DIAL);
                             callIntent.setData(number);
                             startActivity(callIntent);
@@ -376,19 +376,19 @@ public class UserProfile extends AppCompatActivity{
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case AppConstant.MY_PERMISSION_CODE: {
+            case Constants.MY_PERMISSION_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    number = Uri.parse("tel:" + AppConstant.TEL);
+                    number = Uri.parse("tel:" + Constants.TEL);
                     callIntent = new Intent(Intent.ACTION_DIAL);
                     callIntent.setData(number);
                     startActivity(callIntent);
 
                 } else {
-                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE,getString(R.string.confirm_phone_permission),UserProfile.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), UserProfile.this);
+                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE,getString(R.string.confirm_phone_permission),UserProfile.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), UserProfile.this);
                     ActivityCompat.requestPermissions(UserProfile.this,
                             new String[]{Manifest.permission.CALL_PHONE},
-                            AppConstant.MY_PERMISSION_CODE);
+                            Constants.MY_PERMISSION_CODE);
                 }
             }
 
@@ -476,6 +476,6 @@ public class UserProfile extends AppCompatActivity{
 
     public void accessWebService(){
         task = new MyInsertDataTask();
-        task.execute(AppConstant.RATINGS_URL);
+        task.execute(Constants.RATINGS_URL);
     }
 }

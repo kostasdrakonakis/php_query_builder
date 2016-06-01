@@ -35,7 +35,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 
 public class BeersLayoutActivity extends AppCompatActivity {
@@ -183,10 +183,10 @@ public class BeersLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
                 } else {
                     cart.setEnabled(false);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.DISABLED_BUTTON_COLOR));
                 }
             }
 
@@ -207,9 +207,9 @@ public class BeersLayoutActivity extends AppCompatActivity {
                 }
 
                 if (!bottle.isChecked() && !draught.isChecked()){
-                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, getString(R.string.way_preference), BeersLayoutActivity.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), BeersLayoutActivity.this);
+                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, getString(R.string.way_preference), BeersLayoutActivity.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), BeersLayoutActivity.this);
                 }else if(!small.isChecked() && !big.isChecked()){
-                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, getString(R.string.size_preference), BeersLayoutActivity.this, Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), BeersLayoutActivity.this);
+                    StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, getString(R.string.size_preference), BeersLayoutActivity.this, Color.parseColor(Constants.ENABLED_BUTTON_COLOR), BeersLayoutActivity.this);
                 }else {
                     accessWebService();
                 }
@@ -219,12 +219,12 @@ public class BeersLayoutActivity extends AppCompatActivity {
 
     private void setupToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
-        name = getIntent().getStringExtra(AppConstant.BEER_NAME);
-        price = getIntent().getStringExtra(AppConstant.BEER_PRICE);
-        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        image = getIntent().getStringExtra(AppConstant.BEER_IMAGE);
-        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        name = getIntent().getStringExtra(Constants.BEER_NAME);
+        price = getIntent().getStringExtra(Constants.BEER_PRICE);
+        table = getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        image = getIntent().getStringExtra(Constants.BEER_IMAGE);
+        servitoros_id = getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         toolbar.setTitle(name + " - " + getString(R.string.price) + " " + price);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
         setSupportActionBar(toolbar);
@@ -283,22 +283,22 @@ public class BeersLayoutActivity extends AppCompatActivity {
     }
 
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, name));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_VALUE_PAIR, name));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_VALUE_PAIR, image));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
         nameValuePairs.add(new BasicNameValuePair("preferation", wayPreference));
         nameValuePairs.add(new BasicNameValuePair("size", sizePreference));
         nameValuePairs.add(new BasicNameValuePair("choice", choicePreference));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMMENT_VALUE_PAIR, comment));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_VALUE_PAIR, table));
     }
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(AppConstant.BEERS_ADD_TO_CART_URL);
+        task.execute(Constants.BEERS_ADD_TO_CART_URL);
     }
 
 }

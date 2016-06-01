@@ -4,6 +4,61 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <PreferenceCategory
+        android:key="general_category"
+        android:title="@string/pref_general_category">
+
+        <EditTextPreference
+            android:key="custom_header"
+            android:title="@string/pref_title_custom_header"
+            android:defaultValue="@string/pref_default_custom_header"
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="api_key"
+        android:title="@string/pref_title_api_key"
+        android:defaultValue="@string/pref_default_api_key"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="method_get"
+        android:title="@string/pref_title_method_to_get"
+        android:defaultValue="@string/pref_default_method_to_get"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="method_post"
+        android:title="@string/pref_title_method_to_post"
+        android:defaultValue="@string/pref_default_method_to_post"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="method_put"
+        android:title="@string/pref_title_method_to_put"
+        android:defaultValue="@string/pref_default_method_to_put"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="primary_category"
         android:title="@string/pref_primary_category">
 

@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import functions.AppConstant;
+import functions.Constants;
 
 
 public class Tables extends AppCompatActivity {
@@ -29,8 +29,8 @@ public class Tables extends AppCompatActivity {
         setContentView(R.layout.tables);
         toolbar = (Toolbar)findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
-        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magaziID = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magaziID = getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         tableNumber = (EditText)findViewById(R.id.tableNumberEditText);
         setupButtons();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -402,9 +402,9 @@ public class Tables extends AppCompatActivity {
                 }else {
                     vibrator.vibrate(28);
                     Intent intent = new Intent(Tables.this, ProductsViewOrder.class);
-                    intent.putExtra(AppConstant.TABLE_INTENT_ID, textNow);
-                    intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                    intent.putExtra(AppConstant.COMPANY_INTENT_ID, magaziID);
+                    intent.putExtra(Constants.TABLE_INTENT_ID, textNow);
+                    intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                    intent.putExtra(Constants.COMPANY_INTENT_ID, magaziID);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     Tables.this.finish();

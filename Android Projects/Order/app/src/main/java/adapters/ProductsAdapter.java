@@ -35,14 +35,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.productlist_row_item, parent, false);
         ProductViewHolder pvh = new ProductViewHolder(v);
         return pvh;
     }
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        initView(position, holder.productName, products.get(position).getName());
+        //initView(position, holder.productName, products.get(position).getName());
+        holder.productName.setText(products.get(position).getName());
         holder.productPrice.setText(products.get(position).getPrice() + " €");
         Ion.with(holder.productImage).placeholder(R.mipmap.placeholder).error(R.mipmap.placeholder).load(products.get(position).getImage());
     }
@@ -67,9 +68,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         ProductViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
-            productName = (TextView)itemView.findViewById(R.id.textView_name_product);
-            productPrice = (TextView)itemView.findViewById(R.id.textView_price_product);
-            productImage = (ImageView)itemView.findViewById(R.id.imageView_product);
+            productName = (TextView)itemView.findViewById(R.id.product_name);
+            productPrice = (TextView)itemView.findViewById(R.id.product_price);
+            productImage = (ImageView)itemView.findViewById(R.id.product_image);
             linearLayout = (LinearLayout)itemView.findViewById(R.id.product_container);
         }
     }

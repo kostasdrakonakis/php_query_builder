@@ -44,7 +44,7 @@ import java.util.List;
 import adapters.SpiritComponentAdapter;
 import adapters.SpiritsListAdapter;
 import dialogs.DialogMessageDisplay;
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import lists.SpiritComponentProduct;
 import lists.SpiritList;
@@ -167,10 +167,10 @@ public class Rums extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
                 } else {
                     cart.setEnabled(false);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.DISABLED_BUTTON_COLOR));
                 }
             }
 
@@ -254,10 +254,10 @@ public class Rums extends AppCompatActivity {
     }
 
     private void populateToolBar() {
-        title = getIntent().getStringExtra(AppConstant.SPIRIT_ITEM);
-        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        title = getIntent().getStringExtra(Constants.SPIRIT_ITEM);
+        table = getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle(title);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
@@ -318,8 +318,8 @@ public class Rums extends AppCompatActivity {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("X-API-KEY", "123456");
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                urlConnection.setRequestMethod(Constants.METHOD_GET);
                 urlConnection.connect();
                 urlConnection.setConnectTimeout(5000);
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -327,7 +327,7 @@ public class Rums extends AppCompatActivity {
                 customSpinner = new ArrayList<>();
 
                 jsonResponse = new JSONObject(jsonResult.toString());
-                jsonMainNode = jsonResponse.optJSONArray(AppConstant.RUMS_JSON_ARRAY);
+                jsonMainNode = jsonResponse.optJSONArray(Constants.RUMS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
                     name = jsonChildNode.optString("name");
@@ -404,27 +404,27 @@ public class Rums extends AppCompatActivity {
     }
 
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, rumPreference));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_VALUE_PAIR, rumPreference));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_VALUE_PAIR, image));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
         nameValuePairs.add(new BasicNameValuePair("glass", glassPreference));
         nameValuePairs.add(new BasicNameValuePair("stroll", strollPreference));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPONENT_VALUE_PAIR, componentPreference));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPONENT_VALUE_PAIR, componentPreference));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMMENT_VALUE_PAIR, comment));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_VALUE_PAIR, table));
     }
 
     public void readDataWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(AppConstant.RUMS_URL);
+        task.execute(Constants.RUMS_URL);
     }
 
     public void writeDataWebService() {
         MyInsertDataTask task = new MyInsertDataTask();
-        task.execute(AppConstant.SPIRIT_ADD_TO_CART_URL);
+        task.execute(Constants.SPIRIT_ADD_TO_CART_URL);
     }
 
 

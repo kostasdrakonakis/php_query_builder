@@ -36,7 +36,7 @@ import java.util.List;
 
 import adapters.ProductsAdapter;
 import cart.BeersLayoutActivity;
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import listeners.RecyclerItemClickListener;
 import lists.ProductList;
@@ -71,9 +71,9 @@ public class Beer extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
-        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        table = getActivity().getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -100,9 +100,9 @@ public class Beer extends Fragment {
 
     private void checkOrientation() {
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
-        }else{
             layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        }else{
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1);
 
         }
     }
@@ -141,12 +141,12 @@ public class Beer extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), BeersLayoutActivity.class);
-                intent.putExtra(AppConstant.BEER_NAME, customList.get(position).getName());
-                intent.putExtra(AppConstant.BEER_PRICE, customList.get(position).getPrice());
-                intent.putExtra(AppConstant.BEER_IMAGE, customList.get(position).getImage());
-                intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                intent.putExtra(Constants.BEER_NAME, customList.get(position).getName());
+                intent.putExtra(Constants.BEER_PRICE, customList.get(position).getPrice());
+                intent.putExtra(Constants.BEER_IMAGE, customList.get(position).getImage());
+                intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                 startActivity(intent);
             }
         }));
@@ -206,8 +206,8 @@ public class Beer extends Fragment {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("X-API-KEY", "123456");
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                urlConnection.setRequestMethod(Constants.METHOD_GET);
                 urlConnection.connect();
                 urlConnection.setConnectTimeout(5000);
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -215,7 +215,7 @@ public class Beer extends Fragment {
                 customList = new ArrayList<>();
 
                 jsonResponse = new JSONObject(jsonResult.toString());
-                jsonMainNode = jsonResponse.optJSONArray(AppConstant.BEERS_JSON_ARRAY);
+                jsonMainNode = jsonResponse.optJSONArray(Constants.BEERS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
                     name = jsonChildNode.optString("name");
@@ -243,7 +243,7 @@ public class Beer extends Fragment {
 
     public void accessWebService() {
         task = new JsonReadTask();
-        task.execute(AppConstant.BEERS_URL);
+        task.execute(Constants.BEERS_URL);
     }
 
     public void ListDrawer(List<ProductList> customList) {

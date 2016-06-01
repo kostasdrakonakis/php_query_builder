@@ -168,15 +168,15 @@
     <string name="pref_header_general">Files</string>
 
     <string name="pref_title_coffee_file">Coffees File Path</string>
-    <string name="pref_default_coffee_file">http://api.chatapp.info/order_api/files/getkafedes.php</string>
+    <string name="pref_default_coffee_file">http://client-api.chatapp.info/api/coffees/order/name/ASC/</string>
     <string name="pref_title_snack_file">Snacks File Path</string>
-    <string name="pref_default_snack_file">http://api.chatapp.info/order_api/files/getsnacks.php</string>
+    <string name="pref_default_snack_file">http://client-api.chatapp.info/api/snacks/order/name/ASC/</string>
     <string name="pref_title_sweet_file">Sweets File Path</string>
-    <string name="pref_default_sweet_file">http://api.chatapp.info/order_api/files/getsweets.php</string>
+    <string name="pref_default_sweet_file">http://client-api.chatapp.info/api/sweets/order/name/ASC/</string>
     <string name="pref_title_beverage_file">Beverages File Path</string>
-    <string name="pref_default_beverage_file">http://api.chatapp.info/order_api/files/getbeverages.php</string>
+    <string name="pref_default_beverage_file">http://client-api.chatapp.info/api/beverages/order/name/ASC/</string>
     <string name="pref_title_beer_file">Beers File Path</string>
-    <string name="pref_default_beer_file">http://api.chatapp.info/order_api/files/getbeers.php</string>
+    <string name="pref_default_beer_file">http://client-api.chatapp.info/api/beers/order/name/ASC/</string>
     <string name="pref_title_spirit_file">Spirits File Path</string>
     <string name="pref_title_gin_file">Gins File Path</string>
     <string name="pref_title_vodka_file">Vodkas File Path</string>
@@ -184,13 +184,13 @@
     <string name="pref_title_liquer_file">Liquers File Path</string>
     <string name="pref_title_rum_file">Rums File Path</string>
     <string name="pref_title_tequila_file">Tequilas File Path</string>
-    <string name="pref_default_spirit_file">http://api.chatapp.info/order_api/files/getspirits.php</string>
-    <string name="pref_default_gin_file">http://api.chatapp.info/order_api/files/getgins.php</string>
-    <string name="pref_default_tequila_file">http://api.chatapp.info/order_api/files/gettequilas.php</string>
-    <string name="pref_default_vodka_file">http://api.chatapp.info/order_api/files/getvodkas.php</string>
-    <string name="pref_default_whiskey_file">http://api.chatapp.info/order_api/files/getwhiskeys.php</string>
-    <string name="pref_default_rum_file">http://api.chatapp.info/order_api/files/getrums.php</string>
-    <string name="pref_default_liquer_file">http://api.chatapp.info/order_api/files/getliquers.php</string>
+    <string name="pref_default_spirit_file">http://client-api.chatapp.info/api/spirits/order/name/ASC/</string>
+    <string name="pref_default_gin_file">http://client-api.chatapp.info/api/gins/order/name/ASC/</string>
+    <string name="pref_default_tequila_file">http://client-api.chatapp.info/api/tequilas/order/name/ASC/</string>
+    <string name="pref_default_vodka_file">http://client-api.chatapp.info/api/vodkas/order/name/ASC/</string>
+    <string name="pref_default_whiskey_file">http://client-api.chatapp.info/api/whiskeys/order/name/ASC/</string>
+    <string name="pref_default_rum_file">http://client-api.chatapp.info/api/rums/order/name/ASC/</string>
+    <string name="pref_default_liquer_file">http://client-api.chatapp.info/api/liquers/order/name/ASC/</string>
 
     <string-array name="pref_example_list_titles">
         <item>Always</item>
@@ -284,5 +284,16 @@
     <string name="small">Small</string>
     <string name="way_preference">You have to make a selection beer or bottle</string>
     <string name="size_preference">You have to select the size</string>
+    <string name="pref_title_api_key">API Key</string>
+    <string name="pref_default_api_key">123456789</string>
+    <string name="pref_title_method_to_get">Method to fetch data</string>
+    <string name="pref_default_method_to_get">GET</string>
+    <string name="pref_title_method_to_post">Method to send data</string>
+    <string name="pref_default_method_to_post">POST</string>
+    <string name="pref_title_method_to_put">Method to update data</string>
+    <string name="pref_default_method_to_put">PUT</string>
+    <string name="pref_general_category">General Category</string>
+    <string name="pref_title_custom_header">Header</string>
+    <string name="pref_default_custom_header">X-API-KEY</string>
 
 </resources>

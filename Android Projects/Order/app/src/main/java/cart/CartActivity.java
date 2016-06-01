@@ -45,7 +45,7 @@ import java.util.List;
 
 import adapters.CartAdapter;
 import dialogs.DialogMessageDisplay;
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import lists.CartList;
 
@@ -284,9 +284,9 @@ public class CartActivity extends AppCompatActivity {
     private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle(R.string.checkout);
-        magazi_id = getIntent().getStringExtra(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR);
-        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR);
+        table = getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        servitoros_id = getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             toolbar.setSubtitleTextColor(getColor(R.color.white));
@@ -317,23 +317,14 @@ public class CartActivity extends AppCompatActivity {
             try {
                 url = new URL(params[0]);
                 httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setReadTimeout(10000);
-                httpURLConnection.setConnectTimeout(15000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.setDoOutput(true);
-                setupDataToDB();
-                outputStream = httpURLConnection.getOutputStream();
-                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-                bufferedWriter.write(StringGenerator.queryResults(nameValuePairs));
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
+                httpURLConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                httpURLConnection.setRequestMethod(Constants.METHOD_GET);
                 httpURLConnection.connect();
+                httpURLConnection.setConnectTimeout(5000);
                 inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
                 jsonResult = StringGenerator.inputStreamToString(inputStream, CartActivity.this);
                 jsonResponse = new JSONObject(jsonResult.toString());
-                jsonMainNode = jsonResponse.optJSONArray(AppConstant.CART_JSON_ARRAY);
+                jsonMainNode = jsonResponse.optJSONArray(Constants.CART_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
                     name = jsonChildNode.optString("product_name");
@@ -425,25 +416,19 @@ public class CartActivity extends AppCompatActivity {
 
     private void deleteDataWebService(String name){
         DeleteData deleteData = new DeleteData();
-        deleteData.execute(AppConstant.DELETE_URL, name);
+        deleteData.execute(Constants.DELETE_URL, name);
     }
 
 
     private void accessWebService() {
         FetchData fetchData = new FetchData();
-        fetchData.execute(AppConstant.CART_URL);
-    }
-
-
-    private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+        fetchData.execute(Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
     }
 
     private void deleteDataInDB(String name) {
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, name));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_VALUE_PAIR, name));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_VALUE_PAIR, table));
     }
 }

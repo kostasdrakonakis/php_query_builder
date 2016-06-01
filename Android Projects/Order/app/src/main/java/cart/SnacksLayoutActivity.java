@@ -32,7 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 
 public class SnacksLayoutActivity extends AppCompatActivity {
@@ -418,10 +418,10 @@ public class SnacksLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
                 } else {
                     cart.setEnabled(false);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.DISABLED_BUTTON_COLOR));
                 }
             }
 
@@ -494,12 +494,12 @@ public class SnacksLayoutActivity extends AppCompatActivity {
 
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
-        name = getIntent().getStringExtra(AppConstant.SNACK_NAME);
-        price = getIntent().getStringExtra(AppConstant.SNACK_PRICE);
-        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        image = getIntent().getStringExtra(AppConstant.SNACK_IMAGE);
-        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        name = getIntent().getStringExtra(Constants.SNACK_NAME);
+        price = getIntent().getStringExtra(Constants.SNACK_PRICE);
+        table = getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        image = getIntent().getStringExtra(Constants.SNACK_IMAGE);
+        servitoros_id = getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         toolbar.setTitle(name + " - " + getString(R.string.price) + " " + price);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
         setSupportActionBar(toolbar);
@@ -507,7 +507,7 @@ public class SnacksLayoutActivity extends AppCompatActivity {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(AppConstant.SNACKS_ADD_TO_CART_URL);
+        task.execute(Constants.SNACKS_ADD_TO_CART_URL);
     }
 
 
@@ -563,17 +563,17 @@ public class SnacksLayoutActivity extends AppCompatActivity {
     }
 
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, name));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_VALUE_PAIR, name));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_VALUE_PAIR, image));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
         nameValuePairs.add(new BasicNameValuePair("cooking_time", cookingPreference));
         nameValuePairs.add(new BasicNameValuePair("extraPreference", extraPreference.toString()));
         nameValuePairs.add(new BasicNameValuePair("withoutPreference", withoutPreference.toString()));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMMENT_VALUE_PAIR, comment));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_VALUE_PAIR, table));
     }
 
 }

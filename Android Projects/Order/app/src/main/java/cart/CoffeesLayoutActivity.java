@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import com.order.app.order.R;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -33,8 +36,10 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import functions.AppConstant;
+import functions.Constants;
+import functions.HttpUrlConnectionUtlity;
 import functions.StringGenerator;
 
 public class CoffeesLayoutActivity extends AppCompatActivity {
@@ -57,6 +62,8 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private int counter = 0;
+    private StringBuilder jsonResult;
+    private JSONObject jsonResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -275,10 +282,10 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
                 int numberQuant = Integer.parseInt(quanText);
                 if (numberQuant > 0) {
                     cart.setEnabled(true);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
                 } else {
                     cart.setEnabled(false);
-                    cart.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
+                    cart.setBackgroundColor(Color.parseColor(Constants.DISABLED_BUTTON_COLOR));
                 }
             }
 
@@ -311,18 +318,19 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(AppConstant.COFFEES_ADD_TO_CART_URL);
+        task.execute(Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
+        Log.e("Coffees URL",Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
     }
 
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
 
-        productName = getIntent().getStringExtra(AppConstant.COFFEE_NAME);
-        price = getIntent().getStringExtra(AppConstant.COFFEE_PRICE);
-        table = getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        image = getIntent().getStringExtra(AppConstant.COFFEE_IMAGE);
-        servitoros_id = getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        productName = getIntent().getStringExtra(Constants.COFFEE_NAME);
+        price = getIntent().getStringExtra(Constants.COFFEE_PRICE);
+        table = getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        image = getIntent().getStringExtra(Constants.COFFEE_IMAGE);
+        servitoros_id = getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         toolbar.setTitle(productName + " - " + getString(R.string.price) + " " + price);
         toolbar.setSubtitle(getString(R.string.table_id) + table);
         setSupportActionBar(toolbar);
@@ -347,13 +355,14 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
         protected Void doInBackground(String... params) {
 
             nameValuePairs = new ArrayList<>();
-            ByteBuffer s = Charset.forName(AppConstant.CHARACTER_ENCODING).encode(sugarPreference);
+            ByteBuffer s = Charset.forName(Constants.CHARACTER_ENCODING).encode(sugarPreference);
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
                 urlConnection.setReadTimeout(10000);
                 urlConnection.setConnectTimeout(15000);
-                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestMethod(Constants.METHOD_POST);
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
                 setupDataToDB();
@@ -365,7 +374,37 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
                 outputStream.close();
                 urlConnection.connect();
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
-            } catch (IOException e) {
+                jsonResult = StringGenerator.inputStreamToString(inputStream, CoffeesLayoutActivity.this);
+                jsonResponse = new JSONObject(jsonResult.toString());
+                Log.e("Response Coffees", jsonResponse.toString());
+
+//                HttpUrlConnectionUtlity httpMethod = new HttpUrlConnectionUtlity(CoffeesLayoutActivity.this);
+//                JSONObject jsonEntity = new JSONObject();
+//
+//                try {
+//                    jsonEntity.put(Constants.PRODUCT_NAME_POST, productName);
+//                    jsonEntity.put(Constants.PRODUCT_PRICE_POST, String.valueOf(priceCalculated));
+//                    jsonEntity.put(Constants.PRODUCT_IMAGE_POST, image);
+//                    jsonEntity.put(Constants.PRODUCT_QUANTITY_POST, String.valueOf(quantityNumberFinal));
+//                    jsonEntity.put(Constants.PRODUCT_PREFERATION1_POST, sugarPreference);
+//                    jsonEntity.put(Constants.PRODUCT_PREFERATION2_POST, milkPreference);
+//                    jsonEntity.put(Constants.PRODUCT_PREFERATION3_POST, dosePreference);
+//                    jsonEntity.put(Constants.PRODUCT_PREFERATION4_POST, comment);
+//                    jsonEntity.put(Constants.PRODUCT_COMPANY_ID_POST, magazi_id);
+//                    jsonEntity.put(Constants.PRODUCT_WAITER_ID_POST, servitoros_id);
+//                    jsonEntity.put(Constants.PRODUCT_TABLE_ID_POST, table);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                httpMethod.setUrl(Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
+//                HashMap<String, String> headerMap = new HashMap<>();
+//                headerMap.put(Constants.CUSTOM_HEADER, Constants.API_KEY);
+//                httpMethod.setHeaderMap(headerMap);
+//                httpMethod.setRequestType(1); //specify POST/GET/DELETE/PUT
+//                httpMethod.setEntityString(jsonEntity.toString());
+//                httpMethod.execute();
+            } catch (Exception e) {
                 e.printStackTrace();
 
             }
@@ -382,23 +421,45 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     }
 
     public void createBdgeCount(){
-        preferences = getSharedPreferences(AppConstant.BADGE_COUNT, MODE_PRIVATE);
+        preferences = getSharedPreferences(Constants.BADGE_COUNT, MODE_PRIVATE);
         editor = preferences.edit();
-        editor.putInt(AppConstant.BADGE_COUNT_VALUE, counter);
+        editor.putInt(Constants.BADGE_COUNT_VALUE, counter);
         editor.apply();
     }
 
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_NAME_VALUE_PAIR, productName));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_IMAGE_VALUE_PAIR, image));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
-        nameValuePairs.add(new BasicNameValuePair("sugar", sugarPreference));
-        nameValuePairs.add(new BasicNameValuePair("milk", milkPreference));
-        nameValuePairs.add(new BasicNameValuePair("dose", dosePreference));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMMENT_VALUE_PAIR, comment));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(AppConstant.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_POST, productName));
+        Log.e("Product Name Key", Constants.PRODUCT_NAME_POST);
+        Log.e("Product Name Value", productName);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_POST, String.valueOf(priceCalculated)));
+        Log.e("Product Price Key", Constants.PRODUCT_PRICE_POST);
+        Log.e("Product Price Value", String.valueOf(priceCalculated));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_POST, image));
+        Log.e("Product Name Key", Constants.PRODUCT_IMAGE_POST);
+        Log.e("Product Name Value", image);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_POST, String.valueOf(quantityNumberFinal)));
+        Log.e("Product Price Key", Constants.PRODUCT_QUANTITY_POST);
+        Log.e("Product Price Value", String.valueOf(quantityNumberFinal));
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION1_POST, sugarPreference));
+        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION1_POST);
+        Log.e("Product Name Value", sugarPreference);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION2_POST, milkPreference));
+        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION2_POST);
+        Log.e("Product Name Value", milkPreference);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION3_POST, dosePreference));
+        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION3_POST);
+        Log.e("Product Name Value", dosePreference);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION4_POST, comment));
+        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION4_POST);
+        Log.e("Product Name Value", comment);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_POST, magazi_id));
+        Log.e("Product Name Key", Constants.PRODUCT_COMPANY_ID_POST);
+        Log.e("Product Name Value", magazi_id);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_POST, servitoros_id));
+        Log.e("Product Name Key", Constants.PRODUCT_WAITER_ID_POST);
+        Log.e("Product Name Value", servitoros_id);
+        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_POST, table));
+        Log.e("Product Name Key", Constants.PRODUCT_TABLE_ID_POST);
+        Log.e("Product Name Value", table);
     }
 }

@@ -17,7 +17,7 @@ import com.order.app.order.R;
 
 import java.util.List;
 
-import functions.AppConstant;
+import functions.Constants;
 
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
@@ -85,18 +85,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
-            bindPreferenceSummaryToValue(findPreference(AppConstant.COFFEE_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.SWEET_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.SNACK_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.BEVERAGE_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.SPIRIT_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.BEER_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.GIN_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.RUM_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.TEQUILA_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.LIQUER_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.VODKA_KEY));
-            bindPreferenceSummaryToValue(findPreference(AppConstant.WHISKEY_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.COFFEE_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.SWEET_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.SNACK_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.BEVERAGE_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.SPIRIT_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.BEER_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.GIN_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.RUM_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.TEQUILA_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.LIQUER_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.VODKA_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.WHISKEY_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.PREF_API_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.PREF_METHOD_GET_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.PREF_METHOD_POST_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.PREF_METHOD_PUT_KEY));
+            bindPreferenceSummaryToValue(findPreference(Constants.PREF_CUSTOM_HEADER));
+
         }
 
         @Override

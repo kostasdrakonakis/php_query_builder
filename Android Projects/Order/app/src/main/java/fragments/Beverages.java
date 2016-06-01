@@ -36,7 +36,7 @@ import java.util.List;
 
 import adapters.ProductsAdapter;
 import cart.BeveragesLayoutActivity;
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import listeners.RecyclerItemClickListener;
 import lists.ProductList;
@@ -64,9 +64,9 @@ public class Beverages extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
-        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        table = getActivity().getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -96,9 +96,9 @@ public class Beverages extends Fragment {
 
     private void checkOrientation() {
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
-        }else{
             layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        }else{
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1);
 
         }
     }
@@ -137,12 +137,12 @@ public class Beverages extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), BeveragesLayoutActivity.class);
-                intent.putExtra(AppConstant.BEVERAGE_NAME, customList.get(position).getName());
-                intent.putExtra(AppConstant.BEVERAGE_PRICE, customList.get(position).getPrice());
-                intent.putExtra(AppConstant.BEVERAGE_IMAGE, customList.get(position).getImage());
-                intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                intent.putExtra(Constants.BEVERAGE_NAME, customList.get(position).getName());
+                intent.putExtra(Constants.BEVERAGE_PRICE, customList.get(position).getPrice());
+                intent.putExtra(Constants.BEVERAGE_IMAGE, customList.get(position).getImage());
+                intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                 startActivity(intent);
             }
         }));
@@ -202,8 +202,8 @@ public class Beverages extends Fragment {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("X-API-KEY", "123456");
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                urlConnection.setRequestMethod(Constants.METHOD_GET);
                 urlConnection.connect();
                 urlConnection.setConnectTimeout(5000);
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -211,7 +211,7 @@ public class Beverages extends Fragment {
                 customList = new ArrayList<>();
 
                 jsonResponse = new JSONObject(jsonResult.toString());
-                jsonMainNode = jsonResponse.optJSONArray(AppConstant.BEVERAGES_JSON_ARRAY);
+                jsonMainNode = jsonResponse.optJSONArray(Constants.BEVERAGES_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
                     name = jsonChildNode.optString("name");
@@ -238,7 +238,7 @@ public class Beverages extends Fragment {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(AppConstant.BEVERAGES_URL);
+        task.execute(Constants.BEVERAGES_URL);
     }
 
     public void ListDrawer(List<ProductList> customList) {

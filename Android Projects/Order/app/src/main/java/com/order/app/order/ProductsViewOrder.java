@@ -28,7 +28,7 @@ import cart.CoffeesLayoutActivity;
 import cart.SnacksLayoutActivity;
 import cart.SweetsLayoutActivity;
 import dialogs.DialogMessageDisplay;
-import functions.AppConstant;
+import functions.Constants;
 import interfaces.CoffeeCommunicator;
 import interfaces.SnacksCommunicator;
 import interfaces.SweetsCommunicator;
@@ -91,9 +91,9 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
         }
         viewPager = (ViewPager) findViewById(R.id.pager);
         intent = getIntent();
-        servitoros_id = intent.getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = intent.getStringExtra(AppConstant.COMPANY_INTENT_ID);
-        title = intent.getStringExtra(AppConstant.TABLE_INTENT_ID);
+        servitoros_id = intent.getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = intent.getStringExtra(Constants.COMPANY_INTENT_ID);
+        title = intent.getStringExtra(Constants.TABLE_INTENT_ID);
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.table_id) + title);
         }
@@ -135,9 +135,9 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
 
     private void showCart() {
         Intent intent = new Intent(ProductsViewOrder.this, CartActivity.class);
-        intent.putExtra(AppConstant.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id);
-        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
-        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
+        intent.putExtra(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id);
+        intent.putExtra(Constants.TABLE_INTENT_ID, title);
+        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
         startActivity(intent);
     }
 
@@ -159,8 +159,8 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
     }
 
     private int updateCount() {
-        sharedPreferences = getSharedPreferences(AppConstant.BADGE_COUNT, MODE_PRIVATE);
-        counter = sharedPreferences.getInt(AppConstant.BADGE_COUNT_VALUE, 0);
+        sharedPreferences = getSharedPreferences(Constants.BADGE_COUNT, MODE_PRIVATE);
+        counter = sharedPreferences.getInt(Constants.BADGE_COUNT_VALUE, 0);
         return counter;
     }
 
@@ -210,12 +210,12 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
                         image = coffeesList.get(i).getImage();
                         price = coffeesList.get(i).getPrice();
                         Intent intent = new Intent(ProductsViewOrder.this, CoffeesLayoutActivity.class);
-                        intent.putExtra(AppConstant.COFFEE_NAME, name);
-                        intent.putExtra(AppConstant.COFFEE_PRICE, price);
-                        intent.putExtra(AppConstant.COFFEE_IMAGE, image);
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.COFFEE_NAME, name);
+                        intent.putExtra(Constants.COFFEE_PRICE, price);
+                        intent.putExtra(Constants.COFFEE_IMAGE, image);
+                        intent.putExtra(Constants.TABLE_INTENT_ID, title);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                     }
                 }
@@ -225,12 +225,12 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
                         image = snacksList.get(i).getImage();
                         price = snacksList.get(i).getPrice();
                         Intent intent = new Intent(ProductsViewOrder.this, SnacksLayoutActivity.class);
-                        intent.putExtra(AppConstant.SNACK_NAME, name);
-                        intent.putExtra(AppConstant.SNACK_PRICE, price);
-                        intent.putExtra(AppConstant.SNACK_IMAGE, image);
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SNACK_NAME, name);
+                        intent.putExtra(Constants.SNACK_PRICE, price);
+                        intent.putExtra(Constants.SNACK_IMAGE, image);
+                        intent.putExtra(Constants.TABLE_INTENT_ID, title);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                     }
                 }
@@ -240,12 +240,12 @@ public class ProductsViewOrder extends AppCompatActivity implements CoffeeCommun
                         image = sweetsList.get(i).getImage();
                         price = sweetsList.get(i).getPrice();
                         Intent intent = new Intent(ProductsViewOrder.this, SweetsLayoutActivity.class);
-                        intent.putExtra(AppConstant.SWEET_NAME, name);
-                        intent.putExtra(AppConstant.SWEET_PRICE, price);
-                        intent.putExtra(AppConstant.SWEET_IMAGE, image);
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, title);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SWEET_NAME, name);
+                        intent.putExtra(Constants.SWEET_PRICE, price);
+                        intent.putExtra(Constants.SWEET_IMAGE, image);
+                        intent.putExtra(Constants.TABLE_INTENT_ID, title);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                     }
                 }

@@ -9,7 +9,7 @@ import com.order.app.order.MainActivity;
 
 import java.util.HashMap;
 
-import functions.AppConstant;
+import functions.Constants;
 
 public class SessionManager {
 
@@ -21,23 +21,23 @@ public class SessionManager {
 
     public SessionManager(Context context){
         this.context  = context;
-        preferences = context.getSharedPreferences(AppConstant.PREF_NAME, AppConstant.PRIVATE_MODE);
+        preferences = context.getSharedPreferences(Constants.PREF_NAME, Constants.PRIVATE_MODE);
         editor = preferences.edit();
     }
 
     public void createLoginSession(String name, String servitoros_id, String shop_id){
-        editor.putBoolean(AppConstant.IS_LOGGED_IN, true);
-        editor.putString(AppConstant.KEY_NAME, name);
-        editor.putString(AppConstant.KEY_WAITER_ID, servitoros_id);
-        editor.putString(AppConstant.KEY_SHOP_ID, shop_id);
+        editor.putBoolean(Constants.IS_LOGGED_IN, true);
+        editor.putString(Constants.KEY_NAME, name);
+        editor.putString(Constants.KEY_WAITER_ID, servitoros_id);
+        editor.putString(Constants.KEY_SHOP_ID, shop_id);
         editor.commit();
     }
 
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
-        user.put(AppConstant.KEY_NAME, preferences.getString(AppConstant.KEY_NAME, null));
-        user.put(AppConstant.KEY_WAITER_ID, preferences.getString(AppConstant.KEY_WAITER_ID, null));
-        user.put(AppConstant.KEY_SHOP_ID, preferences.getString(AppConstant.KEY_SHOP_ID, null));
+        user.put(Constants.KEY_NAME, preferences.getString(Constants.KEY_NAME, null));
+        user.put(Constants.KEY_WAITER_ID, preferences.getString(Constants.KEY_WAITER_ID, null));
+        user.put(Constants.KEY_SHOP_ID, preferences.getString(Constants.KEY_SHOP_ID, null));
         return user;
     }
 
@@ -61,6 +61,6 @@ public class SessionManager {
     }
 
     public boolean isLoggedIn(){
-        return preferences.getBoolean(AppConstant.IS_LOGGED_IN, false);
+        return preferences.getBoolean(Constants.IS_LOGGED_IN, false);
     }
 }

@@ -36,7 +36,7 @@ import java.util.List;
 
 import adapters.ProductsAdapter;
 import dialogs.DialogMessageDisplay;
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import listeners.RecyclerItemClickListener;
 import lists.ProductList;
@@ -65,9 +65,9 @@ public class Spirits extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
-        table = getActivity().getIntent().getStringExtra(AppConstant.TABLE_INTENT_ID);
-        servitoros_id = getActivity().getIntent().getStringExtra(AppConstant.WAITER_INTENT_ID);
-        magazi_id = getActivity().getIntent().getStringExtra(AppConstant.COMPANY_INTENT_ID);
+        table = getActivity().getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
+        servitoros_id = getActivity().getIntent().getStringExtra(Constants.WAITER_INTENT_ID);
+        magazi_id = getActivity().getIntent().getStringExtra(Constants.COMPANY_INTENT_ID);
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(getActivity().getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -94,9 +94,9 @@ public class Spirits extends Fragment {
 
     private void checkOrientation() {
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
-        }else{
             layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        }else{
+            layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1);
 
         }
     }
@@ -138,55 +138,55 @@ public class Spirits extends Fragment {
                 switch (position) {
                     case 0: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Gins.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 1: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Vodkas.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 2: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Whiskeys.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 3: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Liquers.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 4: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Tequilas.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
                     case 5: {
                         Intent intent = new Intent(getActivity().getApplicationContext(), Rums.class);
-                        intent.putExtra(AppConstant.SPIRIT_ITEM, customList.get(position).getName());
-                        intent.putExtra(AppConstant.TABLE_INTENT_ID, table);
-                        intent.putExtra(AppConstant.WAITER_INTENT_ID, servitoros_id);
-                        intent.putExtra(AppConstant.COMPANY_INTENT_ID, magazi_id);
+                        intent.putExtra(Constants.SPIRIT_ITEM, customList.get(position).getName());
+                        intent.putExtra(Constants.TABLE_INTENT_ID, table);
+                        intent.putExtra(Constants.WAITER_INTENT_ID, servitoros_id);
+                        intent.putExtra(Constants.COMPANY_INTENT_ID, magazi_id);
                         startActivity(intent);
                         break;
                     }
@@ -254,8 +254,8 @@ public class Spirits extends Fragment {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("X-API-KEY", "123456");
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                urlConnection.setRequestMethod(Constants.METHOD_GET);
                 urlConnection.setConnectTimeout(5000);
                 urlConnection.connect();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -264,7 +264,7 @@ public class Spirits extends Fragment {
 
                 jsonResponse = new JSONObject(jsonResult.toString());
                 Log.e("Response spirits: ", jsonResponse.toString());
-                jsonMainNode = jsonResponse.optJSONArray(AppConstant.SPIRITS_JSON_ARRAY);
+                jsonMainNode = jsonResponse.optJSONArray(Constants.SPIRITS_JSON_ARRAY);
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     jsonChildNode = jsonMainNode.getJSONObject(i);
                     name = jsonChildNode.optString("type");
@@ -291,7 +291,7 @@ public class Spirits extends Fragment {
 
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
-        task.execute(AppConstant.SPIRITS_URL);
+        task.execute(Constants.SPIRITS_URL);
     }
 
     public void ListDrawer(List<ProductList> customList) {

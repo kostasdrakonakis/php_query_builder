@@ -14,7 +14,7 @@ import android.support.v7.app.NotificationCompat;
 import com.order.app.order.R;
 import com.order.app.order.UserProfile;
 
-import functions.AppConstant;
+import functions.Constants;
 
 public class CheckSubscriptionReceiver extends BroadcastReceiver {
     private NotificationCompat.Builder builder;
@@ -26,7 +26,7 @@ public class CheckSubscriptionReceiver extends BroadcastReceiver {
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP |
-                PowerManager.ON_AFTER_RELEASE, AppConstant.TEMP_WAKELOCK);
+                PowerManager.ON_AFTER_RELEASE, Constants.TEMP_WAKELOCK);
         wl.acquire();
         builder = new NotificationCompat.Builder(context);
         builder.setContentTitle(context.getString(R.string.subscription_notif_title));
@@ -34,7 +34,7 @@ public class CheckSubscriptionReceiver extends BroadcastReceiver {
         style.bigText(context.getString(R.string.subscription_notif_message));
         builder.setStyle(style);
         builder.setAutoCancel(true);
-        builder.setTicker(AppConstant.ORDERING_SYSTEM_DEFAULT + context.getString(R.string.ticker_subscription_msg));
+        builder.setTicker(Constants.ORDERING_SYSTEM_DEFAULT + context.getString(R.string.ticker_subscription_msg));
         builder.setSmallIcon(R.mipmap.launch);
         builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.launch));
         builder.setDefaults(NotificationCompat.DEFAULT_LIGHTS | NotificationCompat.DEFAULT_VIBRATE);

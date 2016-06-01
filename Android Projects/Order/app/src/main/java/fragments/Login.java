@@ -50,7 +50,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import functions.AppConstant;
+import functions.Constants;
 import functions.StringGenerator;
 import sessions.SessionManager;
 
@@ -188,7 +188,7 @@ public class Login extends Fragment {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(AppConstant.LOGIN_URL);
+        task.execute(Constants.LOGIN_URL);
     }
 
 
@@ -205,7 +205,7 @@ public class Login extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (username.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.uname_required)).color(Color.parseColor(Constants.ENABLED_BUTTON_COLOR)).show(getActivity());
                     password.setEnabled(false);
                 } else {
                     password.setEnabled(true);
@@ -224,12 +224,12 @@ public class Login extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (password.getText().toString().isEmpty()) {
-                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR)).show(getActivity());
+                    Snackbar.with(getActivity().getApplicationContext()).text(getString(R.string.password_required)).color(Color.parseColor(Constants.ENABLED_BUTTON_COLOR)).show(getActivity());
                     signIn.setEnabled(false);
-                    signIn.setBackgroundColor(Color.parseColor(AppConstant.DISABLED_BUTTON_COLOR));
+                    signIn.setBackgroundColor(Color.parseColor(Constants.DISABLED_BUTTON_COLOR));
                 } else {
                     signIn.setEnabled(true);
-                    signIn.setBackgroundColor(Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR));
+                    signIn.setBackgroundColor(Color.parseColor(Constants.ENABLED_BUTTON_COLOR));
                 }
             }
 
@@ -345,7 +345,7 @@ public class Login extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 getActivity().finish();
             } else {
-                StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, message, getActivity().getApplicationContext(), Color.parseColor(AppConstant.ENABLED_BUTTON_COLOR), getActivity());
+                StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, message, getActivity().getApplicationContext(), Color.parseColor(Constants.ENABLED_BUTTON_COLOR), getActivity());
             }
         }
     }

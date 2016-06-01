@@ -44,9 +44,9 @@ public class StringGenerator {
             else
                 result.append("&");
 
-            result.append(URLEncoder.encode(pair.getName(), AppConstant.CHARACTER_ENCODING));
+            result.append(URLEncoder.encode(pair.getName(), Constants.CHARACTER_ENCODING));
             result.append("=");
-            result.append(URLEncoder.encode(pair.getValue(), AppConstant.CHARACTER_ENCODING));
+            result.append(URLEncoder.encode(pair.getValue(), Constants.CHARACTER_ENCODING));
         }
         return result.toString();
     }
