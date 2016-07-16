@@ -65,13 +65,11 @@ public class Tequilas extends AppCompatActivity {
     private Toolbar toolbar;
     private List<SpiritComponentProduct> components;
     private SpiritComponentAdapter componentAdapter;
-    private JSONObject jsonResponse, jsonChildNode;
+    private JSONObject jsonResponse, jsonChildNode, dataToWrite;
+    private OutputStreamWriter outputStreamWriter;
     private JSONArray jsonMainNode;
     private HttpURLConnection urlConnection;
     private URL url;
-    private List<NameValuePair> nameValuePairs;
-    private BufferedWriter bufferedWriter;
-    private OutputStream outputStream;
     private InputStream inputStream;
     private double priceCalculated;
 
@@ -371,26 +369,32 @@ public class Tequilas extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-
-            nameValuePairs = new ArrayList<>();
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.setReadTimeout(10000);
-                urlConnection.setConnectTimeout(15000);
-                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                Log.e("Custom Header", Constants.CUSTOM_HEADER);
+                Log.e("Api Key: ", Constants.API_KEY);
+                Log.e("Method: ", Constants.METHOD_POST);
+                urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestMethod(Constants.METHOD_POST);
+
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
-                setupDataToDB();
-                outputStream = urlConnection.getOutputStream();
-                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-                bufferedWriter.write(StringGenerator.queryResults(nameValuePairs));
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
                 urlConnection.connect();
+                setupDataToDB();
+                outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(dataToWrite.toString());
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
-            } catch (IOException e) {
+
+                jsonResult = StringGenerator.inputStreamToString(inputStream, Tequilas.this);
+                jsonResponse = new JSONObject(jsonResult.toString());
+                Log.e("Data From JSON", jsonResponse.toString());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
@@ -405,17 +409,23 @@ public class Tequilas extends AppCompatActivity {
     }
 
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_VALUE_PAIR, tequilaPreference));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_VALUE_PAIR, image));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
-        nameValuePairs.add(new BasicNameValuePair("glass", glassPreference));
-        nameValuePairs.add(new BasicNameValuePair("stroll", strollPreference));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPONENT_VALUE_PAIR, componentPreference));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMMENT_VALUE_PAIR, comment));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+
+        dataToWrite = new JSONObject();
+        try {
+            dataToWrite.put(""+Constants.PRODUCT_NAME_POST+"", tequilaPreference);
+            dataToWrite.put(""+Constants.PRODUCT_PRICE_POST+"", String.valueOf(priceCalculated));
+            dataToWrite.put(""+Constants.PRODUCT_IMAGE_POST+"", image);
+            dataToWrite.put(""+Constants.PRODUCT_QUANTITY_POST+"", String.valueOf(quantityNumberFinal));
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION1_POST+"", glassPreference);
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION2_POST+"", strollPreference);
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION3_POST+"", componentPreference);
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION4_POST+"", comment);
+            dataToWrite.put(""+Constants.PRODUCT_COMPANY_ID_POST+"", magazi_id);
+            dataToWrite.put(""+Constants.PRODUCT_WAITER_ID_POST+"", servitoros_id);
+            dataToWrite.put(""+Constants.PRODUCT_TABLE_ID_POST+"", table);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void readDataWebService() {
@@ -425,7 +435,8 @@ public class Tequilas extends AppCompatActivity {
 
     public void writeDataWebService() {
         MyInsertDataTask task = new MyInsertDataTask();
-        task.execute(Constants.SPIRIT_ADD_TO_CART_URL);
+        task.execute(Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
+        Log.e("Snacks URL",Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
     }
 
 

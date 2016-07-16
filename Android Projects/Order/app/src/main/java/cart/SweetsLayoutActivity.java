@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import com.order.app.order.R;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -43,8 +46,6 @@ public class SweetsLayoutActivity extends AppCompatActivity {
     private Button cart, plus, minus, iceCreamPlus, iceCreamMinus;
     private String quantityPreference, comment, quantityIceCreamPreference;
     private ProgressDialog pDialog;
-    private HttpPost httpPost;
-    private ArrayList<NameValuePair> nameValuePairs;
     private int quantityNumberFinal, quantityIceCreamNumberFinal;
     private double priceCalculated;
     private StringBuffer iceCreamPreference, syrupPreference;
@@ -53,9 +54,10 @@ public class SweetsLayoutActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private HttpURLConnection urlConnection;
     private URL url;
-    private OutputStream outputStream;
-    private BufferedWriter bufferedWriter;
+    private OutputStreamWriter outputStreamWriter;
     private InputStream inputStream;
+    private StringBuilder jsonResult;
+    private JSONObject jsonResponse, dataToWrite;
 
 
     @Override
@@ -260,7 +262,8 @@ public class SweetsLayoutActivity extends AppCompatActivity {
 
     private void accessWebService() {
         task = new MyInsertDataTask();
-        task.execute(Constants.SWEETS_ADD_TO_CART_URL);
+        task.execute(Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
+        Log.e("Snacks URL",Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
     }
 
 
@@ -281,25 +284,32 @@ public class SweetsLayoutActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-            nameValuePairs = new ArrayList<>();
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.setReadTimeout(10000);
-                urlConnection.setConnectTimeout(15000);
-                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                Log.e("Custom Header", Constants.CUSTOM_HEADER);
+                Log.e("Api Key: ", Constants.API_KEY);
+                Log.e("Method: ", Constants.METHOD_POST);
+                urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestMethod(Constants.METHOD_POST);
+
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
-                setupDataToDB();
-                outputStream = urlConnection.getOutputStream();
-                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-                bufferedWriter.write(StringGenerator.queryResults(nameValuePairs));
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
                 urlConnection.connect();
+                setupDataToDB();
+                outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(dataToWrite.toString());
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
-            } catch (IOException e) {
+
+                jsonResult = StringGenerator.inputStreamToString(inputStream, SweetsLayoutActivity.this);
+                jsonResponse = new JSONObject(jsonResult.toString());
+                Log.e("Data From JSON", jsonResponse.toString());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
@@ -315,17 +325,23 @@ public class SweetsLayoutActivity extends AppCompatActivity {
 
 
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_VALUE_PAIR, name));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_VALUE_PAIR, String.valueOf(priceCalculated)));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_VALUE_PAIR, image));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_VALUE_PAIR, String.valueOf(quantityNumberFinal)));
-        nameValuePairs.add(new BasicNameValuePair("iceCreamScoops", String.valueOf(quantityIceCreamNumberFinal) + " " + getString(R.string.iceCreamQuantity)));
-        nameValuePairs.add(new BasicNameValuePair("iceCreamFlavors", iceCreamPreference.toString()));
-        nameValuePairs.add(new BasicNameValuePair("syrupFlavors", syrupPreference.toString()));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMMENT_VALUE_PAIR, comment));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_VALUE_PAIR, magazi_id));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_VALUE_PAIR, servitoros_id));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_VALUE_PAIR, table));
+
+        dataToWrite = new JSONObject();
+        try {
+            dataToWrite.put(""+Constants.PRODUCT_NAME_POST+"", name);
+            dataToWrite.put(""+Constants.PRODUCT_PRICE_POST+"", String.valueOf(priceCalculated));
+            dataToWrite.put(""+Constants.PRODUCT_IMAGE_POST+"", image);
+            dataToWrite.put(""+Constants.PRODUCT_QUANTITY_POST+"", String.valueOf(quantityNumberFinal));
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION1_POST+"", String.valueOf(quantityIceCreamNumberFinal) + " " + getString(R.string.iceCreamQuantity));
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION2_POST+"", iceCreamPreference.toString());
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION3_POST+"", syrupPreference.toString());
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION4_POST+"", comment);
+            dataToWrite.put(""+Constants.PRODUCT_COMPANY_ID_POST+"", magazi_id);
+            dataToWrite.put(""+Constants.PRODUCT_WAITER_ID_POST+"", servitoros_id);
+            dataToWrite.put(""+Constants.PRODUCT_TABLE_ID_POST+"", table);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }

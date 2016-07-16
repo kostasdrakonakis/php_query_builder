@@ -60,12 +60,8 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private URL url;
     private OutputStreamWriter outputStreamWriter;
     private InputStream inputStream;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
-    private int counter = 0;
     private StringBuilder jsonResult;
-    private JSONObject jsonResponse;
-    private JSONObject dataToWrite;
+    private JSONObject jsonResponse, dataToWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -398,7 +394,6 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
 
     private void setupDataToDB() {
         dataToWrite = new JSONObject();
-
         try {
             dataToWrite.put(""+Constants.PRODUCT_NAME_POST+"", productName);
             dataToWrite.put(""+Constants.PRODUCT_PRICE_POST+"", String.valueOf(priceCalculated));
