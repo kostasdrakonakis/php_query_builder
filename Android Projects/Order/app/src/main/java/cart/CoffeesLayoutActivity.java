@@ -26,9 +26,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -48,7 +51,6 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private EditText quantity, sxolia;
     private CheckBox nosugar, medium, sweet, vsweet, yesCheck, noCheck, afrogalo, santigi, monos, diplos;
     private ProgressDialog pDialog;
-    private ArrayList<NameValuePair> nameValuePairs;
     private Button plus, minus, cart;
     private MyInsertDataTask task;
     private int quantityNumberFinal;
@@ -56,14 +58,14 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private HttpURLConnection urlConnection;
     private URL url;
-    private OutputStream outputStream;
-    private BufferedWriter bufferedWriter;
+    private OutputStreamWriter outputStreamWriter;
     private InputStream inputStream;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private int counter = 0;
     private StringBuilder jsonResult;
     private JSONObject jsonResponse;
+    private JSONObject dataToWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -324,7 +326,6 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
 
     private void populateActionBar() {
         toolbar = (Toolbar)findViewById(R.id.toolBar);
-
         productName = getIntent().getStringExtra(Constants.COFFEE_NAME);
         price = getIntent().getStringExtra(Constants.COFFEE_PRICE);
         table = getIntent().getStringExtra(Constants.TABLE_INTENT_ID);
@@ -353,57 +354,32 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-
-            nameValuePairs = new ArrayList<>();
-            ByteBuffer s = Charset.forName(Constants.CHARACTER_ENCODING).encode(sugarPreference);
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
-                urlConnection.setReadTimeout(10000);
-                urlConnection.setConnectTimeout(15000);
+                Log.e("Custom Header", Constants.CUSTOM_HEADER);
+                Log.e("Api Key: ", Constants.API_KEY);
+                Log.e("Method: ", Constants.METHOD_POST);
+                urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestMethod(Constants.METHOD_POST);
+
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
-                setupDataToDB();
-                outputStream = urlConnection.getOutputStream();
-                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-                bufferedWriter.write(StringGenerator.queryResults(nameValuePairs));
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
                 urlConnection.connect();
+                setupDataToDB();
+                outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(dataToWrite.toString());
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
+
                 jsonResult = StringGenerator.inputStreamToString(inputStream, CoffeesLayoutActivity.this);
                 jsonResponse = new JSONObject(jsonResult.toString());
-                Log.e("Response Coffees", jsonResponse.toString());
+                Log.e("Data From JSON", jsonResponse.toString());
 
-//                HttpUrlConnectionUtlity httpMethod = new HttpUrlConnectionUtlity(CoffeesLayoutActivity.this);
-//                JSONObject jsonEntity = new JSONObject();
-//
-//                try {
-//                    jsonEntity.put(Constants.PRODUCT_NAME_POST, productName);
-//                    jsonEntity.put(Constants.PRODUCT_PRICE_POST, String.valueOf(priceCalculated));
-//                    jsonEntity.put(Constants.PRODUCT_IMAGE_POST, image);
-//                    jsonEntity.put(Constants.PRODUCT_QUANTITY_POST, String.valueOf(quantityNumberFinal));
-//                    jsonEntity.put(Constants.PRODUCT_PREFERATION1_POST, sugarPreference);
-//                    jsonEntity.put(Constants.PRODUCT_PREFERATION2_POST, milkPreference);
-//                    jsonEntity.put(Constants.PRODUCT_PREFERATION3_POST, dosePreference);
-//                    jsonEntity.put(Constants.PRODUCT_PREFERATION4_POST, comment);
-//                    jsonEntity.put(Constants.PRODUCT_COMPANY_ID_POST, magazi_id);
-//                    jsonEntity.put(Constants.PRODUCT_WAITER_ID_POST, servitoros_id);
-//                    jsonEntity.put(Constants.PRODUCT_TABLE_ID_POST, table);
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                httpMethod.setUrl(Constants.CART_URL + servitoros_id + "/" + magazi_id + "/" + table + "/");
-//                HashMap<String, String> headerMap = new HashMap<>();
-//                headerMap.put(Constants.CUSTOM_HEADER, Constants.API_KEY);
-//                httpMethod.setHeaderMap(headerMap);
-//                httpMethod.setRequestType(1); //specify POST/GET/DELETE/PUT
-//                httpMethod.setEntityString(jsonEntity.toString());
-//                httpMethod.execute();
             } catch (Exception e) {
                 e.printStackTrace();
 
@@ -420,46 +396,23 @@ public class CoffeesLayoutActivity extends AppCompatActivity {
         }
     }
 
-    public void createBdgeCount(){
-        preferences = getSharedPreferences(Constants.BADGE_COUNT, MODE_PRIVATE);
-        editor = preferences.edit();
-        editor.putInt(Constants.BADGE_COUNT_VALUE, counter);
-        editor.apply();
-    }
-
     private void setupDataToDB() {
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_NAME_POST, productName));
-        Log.e("Product Name Key", Constants.PRODUCT_NAME_POST);
-        Log.e("Product Name Value", productName);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PRICE_POST, String.valueOf(priceCalculated)));
-        Log.e("Product Price Key", Constants.PRODUCT_PRICE_POST);
-        Log.e("Product Price Value", String.valueOf(priceCalculated));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_IMAGE_POST, image));
-        Log.e("Product Name Key", Constants.PRODUCT_IMAGE_POST);
-        Log.e("Product Name Value", image);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_QUANTITY_POST, String.valueOf(quantityNumberFinal)));
-        Log.e("Product Price Key", Constants.PRODUCT_QUANTITY_POST);
-        Log.e("Product Price Value", String.valueOf(quantityNumberFinal));
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION1_POST, sugarPreference));
-        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION1_POST);
-        Log.e("Product Name Value", sugarPreference);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION2_POST, milkPreference));
-        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION2_POST);
-        Log.e("Product Name Value", milkPreference);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION3_POST, dosePreference));
-        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION3_POST);
-        Log.e("Product Name Value", dosePreference);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_PREFERATION4_POST, comment));
-        Log.e("Product Name Key", Constants.PRODUCT_PREFERATION4_POST);
-        Log.e("Product Name Value", comment);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_COMPANY_ID_POST, magazi_id));
-        Log.e("Product Name Key", Constants.PRODUCT_COMPANY_ID_POST);
-        Log.e("Product Name Value", magazi_id);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_WAITER_ID_POST, servitoros_id));
-        Log.e("Product Name Key", Constants.PRODUCT_WAITER_ID_POST);
-        Log.e("Product Name Value", servitoros_id);
-        nameValuePairs.add(new BasicNameValuePair(Constants.PRODUCT_TABLE_ID_POST, table));
-        Log.e("Product Name Key", Constants.PRODUCT_TABLE_ID_POST);
-        Log.e("Product Name Value", table);
+        dataToWrite = new JSONObject();
+
+        try {
+            dataToWrite.put(""+Constants.PRODUCT_NAME_POST+"", productName);
+            dataToWrite.put(""+Constants.PRODUCT_PRICE_POST+"", String.valueOf(priceCalculated));
+            dataToWrite.put(""+Constants.PRODUCT_IMAGE_POST+"", image);
+            dataToWrite.put(""+Constants.PRODUCT_QUANTITY_POST+"", String.valueOf(quantityNumberFinal));
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION1_POST+"", sugarPreference);
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION2_POST+"", milkPreference);
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION3_POST+"", dosePreference);
+            dataToWrite.put(""+Constants.PRODUCT_PREFERATION4_POST+"", comment);
+            dataToWrite.put(""+Constants.PRODUCT_COMPANY_ID_POST+"", magazi_id);
+            dataToWrite.put(""+Constants.PRODUCT_WAITER_ID_POST+"", servitoros_id);
+            dataToWrite.put(""+Constants.PRODUCT_TABLE_ID_POST+"", table);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
