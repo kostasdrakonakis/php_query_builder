@@ -358,7 +358,7 @@ public class Gins extends AppCompatActivity {
         }
     }
 
-    private class MyInsertDataTask extends AsyncTask<String, Void, Void> {
+    private class MyInsertDataTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -374,7 +374,7 @@ public class Gins extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             try {
                 url = new URL(params[0]);
                 urlConnection =(HttpURLConnection) url.openConnection();
@@ -400,17 +400,29 @@ public class Gins extends AppCompatActivity {
                 jsonResult = StringGenerator.inputStreamToString(inputStream, Gins.this);
                 jsonResponse = new JSONObject(jsonResult.toString());
                 Log.e("Data From JSON", jsonResponse.toString());
+                String status = jsonResponse.getString("status");
+                String status_code = jsonResponse.getString("status_code");
+                if (status.equals("success") && status_code.equals("201")){
+                    return true;
+                }else{
+                    return false;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return false;
         }
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
             pDialog.dismiss();
-            Toast.makeText(Gins.this, getString(R.string.cart_addition_successfull), Toast.LENGTH_LONG).show();
-            Gins.this.finish();
+            if (aVoid){
+                Toast.makeText(Gins.this, getString(R.string.cart_addition_successfull), Toast.LENGTH_LONG).show();
+                Gins.this.finish();
+            }else{
+                Toast.makeText(Gins.this, "There was a problemm adding this product to the cart. Please try again", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 

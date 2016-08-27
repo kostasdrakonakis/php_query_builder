@@ -281,5 +281,6 @@
     <string name="pref_title_method_to_put">Μέθοδος για ενημέρωση δεδομένων</string>
     <string name="pref_general_category">Γενική Κατηγορία</string>
     <string name="pref_default_custom_header">X-API-KEY</string>
+    <string name="pref_title_custom_header">Header</string>
 
 </resources>
