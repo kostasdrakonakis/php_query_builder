@@ -2,10 +2,6 @@ package JFrames;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author 2450-3199-3277 Ανδρέας Μανατάκης Χαράλαμπος Πολυχρονάκης Χάρης Σαριδάκης
- */
 public class windowName extends javax.swing.JFrame {
 
     String name;

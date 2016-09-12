@@ -59,9 +59,9 @@ public class Chess {
 
     
     public Chess() {
-        String name = JOptionPane.showInputDialog(null, "Παρακαλώ πληκτρολογήστε το όνομα σας", "Παίκτης 1", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog(null, "Please type your name", "Player 1", JOptionPane.PLAIN_MESSAGE);
         if (name == null || name.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Δεν δώσατε όνομα, θα είστε ο Player X", "Κανένα Όνομα", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You did not specify any name, you will be Player X", "No Name", JOptionPane.WARNING_MESSAGE);
             name = "Player X";
         }
         aspros = new Paiktis(name, "White");
@@ -131,8 +131,8 @@ public class Chess {
         kiniseisblack = new JPanel();
         panw = new JPanel();
         mesi = new JPanel();
-        pinakidaAspro = new JLabel("Άσπρα");
-        pinakidaMauro = new JLabel("Μαύρα");
+        pinakidaAspro = new JLabel("White");
+        pinakidaMauro = new JLabel("Black");
         panwblack = new JPanel();
         lwhite = new JTextArea();
         moves = new JPanel();
@@ -166,13 +166,13 @@ public class Chess {
         moves.add(kiniseiswhite);
         moves.add(kiniseisblack);
         kiniseis.add(moves, BorderLayout.CENTER);
-        kiniseis.add(new JLabel("Κινήσεις", SwingConstants.CENTER), BorderLayout.NORTH);
+        kiniseis.add(new JLabel("Moves", SwingConstants.CENTER), BorderLayout.NORTH);
         mesi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         nekrotafeio.add(mesi, BorderLayout.CENTER);
         nekrotafeio.add(panw, BorderLayout.NORTH);
         deksio.add(nekrotafeio);
         deksio.add(kiniseis);
-        seira = new JLabel("Σειρά έχουν τα λευκά");
+        seira = new JLabel("White's Turn");
         seira.setPreferredSize(new Dimension(Board.BOARD_WIDTH, 20));
         seira.setFont(new Font(Font.SERIF, 2, 20));
         seira.setHorizontalAlignment(JLabel.CENTER);
@@ -233,11 +233,11 @@ public class Chess {
                     if(alive.getColor().equals("White")){
                         int z = convertNumToRow(x);
                         String k = convertLetterToCol(y);
-                        lwhite.append("Ασπρος στο: " + String.valueOf(z) + ", " + k + "\n");
+                        lwhite.append("White at: " + String.valueOf(z) + ", " + k + "\n");
                     }else{
                         int z = convertNumToRow(x);
                         String k = convertLetterToCol(y);
-                        lblack.append("Μαυρος στο: " + String.valueOf(z) + ", " + k + "\n");
+                        lblack.append("Black at: " + String.valueOf(z) + ", " + k + "\n");
                     }
                     changeTurn();
 
@@ -247,9 +247,9 @@ public class Chess {
                         }else{
                             playSound("sounds/win.wav");
                         }
-                        int telos = JOptionPane.showConfirmDialog(null,"Νέα Παρτίδα", "Τέλος Παιχνιδιού",
+                        int telos = JOptionPane.showConfirmDialog(null,"New Game", "Game Over",
                                 JOptionPane.YES_NO_OPTION);
-                        seira.setText("Τέλος Παιχνιδιού");
+                        seira.setText("Game Over");
                         
                         if (telos == JOptionPane.YES_OPTION) {
                             initComponents();
@@ -282,24 +282,24 @@ public class Chess {
         });
 
         menuBar = new JMenuBar();
-        fileMenu = new JMenu("Αρχείο");
+        fileMenu = new JMenu("File");
         shareMenu = new JMenu("Share");
-        colorMenu = new JMenu("Χρώμα");
-        newItem = new JMenuItem("Νέα Παρτίδα");
-        historyItem = new JMenuItem("Στατιστικά");
+        colorMenu = new JMenu("Color");
+        newItem = new JMenuItem("New Game");
+        historyItem = new JMenuItem("Statistics");
         donate = new JMenuItem("Donate");
-        exitItem = new JMenuItem("Έξοδος");
-        winsound = new JMenuItem("Επιλέξτε ήχο νίκης");
-        loosesound = new JMenuItem("Επιλέξτε ήχο ήττας");
-        sound = new JMenuItem("Επιλέξτε ήχο μετακίνησης");
-        fb = new JMenuItem("Καντε Like στο Facebook");
-        xrwmaBlack = new JMenuItem("Αλλάξτε Χρώμα στο πάνελ με τα μαύρα");
-        xrwmaWhite = new JMenuItem("Αλλάξτε Χρώμα στο πάνελ με τα άσπρα");
-        twitter = new JMenuItem("Καντε Follow στο Twitter");
-        googleplus = new JMenuItem("Καντε Follow στο Google+");
-        youtube = new JMenuItem("Καντε Subscribe στο Youtube");
-        rss = new JMenuItem("Καντε Subscribe στο LiveFeed μας");
-        email = new JMenuItem("Μοιραστείτε μέσω Email");
+        exitItem = new JMenuItem("Exit");
+        winsound = new JMenuItem("Choose winning sound");
+        loosesound = new JMenuItem("Choose loosing sound");
+        sound = new JMenuItem("Choose Movement sound");
+        fb = new JMenuItem("Like us on Facebook");
+        xrwmaBlack = new JMenuItem("Change color in Black Panel");
+        xrwmaWhite = new JMenuItem("Change color in White Panel");
+        twitter = new JMenuItem("Follow us on Twitter");
+        googleplus = new JMenuItem("Follow us on Google+");
+        youtube = new JMenuItem("Subscribe in Youtube");
+        rss = new JMenuItem("Subscribe in our LiveFeed");
+        email = new JMenuItem("Share via Email");
         email.setIcon(new ImageIcon("smallicons/email.png"));
         fb.setIcon(new ImageIcon("smallicons/fb.png"));
         twitter.setIcon(new ImageIcon("smallicons/twitter.png"));
@@ -393,9 +393,9 @@ public class Chess {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Στατιστικά\n" + aspros.getName()
+                JOptionPane.showMessageDialog(null, "Statistics\n" + aspros.getName()
                                 + " score is " + aspros.getScore() + "\n" + mauros.getName()
-                                + "'s score is " + mauros.getScore(), "Ιστορικό", JOptionPane.INFORMATION_MESSAGE);
+                                + "'s score is " + mauros.getScore(), "History", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         exitItem.addActionListener(new ActionListener() {
@@ -448,7 +448,7 @@ public class Chess {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Color arxiko = mesiblack.getBackground();
-                Color twrino = JColorChooser.showDialog(null, "Επιλέξτε Χρώμα", arxiko);
+                Color twrino = JColorChooser.showDialog(null, "Choose a color", arxiko);
                 if(twrino != null){
                     mesiblack.setBackground(twrino);
                 }
@@ -459,7 +459,7 @@ public class Chess {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Color arxiko = mesiwhite.getBackground();
-                Color twrino = JColorChooser.showDialog(null, "Επιλέξτε Χρώμα", arxiko);
+                Color twrino = JColorChooser.showDialog(null, "Choose a color", arxiko);
                 mesiwhite.setBackground(twrino);
                 if(twrino != null){
                     mesiwhite.setBackground(twrino);
@@ -486,7 +486,7 @@ public class Chess {
         menuBar.add(soundMenu);
         menuBar.add(colorMenu);
         
-        parathiro = new JFrame("Project Σκακι 2014 Εαρινό Εξάμηνο");
+        parathiro = new JFrame("Project Chess");
         parathiro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         parathiro.setLayout(new BorderLayout());
         parathiro.add(board, BorderLayout.CENTER);
@@ -578,10 +578,10 @@ public class Chess {
         this.alive = null;
         if (this.turn.equals("White")) {
             this.turn = "Black";
-            seira.setText("Σειρά έχουν τα μαύρα");
+            seira.setText("Black's Turn");
         } else {
             this.turn = "White";
-            seira.setText("Σειρά έχουν τα λευκά");
+            seira.setText("White's Turn");
         }
     }
 
