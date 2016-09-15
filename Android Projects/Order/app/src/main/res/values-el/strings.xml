@@ -282,5 +282,6 @@
     <string name="pref_general_category">Γενική Κατηγορία</string>
     <string name="pref_default_custom_header">X-API-KEY</string>
     <string name="pref_title_custom_header">Header</string>
+    <string name="wrong_credentials">Λάθος όνομα χρήστη ή κωδικός πρόσβασης</string>
 
 </resources>

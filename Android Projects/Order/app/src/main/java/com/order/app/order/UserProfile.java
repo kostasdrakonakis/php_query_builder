@@ -40,18 +40,15 @@ import com.github.clans.fab.FloatingActionButton;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.enums.SnackbarType;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -70,33 +67,33 @@ public class UserProfile extends AppCompatActivity{
     private Uri number;
     private ProgressDialog pDialog;
     boolean disabled = false, network_connected, returnedKey, ratingComplited = false;
-    private String comTxt, name, timeF, text, committed, subjectTXT, messageTXT, servitorosId, magaziID;
+    private String comTxt, name, timeF, text, subjectTXT, messageTXT, servitorosId, magaziID;
     private SimpleDateFormat timeFormat, dateFormat;
     private Calendar calendar;
     private ConnectivityManager connectivityManager;
     private NetworkInfo networkInfo;
-    private InputStream inputStream = null;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private TextView date, time, watersName, waiterID, magaziId;
-    private FloatingActionButton helpButton, rateButton, themeButton;
+    private FloatingActionButton helpButton, rateButton;
     private RatingBar ratingBar;
     private EditText ratingComment, subject, message;
     private HashMap<String, String> user;
     private float percent = 0;
     private Intent sendIntent, callIntent;
     private Button btnnewworder, payment;
-    private ArrayList<NameValuePair> nameValuePairs;
     private AlertDialog.Builder rateDialog, helpDialog;
     private MyInsertDataTask task;
     private View newLayout, helpView;
-    private HttpResponse response;
-    private HttpClient httpClient;
-    private HttpPost httpPost;
-    private HttpEntity httpEntity;
     private Switch helpSwitch;
     private LinearLayout contactLayout;
     private Toolbar toolbar;
+    private HttpURLConnection urlConnection;
+    private URL url;
+    private OutputStreamWriter outputStreamWriter;
+    private InputStream inputStream;
+    private StringBuilder jsonResult;
+    private JSONObject dataToWrite, jsonResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -432,7 +429,7 @@ public class UserProfile extends AppCompatActivity{
     }
 
 
-    private class MyInsertDataTask extends AsyncTask<String, Void, Void>{
+    private class MyInsertDataTask extends AsyncTask<String, Void, Boolean>{
 
         @Override
         protected void onPreExecute() {
@@ -447,30 +444,74 @@ public class UserProfile extends AppCompatActivity{
         }
 
         @Override
-        protected Void doInBackground(String... params) {
-            nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("magazi_id", magaziID));
-            nameValuePairs.add(new BasicNameValuePair("ratingNumber", String.valueOf(percent)));
-            nameValuePairs.add(new BasicNameValuePair("comment", comTxt));
-            try
-            {
-                httpClient = new DefaultHttpClient();
-                httpPost = new HttpPost(params[0]);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                response = httpClient.execute(httpPost);
-                httpEntity = response.getEntity();
-                inputStream = httpEntity.getContent();
+        protected Boolean doInBackground(String... params) {
+
+            try {
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                Log.e("Custom Header", Constants.CUSTOM_HEADER);
+                Log.e("Api Key: ", Constants.API_KEY);
+                Log.e("Method: ", Constants.METHOD_POST);
+                urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestMethod(Constants.METHOD_POST);
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.connect();
+
+                setupDataToDB();
+
+                outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(dataToWrite.toString());
+                Log.e("Data To Write", dataToWrite.toString());
+
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+                int responseCode = urlConnection.getResponseCode();
+                Log.e("Response Code ", String.valueOf(responseCode));
+                if (responseCode == 400){
+                    return false;
+                }else if(responseCode == 500){
+                    return false;
+                } else if (responseCode == 201){
+                    inputStream = new BufferedInputStream(urlConnection.getInputStream());
+                    jsonResult = StringGenerator.inputStreamToString(inputStream, UserProfile.this);
+                    jsonResponse = new JSONObject(jsonResult.toString());
+
+                    Log.e("Data From JSON", jsonResponse.toString());
+                    String status = jsonResponse.getString("status");
+                    String status_code = jsonResponse.getString("status_code");
+                    String messageFromResponse = jsonResponse.getString("message");
+                    Log.e("Response Status", status);
+                    Log.e("Response Status Code", status_code);
+                    Log.e("Response Message", messageFromResponse);
+                    return true;
+                }
+
+            } catch (Exception e) {
+                urlConnection.getErrorStream();
+                e.printStackTrace();
             }
-            catch(Exception e)
-            {
-                Log.e("Fail 1", e.toString());
-            }
-            return null;
+
+            return false;
         }
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
             pDialog.dismiss();
+        }
+    }
+
+    private void setupDataToDB() {
+        dataToWrite = new JSONObject();
+        try {
+            dataToWrite.put("" + Constants.USER_COMPANY_ID + "", magaziID);
+            dataToWrite.put("" + Constants.USER_RATING + "", String.valueOf(percent));
+            dataToWrite.put("" + Constants.USER_RATING_COMMENT + "", comTxt);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

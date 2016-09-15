@@ -28,27 +28,20 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.order.app.order.R;
 import com.order.app.order.UserProfile;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import functions.Constants;
 import functions.StringGenerator;
@@ -60,22 +53,17 @@ public class Login extends Fragment {
     private Button signIn;
     private View rootView;
     private SessionManager session;
-    private TextView tv;
     private ProgressDialog pDialog;
-    private ArrayList<NameValuePair> nameValuePairs;
-    private HttpResponse response;
-    private HttpClient httpClient;
-    private HttpPost httpPost;
-    private HttpEntity httpEntity;
-    private InputStream is = null;
     private MyInsertDataTask task;
-    private String userName, userPass, result;
-    private boolean isRegistered = false, letLogin = false;
-    private JSONObject data;
-    private AlertDialog.Builder builder;
-    private String isActivated, servitorosId, message;
-    private boolean accountExists;
+    private String userName, userPass;
+    private String servitorosId, message;
     private String magaziId;
+    private HttpURLConnection urlConnection;
+    private URL url;
+    private OutputStreamWriter outputStreamWriter;
+    private InputStream inputStream;
+    private StringBuilder jsonResult;
+    private JSONObject dataToWrite, jsonResponse;
 
 
     @Override
@@ -133,22 +121,6 @@ public class Login extends Fragment {
             }*/
         }
     }
-
-    public AlertDialog displayInfoMessage(Context context, String title, String message) {
-        builder = new AlertDialog.Builder(context);
-
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getActivity().finish();
-            }
-        }).show();
-        return builder.create();
-
-    }
-
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -279,50 +251,64 @@ public class Login extends Fragment {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("user", userName));
-            nameValuePairs.add(new BasicNameValuePair("pass", userPass));
             try {
-                httpClient = new DefaultHttpClient();
-                httpPost = new HttpPost(params[0]);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                response = httpClient.execute(httpPost);
-                httpEntity = response.getEntity();
-                is = httpEntity.getContent();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    result.append(line);
-                }
-                Log.e("Responce", result.toString());
-                data = new JSONObject(result.toString());
-                accountExists = data.getBoolean("reg");
-                isRegistered = data.getBoolean("res");
-                isActivated = data.getString("activated");
-                servitorosId = data.getString("servitoros_id");
-                magaziId = data.getString("magazi_id");
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                Log.e("Custom Header", Constants.CUSTOM_HEADER);
+                Log.e("Api Key: ", Constants.API_KEY);
+                Log.e("Method: ", Constants.METHOD_POST);
+                urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestMethod(Constants.METHOD_POST);
 
-            } catch (Exception e) {
-                Log.e("Fail 1", e.toString());
-            }
-            if (accountExists){
-                if(!isRegistered){
-                    message = getString(R.string.wrong_password);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.connect();
+
+                setupDataToDB();
+
+                outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(dataToWrite.toString());
+                Log.e("Data To Write", dataToWrite.toString());
+
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+                int responseCode = urlConnection.getResponseCode();
+                Log.e("Response Code ", String.valueOf(responseCode));
+                if (responseCode == 404){
+                    message = getString(R.string.wrong_credentials);
                     return false;
-                }else {
+                }else if (responseCode == 401){
+                    message = getString(R.string.account_not_active);
+                    return false;
+                }else if (responseCode == 200){
+                    inputStream = new BufferedInputStream(urlConnection.getInputStream());
 
-                    if(isActivated.equals("0")){
-                        message = getString(R.string.account_not_active);
-                        return false;
-                    }else{
+                    jsonResult = StringGenerator.inputStreamToString(inputStream, getActivity());
+                    jsonResponse = new JSONObject(jsonResult.toString());
+
+                    Log.e("Data From JSON", jsonResponse.toString());
+                    String status = jsonResponse.getString("status");
+                    String status_code = jsonResponse.getString("status_code");
+                    String messageFromResponse = jsonResponse.getString("message");
+                    Log.e("Response Status", status);
+                    Log.e("Response Status Code", status_code);
+                    Log.e("Response Message", messageFromResponse);
+                    JSONObject object = jsonResponse.getJSONObject("response");
+                    servitorosId = object.getString("servitoros_id");
+                    magaziId = object.getString("magazi_id");
+                    if (status.equals("success") && status_code.equals("200")){
                         return true;
                     }
                 }
-            }else {
-                message = getString(R.string.wrong_username);
-                return false;
+
+            } catch (Exception e) {
+                urlConnection.getErrorStream();
+                e.printStackTrace();
             }
+
+            return false;
         }
 
         @Override
@@ -347,6 +333,16 @@ public class Login extends Fragment {
             } else {
                 StringGenerator.showSnackMessage(SnackbarType.MULTI_LINE, message, getActivity().getApplicationContext(), Color.parseColor(Constants.ENABLED_BUTTON_COLOR), getActivity());
             }
+        }
+    }
+
+    private void setupDataToDB() {
+        dataToWrite = new JSONObject();
+        try {
+            dataToWrite.put(""+Constants.USER_USERNAME+"", userName);
+            dataToWrite.put(""+Constants.USER_PASSWORD+"", userPass);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

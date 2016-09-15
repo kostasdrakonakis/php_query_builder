@@ -295,5 +295,8 @@
     <string name="pref_general_category">General Category</string>
     <string name="pref_title_custom_header">Header</string>
     <string name="pref_default_custom_header">X-API-KEY</string>
+    <string name="wrong_credentials">Invalid username or password. Please try again.</string>
+    <string name="email_or_username_exists">The specified email or username already exist. Please try again.</string>
+    <string name="something_went_wrong_server_error">Something went wrong. Please try again.</string>
 
 </resources>

@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nispok.snackbar.Snackbar;
@@ -32,48 +31,32 @@ import com.nispok.snackbar.enums.SnackbarType;
 import com.order.app.order.MainActivity;
 import com.order.app.order.R;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import functions.Constants;
+import functions.StringGenerator;
 
 public class Register extends Fragment {
     private EditText username, password, retypePassword, emailField;
     private Button signUp;
     private View rootView;
-    private TextView tv;
     private ProgressDialog pDialog;
-    private ArrayList<NameValuePair> nameValuePairs;
-    private HttpResponse response;
-    private HttpClient httpClient;
-    private HttpPost httpPost;
-    private HttpEntity httpEntity;
-    private InputStream is = null;
     private MyInsertDataTask task;
-    private String uName, pass, email, date, release;
-    private Calendar c;
-    private DateFormat dateFormat;
-    private AlertDialog.Builder builder;
-    private Random random;
+    private String uName, pass, email, release, message;
     private int sdkVersion;
-    private JSONObject data;
-    private boolean usernameExists=true;
+    private HttpURLConnection urlConnection;
+    private URL url;
+    private OutputStreamWriter outputStreamWriter;
+    private InputStream inputStream;
+    private StringBuilder jsonResult;
+    private JSONObject dataToWrite, jsonResponse;
 
 
     @Override
@@ -82,8 +65,6 @@ public class Register extends Fragment {
         release = Build.VERSION.RELEASE;
         sdkVersion = Build.VERSION.SDK_INT;
         setupView();
-
-        createDateFormat();
         setupClickEvent();
         return rootView;
     }
@@ -106,25 +87,6 @@ public class Register extends Fragment {
         }
     }
 
-    public AlertDialog displayInfoMessage(Context context, String title, String message) {
-        builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getActivity().finish();
-            }
-        }).show();
-        return builder.create();
-
-    }
-
-    private void createDateFormat() {
-        c = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd" + "/" + "MM" + "/" + "yyyy");
-        date = dateFormat.format(c.getTime());
-    }
 
     private void setupClickEvent() {
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -302,11 +264,6 @@ public class Register extends Fragment {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    private int getRandom(){
-        random = new Random();
-        return random.nextInt(10000);
-    }
-
     private class MyInsertDataTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
@@ -317,41 +274,55 @@ public class Register extends Fragment {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("username", uName));
-            nameValuePairs.add(new BasicNameValuePair("password", pass));
-            nameValuePairs.add(new BasicNameValuePair("email", email));
-            nameValuePairs.add(new BasicNameValuePair("dateCreated", date));
-            nameValuePairs.add(new BasicNameValuePair("servitoros_id", String.valueOf(getRandom())));
-            nameValuePairs.add(new BasicNameValuePair("magazi_id", String.valueOf(2)));
-            nameValuePairs.add(new BasicNameValuePair("android_version", release));
-            nameValuePairs.add(new BasicNameValuePair("api_level", String.valueOf(sdkVersion)));
+            try {
+                url = new URL(params[0]);
+                urlConnection =(HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty(Constants.CUSTOM_HEADER, Constants.API_KEY);
+                Log.e("Custom Header", Constants.CUSTOM_HEADER);
+                Log.e("Api Key: ", Constants.API_KEY);
+                Log.e("Method: ", Constants.METHOD_POST);
+                urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestMethod(Constants.METHOD_POST);
 
-            try
-            {
-                httpClient = new DefaultHttpClient();
-                httpPost = new HttpPost(params[0]);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                response = httpClient.execute(httpPost);
-                httpEntity = response.getEntity();
-                is = httpEntity.getContent();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    result.append(line);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.connect();
+
+                setupDataToDB();
+
+                outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(dataToWrite.toString());
+                Log.e("Data To Write", dataToWrite.toString());
+
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+                int responseCode = urlConnection.getResponseCode();
+                Log.e("Response Code ", String.valueOf(responseCode));
+                if (responseCode == 400){
+                    message = getString(R.string.email_or_username_exists);
+                    return false;
+                }else if (responseCode == 201){
+                    inputStream = new BufferedInputStream(urlConnection.getInputStream());
+                    jsonResult = StringGenerator.inputStreamToString(inputStream, getActivity());
+                    jsonResponse = new JSONObject(jsonResult.toString());
+
+                    Log.e("Data From JSON", jsonResponse.toString());
+                    String status = jsonResponse.getString("status");
+                    String status_code = jsonResponse.getString("status_code");
+                    String messageFromResponse = jsonResponse.getString("message");
+                    Log.e("Response Status", status);
+                    Log.e("Response Status Code", status_code);
+                    Log.e("Response Message", messageFromResponse);
+                    return true;
                 }
-                Log.e("Responce", result.toString());
-                if (result != null) {
-                    data = new JSONObject(result.toString());
-                    usernameExists = data.getBoolean("result");
-                }
+
+            } catch (Exception e) {
+                urlConnection.getErrorStream();
+                e.printStackTrace();
             }
-            catch(Exception e)
-            {
-                Log.e("Fail 1", e.toString());
-            }
-            return  usernameExists;
+
+            return false;
         }
         @Override
         protected void onPostExecute(Boolean aVoid) {
@@ -366,12 +337,12 @@ public class Register extends Fragment {
                 }
             }
             if (aVoid){
-                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(getString(R.string.username_exists_message)).color(Color.parseColor(Constants.ENABLED_BUTTON_COLOR)).show(getActivity());
-            }else {
                 Toast.makeText(getActivity(), getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
+            }else {
+                Snackbar.with(getActivity().getApplicationContext()).type(SnackbarType.MULTI_LINE).text(message).color(Color.parseColor(Constants.ENABLED_BUTTON_COLOR)).show(getActivity());
             }
 
         }
@@ -402,6 +373,19 @@ public class Register extends Fragment {
                     pDialog.show();
                 }
             }
+        }
+    }
+
+    private void setupDataToDB() {
+        dataToWrite = new JSONObject();
+        try {
+            dataToWrite.put(""+Constants.USER_USERNAME+"", uName);
+            dataToWrite.put(""+Constants.USER_PASSWORD+"", pass);
+            dataToWrite.put(""+Constants.USER_EMAIL+"", email);
+            dataToWrite.put(""+Constants.USER_ANDROID_VERSION+"", release);
+            dataToWrite.put(""+Constants.USER_API_LEVEL+"", String.valueOf(sdkVersion));
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
