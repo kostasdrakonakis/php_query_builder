@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Προβλέψεις Μετοχών</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="wifi_off_message">Αδυναμία σύνδεσης στο διαδίκτυο. Παρακαλώ ελέξτε την σύνδεση σας.</string>
+    <string name="wifi_off_title">Χωρίς σύνδεση στο διαδύκτυο.</string>
+    <string name="cancel">Άκυρο</string>
+    <string name="ok">ΟΚ</string>
+    <string name="alert_message">Το Wifi δεν είναι διαθέσιμο. Η σύνδεση σε δίκτυο δεδομένων κινιτής τηλεφωνίας ίσως επιφέρει περισσότερες χρεώσεις ανάλογα με το πακέτο χρέωσης που χρησιμοποιείτε.</string>
+    <string name="skip">Να μην ξαναεμφανιστεί</string>
+    <string name="alert_title">Σύνδεση μέσω δεδομένων κινιτής τηλεφωνίας</string>
+    <string name="title_activity_refresh">Refresh Activity</string>
+    <string name="waiting">Παρακαλώ Περιμένετε</string>
+    <string name="get_stocks">Φόρτωση μετοχών…</string>
+    <string name="current_price">Τιμή Μετοχής:</string>
+    <string name="stock_name">Όνομα μετοχής:</string>
+    <string name="about">Σχετικά</string>
+    <string name="title_activity_stock_item">StockItem</string>
+    <string name="last_updated_prices">Μείνετε ενημερωμένοι και δείτε τις τελευταιες 15 τιμές της μετοχής.</string>
+    <string name="graph">Γράφημα</string>
+    <string name="evaluate">Πρόβλεψη</string>
+    <string name="tap_to_refresh">Πατήστε για ανανέωση</string>
+    <string name="refresh_text">Δεν βρέθηκε σύνδεση στο διαδίκτυο. Παρακαλώ προσπαθήστε ξανά.</string>
+    <string name="title_activity_live_graph">LiveGraph</string>
+    <string name="title_activity_evaluation">EvaluationActivity</string>
+    <string name="search_title">Search</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="search_hint">Search here</string>
+    <string name="future_price">Η μελλοντική τιμή βασισμένη στις προηγούμενες 15 ημέρες είναι:</string>
+    <string name="notification_text">Διμιουργία ειδοποίησης για μελλοντικές αλλαγές</string>
+    <string name="notify">Ειδοποίησε με</string>
+    <string name="notifyText">Νέα τιμή:</string>
+    <string name="notifyTicker">Αλλαγή Τιμής</string>
+    <string name="notifyTextEmail">Η τιμή της </string>
+    <string name="notifyTextrest">άλλαξε</string>
+    <string name="by">κατα</string>
+    <string name="units">μονάδες</string>
+    <string name="chooser">Επιλέξτε:</string>
+    <string name="raised">ανέβηκε</string>
+    <string name="dropped">έπεσε</string>
+    <string name="raisal">Άνοδος</string>
+    <string name="drop">Κάθοδος</string>
+    <string name="version">Προβλέψεις Μετοχών - Έκδοση 1.0</string>
+    <string name="alertMessage">Δρακωνάκης Κωνσταντίνος\nΑ.Μ. = 2766\nΤμήμα Μηχανικών Πληροφορικής\nΠτυχιακή Εργασία</string>
+    <string name="sendEmail">Αποστολή</string>
+    <string name="share">Μοιραστήτε το</string>
+
+</resources>

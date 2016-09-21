@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include android:id="@+id/toolBar" layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:id="@+id/imageView5"
+            android:scaleType="fitCenter"
+            android:src="@drawable/backgroundresult"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/final_score"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:padding="25dp"
+            android:gravity="center"
+            android:id="@+id/textView6" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:padding="15dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:id="@+id/scoreText" />
+    </LinearLayout>
+
+
+</LinearLayout>

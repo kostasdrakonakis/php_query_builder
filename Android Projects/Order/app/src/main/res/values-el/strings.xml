@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Παραγγελειοληψεία</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="signin">Είσοδος</string>
+    <string name="signup">Εγγραφή</string>
+
+    <string-array name="credentials_titles">
+        <item>Εισοδος</item>
+        <item>Εγγραφη</item>
+    </string-array>
+
+    <string-array name="beer_companions">
+        <item>Lime</item>
+        <item>Λεμονάδα</item>
+        <item>Sprite</item>
+        <item>Γρεναδίνη</item>
+        <item>Brut Αφρώδες Οίνος</item>
+        <item>Χυμός Μπανάνα</item>
+        <item>Blackberry Currant</item>
+    </string-array>
+
+    <string-array name="products">
+        <item>Καφεδες</item>
+        <item>Γλυκα</item>
+        <item>Σνακ</item>
+        <item>Αναψυκτικα</item>
+        <item>Ποτα</item>
+        <item>Μπυρες</item>
+    </string-array>
+
+    <string name="user_profile">Προφίλ Χρήστη</string>
+    <string name="logout">Έξοδος</string>
+    <string name="new_order">Νέα Παραγγελία</string>
+    <string name="quantity">Ποσότητα:</string>
+    <string name="sugar">Ζάχαρη:</string>
+    <string name="milk_ebap">Γάλα:</string>
+    <string name="dose">Δόση:</string>
+    <string name="nosugar">Χωρίς Ζάχαρη</string>
+    <string name="medium">Μέτριος</string>
+    <string name="sweet">Γλυκός</string>
+    <string name="flavor">Γεύση:</string>
+    <string name="cart">Προσθήκη στο Καλάθι</string>
+    <string name="verysweet">Πολύ γλυκός</string>
+    <string name="blacksugar">Μαύρη Ζάχαρη</string>
+    <string name="zaxarini">Ζαχαρίνη</string>
+    <string name="monos">Μονός</string>
+    <string name="diplos">Διπλός</string>
+    <string name="sxolia">Σχόλια:</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="waiter">Χειριστής:</string>
+    <string name="date">Ημερομηνία:</string>
+    <string name="time">Ώρα:</string>
+    <string name="title_activity_tables">Τραπέζια</string>
+    <string name="table_text_intro">Τραπέζι:</string>
+    <string name="price">Τιμή:</string>
+    <string name="wifi_off_message">Δεν υπάρχει σύνδεση δικτύου. Παρακαλώ προσπαθήστε αργότερα.</string>
+    <string name="wifi_off_title">Χωρίς Σύνδεση στο διαδίκτυο</string>
+    <string name="cancel">Άκυρο</string>
+    <string name="waiting">Παρακαλώ Περιμένετε</string>
+    <string name="get_stocks">Φόρτωση Δεδομένων …</string>
+    <string name="payment">Διαχείρηση</string>
+    <string name="gin_flavor">Επιλέξτε Μάρκα Gin:</string>
+    <string name="glass_pref">Ποτήρι:</string>
+    <string name="short_glass">Κοντό</string>
+    <string name="long_glass">Μακρύ</string>
+    <string name="refreshment_flavor">Προτίμηση:</string>
+    <string name="liquer_flavor">Επιλέξτε Μάρκα Liquer:</string>
+    <string name="rum_flavor">Επιλέξτε Μάρκα Rum:</string>
+    <string name="whisky_flavor">Επιλέξτε Μάρκα Whisky:</string>
+    <string name="vodka_flavor">Επιλέξτε Μάρκα Vodka:</string>
+    <string name="tequila_flavor">Επιλέξτε Μάρκα Tequila:</string>
+    <string name="stroll">Καλαμάκι:</string>
+    <string name="mobile_message">Η εφαρμογή αυτή μπορεί να χρησιμοποιηθεί μόνο απο σύνδεση Wifi</string>
+    <string name="mobile_title">Χωρίς σύνδεση Wifi</string>
+    <string name="payment_details">Διαχείρηση Παραγγελιών</string>
+    <string name="payment_message">Δεν υπάρχει παραγγελία. \nΚάντε μια παραγγελία και μετά πατήστε για διαχείρηση.</string>
+    <string name="no">Όχι</string>
+    <string name="yes">Ναι</string>
+    <string name="table_id">"Τραπέζι: "</string>
+    <string name="uname_required">Το όνομα χρήστη είναι υποχρεωτικό</string>
+    <string name="search">Αναζήτηση</string>
+    <string name="retype_pass_required">Επιβεβαιώστε τον κωδικό σας</string>
+    <string name="rateDialogTitle">Βαθμολογήστε την εφαρμογή μας</string>
+    <string name="rateBarCommentHint">Γράψτε ένα σχόλιο</string>
+    <string name="password_required">Απαιτείται ο κωδικός πρόσβασης</string>
+    <string name="posButtonRate">Υποβολη</string>
+    <string name="dialog_rate_data_submit">Παρακαλώ Περιμένετε …</string>
+    <string name="confirmRateText">Σας ευχαριστούμε για την ψήφο σας</string>
+    <string name="tableNumEmptyMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι κενός</string>
+    <string name="tableNumZeroMessage">Ο αριθμός τραπεζιού δεν μπορεί να είναι 0</string>
+    <string name="email_hint">Email</string>
+    <string name="email_required">Το πεδίο είναι υποχρεωτικό</string>
+    <string name="pass_field">Κωδικός Πρόσβασης</string>
+    <string name="retype_hint_password">Επιβεβαίωση Κωδικού</string>
+    <string name="username_field">Όνομα Χρήστη</string>
+    <string name="created_successfully">Ο λογαριασμός διμιουργήθηκε επιτυχώς</string>
+    <string name="title_activity_coffees_layout">CoffeesLayoutActivity</string>
+    <string name="whipped_cream">Σαντιγί</string>
+    <string name="whipped_milk">Αφρόγαλο</string>
+    <string name="cart_addition_successfull">Το προϊόν προστέθηκε στο καλάθι</string>
+    <string name="account_not_active">Δεν έχετε ενεργοποιήσει τον λογαριασμό σας. \nΠαρακαλώ ρωτήστε το διαχειριστή.</string>
+    <string name="waiter_id">ID Χειριστή:</string>
+    <string name="company_id">ID Εταιρίας: </string>
+    <string name="help_hint_message">Μήνυμα</string>
+    <string name="help_hint_name">Όνομα</string>
+    <string name="help_hint_subject">Θέμα</string>
+    <string name="call">Κληση</string>
+    <string name="help">Βοήθεια</string>
+    <string name="help_dialog_message">Μπορείτε να επικοινωνήσετε μαζί μας οποιαδήποτε στιγμή καλώντας στο </string>
+    <string name="send">Αποστολη</string>
+    <string name="switch_text">Δεν μπορείτε να μας βρείτε στο τηλέφωνο;\n Θέλετε περισσότερη βοήθεια;</string>
+    <string name="tel">+30–6949290612</string>
+    <string name="message_empty">Το πεδίο μηνύματος δεν μπορεί να είναι κενό</string>
+    <string name="subject_empty">Το πεδίο θέματος δεν μπορεί να είναι κενό</string>
+    <string name="subject_or_message_empty">Τα πεδία είναι υποχρεωτικά</string>
+    <string name="cooking_time">Χρόνος Ψησίματος:</string>
+    <string name="extra">Έξτρα:</string>
+    <string name="medium_cooked">Μέτριο</string>
+    <string name="rare">Άψητο</string>
+    <string name="title_activity_snacks_layout">SnacksLayoutActivity</string>
+    <string name="very_well_done">Πολύ Καλοψημένο</string>
+    <string name="well_done">Καλοψημένο</string>
+    <string name="bacon">Μπέϊκον</string>
+    <string name="cabbage">Λάχανο</string>
+    <string name="cheese">Τυρί</string>
+    <string name="fries">Πατάτες</string>
+    <string name="ham">Ζαμπόν</string>
+    <string name="lettuce">Μαρούλι</string>
+    <string name="onions">Κρεμμύδι</string>
+    <string name="peppers">Πιπεριά</string>
+    <string name="tomatoes">Ντομάτα</string>
+    <string name="without">Χωρίς:</string>
+    <string name="cooking_time_required">Πρέπει να επιλέξετε χρόνο ψησίματος</string>
+    <string name="sugar_required">Πρέπει να επιλέξετε ποσότητα ζάχαρης</string>
+    <string name="banana">Μπανάνα</string>
+    <string name="caramel">Καραμέλα</string>
+    <string name="cheese_cake">Cheese Cake</string>
+    <string name="cookies">Cookies</string>
+    <string name="chocolate">Σοκολάτα</string>
+    <string name="ice_cream">Παγωτό</string>
+    <string name="ice_cream_scoops">Μπάλες Παγωτού:</string>
+    <string name="mango">Μάνγκο</string>
+    <string name="oreo">Oreo</string>
+    <string name="pistachio">Φυστίκι</string>
+    <string name="strawberry">Φράουλα</string>
+    <string name="syrup">Σιρόπι</string>
+    <string name="title_activity_sweets_layout">SweetsLayoutActivity</string>
+    <string name="vanilla">Βανίλια</string>
+    <string name="caramel_ice_cream">Καραμέλα</string>
+    <string name="pineapple">Ανανάς</string>
+    <string name="sorbet">Σορμπέ</string>
+    <string name="dose_required">Πρέπει να επιλέξετε την δόση του καφέ</string>
+    <string name="email_not_valid">Το email δεν είναι έγκυρο</string>
+    <string name="zero_rating">Το rating δεν μπορεί να είναι 0</string>
+    <string name="subscription_notif_message">Η συνδρομή σας λήγει. Παρακαλώ ανανεώστε την συνδρομή σας σύντομα για να συνεχίσετε να έχετε όλες τις δυνατότητες της εφαρμογής.</string>
+    <string name="subscription_notif_title">Λήξη Συνδρομής</string>
+    <string name="ticker_subscription_msg">Ανανέωση Συνδρομής</string>
+    <string name="username_exists_message">Το όνομα χρήστη υπάρχει ήδη</string>
+    <string name="cart_empty_toast">Το καλάθι σας είναι άδειο</string>
+    <string name="pref_header_general">Αρχεία</string>
+    <string name="pref_header_notifications">Ειδοποιήσεις</string>
+    <string name="pref_title_sync_frequency">Συχνότητα Συγχρονισμού</string>
+    <string name="pref_title_system_sync_settings">Σύχρονισμός Συστήματος</string>
+    <string name="pref_title_subscription">Ειδοποιήσεις Συνδρομής</string>
+    <string name="pref_header_data_sync">Συγχρονισμός</string>
+    <string name="pref_default_beer_file">http://client-api.chatapp.info/api/beers/order/name/ASC/</string>
+    <string name="pref_title_beer_file">Διαδρομή αρχείου Μπύρας</string>
+    <string name="pref_title_beverage_file">Διαδρομή αρχείου Αναψυκτικών</string>
+    <string name="pref_title_coffee_file">Διαδρομή Αρχείου Καφέδων</string>
+    <string name="pref_title_snack_file">Διαδρομή Αρχείου Σνάκ</string>
+    <string name="pref_title_spirit_file">Διαδρομή Αρχείου Ποτών</string>
+    <string name="pref_title_sweet_file">Διαδρομή Αρχείου Γλυκών</string>
+    <string name="pref_default_coffee_file">http://client-api.chatapp.info/api/coffees/order/name/ASC/</string>
+    <string name="pref_default_snack_file">http://client-api.chatapp.info/api/snacks/order/name/ASC/</string>
+    <string name="pref_default_sweet_file">http://client-api.chatapp.info/api/sweets/order/name/ASC/</string>
+    <string name="pref_default_beverage_file">http://client-api.chatapp.info/api/beverages/order/name/ASC/</string>
+    <string name="pref_default_spirit_file">http://client-api.chatapp.info/api/spirits/order/name/ASC/</string>
+    <string name="pref_default_gin_file">http://client-api.chatapp.info/api/gins/order/name/ASC/</string>
+    <string name="pref_default_tequila_file">http://client-api.chatapp.info/api/tequilas/order/name/ASC/</string>
+    <string name="pref_default_vodka_file">http://client-api.chatapp.info/api/vodkas/order/name/ASC/</string>
+    <string name="pref_default_whiskey_file">http://client-api.chatapp.info/api/whiskeys/order/name/ASC/</string>
+    <string name="pref_default_rum_file">http://client-api.chatapp.info/api/rums/order/name/ASC/</string>
+    <string name="pref_default_liquer_file">http://client-api.chatapp.info/api/liquers/order/name/ASC/</string>
+    <string name="pref_title_new_offers_notifications">Ειδοποιήσεις Προσφορών</string>
+    <string name="title_activity_settings">Ρυθμίσεις</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Πάντα</item>
+        <item>Όταν είναι δυνατό</item>
+        <item>Ποτέ</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>1 ώρα</item>
+        <item>3 ώρες</item>
+        <item>6 ώρες</item>
+        <item>Ποτέ</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+    <string name="pref_primary_category">Πρωτεύον Κατηγορία</string>
+    <string name="pref_secondary_category">Δευτερεύον Κατηγορία</string>
+    <string name="pref_title_gin_file">Διαδρομή Αρχείου Gin</string>
+    <string name="pref_title_liquer_file">Διαδρομή Αρχείου Liquer</string>
+    <string name="pref_title_rum_file">Διαδρομή Αρχείου Rum</string>
+    <string name="pref_title_tequila_file">Διαδρομή Αρχείου Tequila</string>
+    <string name="pref_title_vodka_file">Διαδρομή Αρχείου Vodka</string>
+    <string name="pref_title_whiskey_file">Διαδρομή Αρχείου Whiskey</string>
+    <string name="pref_summary_new_offers_notification">Εφόσον είναι επιλεγμένο θα μπορείτε να λαμβάνετε προσφορές μέσω ειδοποίησης.</string>
+    <string name="pref_summary_sunscription_notification">Εφόσον δεν είναι επιλεγμένο δεν θα λαμβάνετε ειδοποίηση για την λήξη της συνδρομής σας.</string>
+    <string name="pref_title_updates">Ειδοποιήσεις Αναβαθμίσεων</string>
+    <string name="pref_summary_updates_notification">Εφόσον είναι επιλεγμένο θα μπορείτε να λαμβάνετε ειδοποιήσεις για αναβάθμιση της εφαρμογής. </string>
+    <string name="sketo">Σκετο</string>
+    <string name="pago">Με Πάγο</string>
+    <string name="soda">Σόδα</string>
+    <string name="sprite">Sprite</string>
+    <string name="title_activity_beverages_layout">BeveragesLayoutActivity</string>
+    <string name="tonic">Τόνικ</string>
+    <string name="water">Νερό</string>
+    <string name="redbull">Red Bull</string>
+    <string name="coca">Coca Cola</string>
+    <string name="coca_light">Coca Cola Light</string>
+    <string name="coca_zero">Coca Cola Zero</string>
+    <string name="fanta_lemon">Λεμονάδα</string>
+    <string name="fanta_orange">Πορτοκαλάδα</string>
+    <string name="ice">Πάγος:</string>
+    <string name="glass_required">Πρέπει να επιλέξετε ποτήρι</string>
+    <string name="ice_required">Πρέπει να επιλέξετε αν θέλετε πάγο ή όχι</string>
+    <string name="stroll_required">Πρέπει να επιλέξετε αν θέλετε καλαμάκι ή όχι</string>
+    <string name="checkout">Ταμειο</string>
+    <string name="modify">Τροποποιηση</string>
+    <string name="preferation">Προτίμηση:</string>
+    <string name="total_price">Τελικό Ποσό:</string>
+    <string name="cart_menu_title">Καλάθι</string>
+    <string name="retry">Επανασυνδεση</string>
+    <string name="iceCreamQuantity">Μπάλες Παγωτού</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="selected_modifiable_items">Παραμετροποίηση</string>
+    <string name="delete_items_loading">Διαγραφή προϊόντων …</string>
+    <string name="delete_msg">Είστε σίγουροι οτι θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
+    <string name="add">Προσθήκη</string>
+    <string name="function_unavailable">Η λειτουργία αυτή δεν είναι διαθέσιμη προς το παρόν</string>
+    <string name="checkout_message_dialog">Είστε σίγουροι οτι θέλετε να προχωρήσετε με την παραγγελία?</string>
+    <string name="wrong_password">Ο κωδικός είναι λάθος. Παρακαλώ προσπαθήστε πάλι.</string>
+    <string name="wrong_username">Το όνομα χρήστη είναι λάθος. Παρακαλώ προσπαθήστε πάλι.</string>
+    <string name="edit">Επεξεργασία</string>
+    <string name="checkout_failure_message">Δεν υπάρχουν προϊόντα στο καλάθι σας για να προχωρήσετε. παρακαλώ προσθέστε προϊόντα.</string>
+    <string name="checkout_success_message">Η παραγγελεία σας έχει αποσταλεί επιτυχώς</string>
+    <string name="confirm_phone_permission">Θα πρέπει να παραχωρηθεί η άδεια κλήσης τηλεφώνου για να μπορέσετε να μας καλέσετε</string>
+    <string name="title_activity_beers_layout">BeersLayoutActivity</string>
+    <string name="big">Μεγάλο</string>
+    <string name="bottle">Μπουκάλι</string>
+    <string name="draught">Ποτήρι</string>
+    <string name="size">Μέγεθος:</string>
+    <string name="small">Μικρό</string>
+    <string name="size_preference">Πρέπει να επιλέξετε μέγεθος</string>
+    <string name="way_preference">Πρέπει να επιλέξετε προτίμηση</string>
+    <string name="pref_title_api_key">API Key</string>
+    <string name="pref_default_api_key">123456789</string>
+    <string name="pref_default_method_to_get">GET</string>
+    <string name="pref_default_method_to_post">POST</string>
+    <string name="pref_default_method_to_put">PUT</string>
+    <string name="pref_title_method_to_get">Μέθοδος για λήψη δεδομένων</string>
+    <string name="pref_title_method_to_post">Μέθοδος για αποστολή δεδομένων</string>
+    <string name="pref_title_method_to_put">Μέθοδος για ενημέρωση δεδομένων</string>
+    <string name="pref_general_category">Γενική Κατηγορία</string>
+    <string name="pref_default_custom_header">X-API-KEY</string>
+    <string name="pref_title_custom_header">Header</string>
+    <string name="wrong_credentials">Λάθος όνομα χρήστη ή κωδικός πρόσβασης</string>
+
+</resources>

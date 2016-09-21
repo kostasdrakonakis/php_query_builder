@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mobile Ordering System</string>
+    <string name="action_settings">Settings</string>
+    <string name="signin">Login</string>
+    <string name="signup">Register</string>
+
+    <string-array name="credentials_titles">
+        <item>Login</item>
+        <item>Register</item>
+    </string-array>
+
+    <string-array name="beer_companions">
+        <item>Lime</item>
+        <item>Lemonade</item>
+        <item>Sprite</item>
+        <item>Grenadine</item>
+        <item>Brut Sparkling Wine</item>
+        <item>Banana Juice</item>
+        <item>Blackberry Currant</item>
+    </string-array>
+
+    <string-array name="products">
+        <item>Coffees</item>
+        <item>Sweets</item>
+        <item>Snacks</item>
+        <item>Beverages</item>
+        <item>Spirits</item>
+        <item>Beers</item>
+    </string-array>
+
+    <string name="user_profile">User Profile</string>
+    <string name="logout">Exit</string>
+    <string name="new_order">New Order</string>
+    <string name="quantity">Quantity:</string>
+    <string name="sugar">Sugar:</string>
+    <string name="milk_ebap">Milk:</string>
+    <string name="dose">Dose:</string>
+    <string name="nosugar">Sugarfree</string>
+    <string name="medium">Medium Sugar</string>
+    <string name="sweet">Sweet Sugar</string>
+    <string name="flavor">Flavor:</string>
+    <string name="cart">Add to Cart</string>
+    <string name="verysweet">Very Sweet Sugar</string>
+    <string name="blacksugar">Brown Sugar</string>
+    <string name="zaxarini">Sugarine</string>
+    <string name="monos">Single</string>
+    <string name="diplos">Double</string>
+    <string name="sxolia">Comments:</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="waiter">Waiter:</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="title_activity_tables">Tables</string>
+    <string name="table_text_intro">Table:</string>
+    <string name="price">Price:</string>
+    <string name="wifi_off_message">Network connection error. Please check your internet connection settings.</string>
+    <string name="wifi_off_title">No Network Connection</string>
+    <string name="cancel">Cancel</string>
+    <string name="waiting">Please wait</string>
+    <string name="get_stocks">Loading Products &#8230;</string>
+    <string name="payment">Manage</string>
+    <string name="gin_flavor">Choose Gin Brand:</string>
+    <string name="glass_pref">Preferred Glass:</string>
+    <string name="short_glass">Short</string>
+    <string name="long_glass">Long</string>
+    <string name="refreshment_flavor">Choice:</string>
+    <string name="liquer_flavor">Choose Liquer Brand:</string>
+    <string name="rum_flavor">Choose Rum Brand:</string>
+    <string name="whisky_flavor">Choose Whisky Brand:</string>
+    <string name="vodka_flavor">Choose Vodka Brand:</string>
+    <string name="tequila_flavor">Choose Tequila Brand:</string>
+    <string name="stroll">Stroll:</string>
+    <string name="payment_details">Manage Orders</string>
+    <string name="payment_message">There was no order made. \nMake an order and then tap the manage button.</string>
+    <string name="mobile_title">No Wifi Connection</string>
+    <string name="mobile_message">This application can only be used when connected to Wifi Network. Please connect to Wifi Network and try again.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="table_id">"Table: "</string>
+    <string name="search">Search</string>
+    <string name="account_not_active">You haven\'t activated your account.\nPlease ask your Manager.</string>
+    <string name="uname_required">Username is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="retype_pass_required">Please retype your password</string>
+    <string name="rateBarCommentHint">Write a comment</string>
+    <string name="rateDialogTitle">Rate our App</string>
+    <string name="posButtonRate">Confirm</string>
+    <string name="dialog_rate_data_submit">Please Wait &#8230;</string>
+    <string name="confirmRateText">Thank you for voting</string>
+    <string name="tableNumEmptyMessage">The table number cannot be empty</string>
+    <string name="tableNumZeroMessage">The table number cannot be zero</string>
+    <string name="email_hint">Email</string>
+    <string name="retype_hint_password">Retype password</string>
+    <string name="pass_field">Password</string>
+    <string name="username_field">Username</string>
+    <string name="email_required">Email field is required</string>
+    <string name="created_successfully">Account created successfully</string>
+    <string name="title_activity_coffees_layout">CoffeesLayoutActivity</string>
+    <string name="whipped_milk">Whipped Milk</string>
+    <string name="whipped_cream">Whipped Cream</string>
+    <string name="waiter_id">Waiter ID:</string>
+    <string name="cart_addition_successfull">Product has been added to cart</string>
+    <string name="company_id">Company ID:</string>
+    <string name="help_hint_message">Message</string>
+    <string name="help_hint_subject">Subject</string>
+    <string name="help_hint_name">Name</string>
+    <string name="switch_text">Can\'t find us on telephone?\n Need more help?</string>
+    <string name="help">Help</string>
+    <string name="help_dialog_message">Contact us any time at </string>
+    <string name="send">Send</string>
+    <string name="tel">+30–6949290612</string>
+    <string name="call">Call</string>
+    <string name="subject_or_message_empty">Both fields are required</string>
+    <string name="subject_empty">Subject cannot be empty</string>
+    <string name="message_empty">Message cannot be empty</string>
+    <string name="title_activity_snacks_layout">SnacksLayoutActivity</string>
+    <string name="extra">Extra</string>
+    <string name="cooking_time">Cooking Time:</string>
+    <string name="rare">Rare</string>
+    <string name="medium_cooked">Medium</string>
+    <string name="well_done">Well Done</string>
+    <string name="very_well_done">Very Well Done</string>
+    <string name="fries">Fries</string>
+    <string name="tomatoes">Tomatoes</string>
+    <string name="lettuce">Lettuce</string>
+    <string name="cabbage">Cabbage</string>
+    <string name="cheese">Cheese</string>
+    <string name="ham">Ham</string>
+    <string name="bacon">Bacon</string>
+    <string name="onions">Onions</string>
+    <string name="peppers">Peppers</string>
+    <string name="without">Without</string>
+    <string name="sugar_required">You have to select sugar value</string>
+    <string name="cooking_time_required">You have to select cooking time</string>
+    <string name="title_activity_sweets_layout">SweetsLayoutActivity</string>
+    <string name="ice_cream">Ice Cream</string>
+    <string name="ice_cream_scoops">Ice-Cream Scoops:</string>
+    <string name="vanilla">Vanilla</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="strawberry">Strawberry</string>
+    <string name="banana">Banana</string>
+    <string name="pistachio">Pistachio</string>
+    <string name="mango">Mango</string>
+    <string name="cookies">Cookies</string>
+    <string name="oreo">Oreo</string>
+    <string name="cheese_cake">Cheese Cake</string>
+    <string name="syrup">Syrup</string>
+    <string name="caramel">Caramel</string>
+    <string name="caramel_ice_cream">Caramel</string>
+    <string name="sorbet">Sorbet</string>
+    <string name="pineapple">Pineapple</string>
+    <string name="dose_required">You have to select dose value</string>
+    <string name="email_not_valid">This is not a valid email</string>
+    <string name="zero_rating">Rating cannot be zero</string>
+    <string name="ticker_subscription_msg">Subscription Renewal</string>
+    <string name="subscription_notif_message">Your subscription is about to end. Please renew as soons as possible so that you continue to have full features</string>
+    <string name="subscription_notif_title">Subscription Alert</string>
+    <string name="username_exists_message">Username already exists</string>
+    <string name="cart_empty_toast">Your cart is empty</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Files</string>
+
+    <string name="pref_title_coffee_file">Coffees File Path</string>
+    <string name="pref_default_coffee_file">http://client-api.chatapp.info/api/coffees/order/name/ASC/</string>
+    <string name="pref_title_snack_file">Snacks File Path</string>
+    <string name="pref_default_snack_file">http://client-api.chatapp.info/api/snacks/order/name/ASC/</string>
+    <string name="pref_title_sweet_file">Sweets File Path</string>
+    <string name="pref_default_sweet_file">http://client-api.chatapp.info/api/sweets/order/name/ASC/</string>
+    <string name="pref_title_beverage_file">Beverages File Path</string>
+    <string name="pref_default_beverage_file">http://client-api.chatapp.info/api/beverages/order/name/ASC/</string>
+    <string name="pref_title_beer_file">Beers File Path</string>
+    <string name="pref_default_beer_file">http://client-api.chatapp.info/api/beers/order/name/ASC/</string>
+    <string name="pref_title_spirit_file">Spirits File Path</string>
+    <string name="pref_title_gin_file">Gins File Path</string>
+    <string name="pref_title_vodka_file">Vodkas File Path</string>
+    <string name="pref_title_whiskey_file">Whiskeys File Path</string>
+    <string name="pref_title_liquer_file">Liquers File Path</string>
+    <string name="pref_title_rum_file">Rums File Path</string>
+    <string name="pref_title_tequila_file">Tequilas File Path</string>
+    <string name="pref_default_spirit_file">http://client-api.chatapp.info/api/spirits/order/name/ASC/</string>
+    <string name="pref_default_gin_file">http://client-api.chatapp.info/api/gins/order/name/ASC/</string>
+    <string name="pref_default_tequila_file">http://client-api.chatapp.info/api/tequilas/order/name/ASC/</string>
+    <string name="pref_default_vodka_file">http://client-api.chatapp.info/api/vodkas/order/name/ASC/</string>
+    <string name="pref_default_whiskey_file">http://client-api.chatapp.info/api/whiskeys/order/name/ASC/</string>
+    <string name="pref_default_rum_file">http://client-api.chatapp.info/api/rums/order/name/ASC/</string>
+    <string name="pref_default_liquer_file">http://client-api.chatapp.info/api/liquers/order/name/ASC/</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_offers_notifications">Offers Notifications</string>
+    <string name="pref_summary_new_offers_notification">If turned on you will be able to receive new offers and special prices through notification messages.</string>
+
+
+    <string name="pref_title_subscription">Subrscription Notifications</string>
+    <string name="pref_summary_sunscription_notification">If turned off you will be able to stop receiving the notification message for ending subscription</string>
+    <string name="pref_title_updates">Updates Notifications</string>
+    <string name="pref_summary_updates_notification">If turned on you will be able to receive notification messages for new version of the app</string>
+
+    <string name="pref_primary_category">Primary Category</string>
+    <string name="pref_secondary_category">Secondary Category</string>
+    <string name="title_activity_beverages_layout">BeveragesLayoutActivity</string>
+    <string name="sketo">Plain</string>
+    <string name="pago">On the Rocks</string>
+    <string name="coca">Coca Cola</string>
+    <string name="coca_light">Coca Cola Light</string>
+    <string name="coca_zero">Coca Cola Zero</string>
+    <string name="sprite">Sprite</string>
+    <string name="fanta_lemon">Fanta Lemon</string>
+    <string name="fanta_orange">Fnta Orange</string>
+    <string name="soda">Soda Water</string>
+    <string name="tonic">Tonic Water</string>
+    <string name="water">Water</string>
+    <string name="redbull">Red Bull</string>
+    <string name="ice">Ice:</string>
+    <string name="glass_required">You have to choose glass</string>
+    <string name="stroll_required">You have to choose whether you want stroll or not</string>
+    <string name="ice_required">You have to choose whether you want ice or not</string>
+    <string name="preferation">Preferation:</string>
+    <string name="modify">Modify</string>
+    <string name="checkout">Checkout</string>
+    <string name="total_price">Total:</string>
+    <string name="cart_menu_title">Cart</string>
+    <string name="retry">Retry</string>
+    <string name="iceCreamQuantity">Ice-Cream Scoops</string>
+    <string name="delete">Delete</string>
+    <string name="selected_modifiable_items">Modify</string>
+    <string name="delete_msg">Are you sure you want to delete the selected items?</string>
+    <string name="delete_items_loading">Deleting items &#8230;</string>
+    <string name="add">Add</string>
+    <string name="function_unavailable">This function is not available at the moment</string>
+    <string name="checkout_message_dialog">Are you sure you would like to checkout order?</string>
+    <string name="wrong_password">Incorrect password. Please try again.</string>
+    <string name="wrong_username">Invalid Username. Please try again.</string>
+    <string name="edit">Edit</string>
+    <string name="confirm_phone_permission">You need to grant phone permission in order to make a direct phone call</string>
+    <string name="checkout_success_message">Your order has successfully been checked out</string>
+    <string name="checkout_failure_message">You have no products to checkout</string>
+    <string name="title_activity_beers_layout">BeersLayoutActivity</string>
+    <string name="bottle">Bottle</string>
+    <string name="draught">Draught</string>
+    <string name="size">Size:</string>
+    <string name="big">Big</string>
+    <string name="small">Small</string>
+    <string name="way_preference">You have to make a selection beer or bottle</string>
+    <string name="size_preference">You have to select the size</string>
+    <string name="pref_title_api_key">API Key</string>
+    <string name="pref_default_api_key">123456789</string>
+    <string name="pref_title_method_to_get">Method to fetch data</string>
+    <string name="pref_default_method_to_get">GET</string>
+    <string name="pref_title_method_to_post">Method to send data</string>
+    <string name="pref_default_method_to_post">POST</string>
+    <string name="pref_title_method_to_put">Method to update data</string>
+    <string name="pref_default_method_to_put">PUT</string>
+    <string name="pref_general_category">General Category</string>
+    <string name="pref_title_custom_header">Header</string>
+    <string name="pref_default_custom_header">X-API-KEY</string>
+    <string name="wrong_credentials">Invalid username or password. Please try again.</string>
+    <string name="email_or_username_exists">The specified email or username already exist. Please try again.</string>
+    <string name="something_went_wrong_server_error">Something went wrong. Please try again.</string>
+
+</resources>

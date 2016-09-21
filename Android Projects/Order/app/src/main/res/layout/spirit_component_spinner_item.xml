@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:id="@+id/linear1"
+        android:padding="20dp"
+        android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/spirit_component_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:src="@mipmap/ic_redbull"
+                android:textColor="#000"
+                android:text="Name"
+                 />
+
+            <TextView
+                android:id="@+id/spirit_component_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginStart="30dp"
+                android:text="Name"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                 />
+ </LinearLayout>

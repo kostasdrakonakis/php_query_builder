@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@android:color/transparent"
+            app:expandedTitleMarginStart="38dp"
+            app:expandedTitleMarginBottom="-78dp"
+            app:expandedTitleMarginEnd="64dp"
+            android:fitsSystemWindows="true">
+
+            <ImageView
+                android:id="@+id/imageDescTropos"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/nothing"
+                android:src="@drawable/letter"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/troposItemDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:singleLine="false"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="true"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/buttonWebView"
+                android:text="@string/buy"
+                android:visibility="gone"
+                android:layout_margin="15dp"
+                android:textColor="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
