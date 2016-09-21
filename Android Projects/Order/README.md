@@ -1,7 +1,0 @@
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/products.PNG)![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/sweets.PNG)
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/spiritsmenu.PNG)
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/search.PNG)
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/portraitkeyboard.PNG)
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/landscapekeyboard.PNG)
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/cart.PNG)
-![alt tag](https://github.com/kostasdrakonakis/projects/blob/master/Android%20Projects/Order/cartlandscape.PNG)

@@ -1,6 +1,0 @@
-
-
-Options -Indexes
-Options -MultiViews
-ErrorDocument 404 https://www.example.com/members/includes/errors/404.php
-ErrorDocument 403 https://www.example.com/members/includes/errors/403.php
