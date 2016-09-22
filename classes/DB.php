@@ -30,6 +30,8 @@
 				$_order = '', 
 				$_group = '', 
 				$_limit = '',
+				$_union = '',
+				$_sql = '',
 				$_operators = array('=', '>', '<', '<=', '>=', '!=');
 
 		private function __construct(){
@@ -411,6 +413,31 @@
 			}
 			return false;
 		}
+		
+		public function sql(){
+			$sql = $this->_select
+				 . $this->_from 
+				 . $this->_join 
+				 . $this->_where 
+				 . $this->_in 
+				 . $this->_not_in 
+				 . $this->_like 
+				 . $this->_not_like 
+				 . $this->_regex 
+				 . $this->_not_regex 
+				 . $this->_having 
+				 . $this->_between 
+				 . $this->_not_between 
+				 . $this->_null 
+				 . $this->_not_null 
+				 . $this->_if_null 
+				 . $this->_and 
+				 . $this->_or 
+				 . $this->_order 
+				 . $this->_group 
+				 . $this->_limit;
+			return $sql;
+		}
 
 		public function execute(){
 			$sql = $this->_delete
@@ -460,6 +487,26 @@
 		public function delete(){
 			$this->_delete = "DELETE ";
 			return $this;
+		}
+		
+		public function union(){
+			$queries = func_get_args();
+			$x = 1;
+			foreach ($queries as $key => $query) {
+				if ($x < (count($queries))) {
+					$this->_union .= " UNION " . $queries[$x];
+				}
+				$x++;
+			}
+			$this->_union = $queries[0] . $this->_union;
+			return $this;
+		}
+
+		public function compile(){
+			$sql = $this->_union;
+			if(!$this->query($sql, $this->_wherevalues)->error()){
+				return $this;
+			}
 		}
 
 		public function insert($table, $fields = array()){
