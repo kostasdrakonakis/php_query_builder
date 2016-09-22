@@ -449,6 +449,14 @@
 			return $this->select('*')->from($table)->fetch();
 		}
 		
+		public function count_all($table){
+			return $this->select('COUNT(*) as '.$table.'_count')->from($table)->fetch();
+		}
+
+		public function count_by($table, $where = array()){
+			return $this->select('COUNT(*) as '.$table.'_count')->from($table)->where($where)->fetch();
+		}
+		
 		public function delete(){
 			$this->_delete = "DELETE ";
 			return $this;
