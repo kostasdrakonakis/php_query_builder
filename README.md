@@ -182,10 +182,10 @@ $data = $db->select('*')
 The builder also supports UNION like this:
 
 ```php
-$data = $this->_db->union(
-			$this->_db->select('*')->from('users')->where('user_id', '=', 1)->sql(), 
-			$this->_db->select('*')->from('users')->where('user_id', '=', 2)->sql(), 
-			$this->_db->select('*')->from('users')->where('user_id', '=', 3)->sql()
+$data = $db->union(
+			$db->select('*')->from('users')->where('user_id', '=', 1)->sql(), 
+			$db->select('*')->from('users')->where('user_id', '=', 2)->sql(), 
+			$db->select('*')->from('users')->where('user_id', '=', 3)->sql()
 		)->compile();
 //Will generate: SELECT * FROM users WHERE user_id = 1 UNION SELECT * FROM users WHERE user_id = 2 UNION SELECT * FROM users WHERE user_id = 3
 ```
