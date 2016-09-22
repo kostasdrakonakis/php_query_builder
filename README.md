@@ -179,7 +179,18 @@ $data = $db->select('*')
            ->fetch();
 //Will Generate: SELECT * FROM users INNER JOIN orders ON users.user_id = orders.user INNER JOIN reviews ON orders.review_id = reviews.order WHERE user_id = 3 ORDER BY user_id ASC and the values will be binded
 ```
+The builder also supports UNION like this:
 
+```php
+$data = $this->_db->union(
+			$this->_db->select('*')->from('users')->where('user_id', '=', 1)->sql(), 
+			$this->_db->select('*')->from('users')->where('user_id', '=', 2)->sql(), 
+			$this->_db->select('*')->from('users')->where('user_id', '=', 3)->sql()
+		)->compile();
+//Will generate: SELECT * FROM users WHERE user_id = 1 UNION SELECT * FROM users WHERE user_id = 2 UNION SELECT * FROM users WHERE user_id = 3
+```
+
+In the union method you have to use the sql() method to get the sql statement and also the compile() method to execute the query.
 
 ## Responses
 
