@@ -189,6 +189,20 @@ $data = $db->union(
 		)->compile();
 //Will generate: SELECT * FROM users WHERE user_id = 1 UNION SELECT * FROM users WHERE user_id = 2 UNION SELECT * FROM users WHERE user_id = 3
 ```
+The builder also supports custom binded queries and raw queries like this:
+
+```php
+//Binded Query
+
+$data = $db->query("SELECT * FROM users WHERE user_id = ? AND email = ?", array(1, 'myemail@example.com'));
+//Will generate: SELECT * FROM users WHERE user_id = 1 AND email = 'myemail@example.com'
+
+//RAW Query
+
+$data = $db->raw("SELECT * FROM users WHERE user_id = '1' AND email = 'myemail@example.com' ");
+//Will generate: SELECT * FROM users WHERE user_id = 1 AND email = 'myemail@example.com'
+
+```
 
 In the union method you have to use the sql() method to get the sql statement and also the compile() method to execute the query.
 
