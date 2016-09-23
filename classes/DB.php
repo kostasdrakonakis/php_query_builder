@@ -81,6 +81,28 @@
 			}
 			return $this;
 		}
+		
+		public function raw($sql, $fetch_type = 'object'){
+			$this->_query = $this->_pdo->query($sql);
+			if ($fetch_type === 'both') {
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_BOTH);
+				$this->_count = $this->_query->rowCount();
+			}elseif ($fetch_type === 'array'){
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_ASSOC);
+				$this->_count = $this->_query->rowCount();
+			}elseif ($fetch_type === 'class') {
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_CLASS);
+				$this->_count = $this->_query->rowCount();
+			}elseif ($fetch_type === 'object'){
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				$this->_count = $this->_query->rowCount();
+			}else{
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				$this->_count = $this->_query->rowCount();
+			}
+			
+			return $this;
+		}
 
 		public function error(){
 			return $this->_error;
