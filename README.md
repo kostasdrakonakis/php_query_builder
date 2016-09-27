@@ -189,6 +189,9 @@ $data = $db->union(
 		)->compile();
 //Will generate: SELECT * FROM users WHERE user_id = 1 UNION SELECT * FROM users WHERE user_id = 2 UNION SELECT * FROM users WHERE user_id = 3
 ```
+
+In the union method you have to use the sql() method to get the sql statement and also the compile() method to execute the query.
+
 The builder also supports custom binded queries and raw queries like this:
 
 ```php
@@ -204,7 +207,28 @@ $data = $db->raw("SELECT * FROM users WHERE user_id = '1' AND email = 'myemail@e
 
 ```
 
-In the union method you have to use the sql() method to get the sql statement and also the compile() method to execute the query.
+The builder also supports insert and update methods like:
+
+```php
+//Insert
+
+$data = $db->insert('users', array(
+	'name' => 'My name',
+	'surname' => 'My Surname',
+	'activated' => '0'
+));
+
+//Update
+//Syntax for update method is update($table, $primary_key, $primary_key_value, $items = array())
+
+$data = $db->update('users', 'user_id', '3', array(
+	'name' => 'My name',
+	'surname' => 'My Surname',
+	'activated' => '0'
+));
+
+```
+
 
 ## Responses
 
