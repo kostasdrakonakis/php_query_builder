@@ -33,6 +33,7 @@
 				$_union = '',
 				$_sql = '',
 				$_operators = array('=', '>', '<', '<=', '>=', '!=');
+		private $return_type = 'object';
 
 		private function __construct(){
 			try{
@@ -66,14 +67,13 @@
 						$x++;
 					}
 				}
-				if ($inser_update) {
+				if ($insert_update) {
 					if (!$this->_query->execute()) {
 						$this->_error = true;
 					}
 				} else {
 					if($this->_query->execute()){
-						$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
-						$this->_count = $this->_query->rowCount();
+						$this->_query->fetchAll($this->getFetchType($this->getReturnType()));
 					}else{
 						$this->_error = true;
 					}
@@ -578,6 +578,33 @@
 		
 		public function first(){
 			return $this->results()[0];
+		}
+
+		public function getReturnType(){
+			return $this->return_type;
+		}
+
+		public function return_as($return_type = 'object'){
+			$this->return_type = $return_type;
+		}
+
+		private function getFetchType($return_type){
+			if ($return_type === 'both') {
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_BOTH);
+				$this->_count = $this->_query->rowCount();
+			}elseif ($return_type === 'array'){
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_ASSOC);
+				$this->_count = $this->_query->rowCount();
+			}elseif ($return_type === 'class') {
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_CLASS);
+				$this->_count = $this->_query->rowCount();
+			}elseif ($return_type === 'object'){
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				$this->_count = $this->_query->rowCount();
+			}else{
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				$this->_count = $this->_query->rowCount();
+			}
 		}
 	}
 ?>
