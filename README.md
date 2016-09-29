@@ -242,6 +242,28 @@ print_pre($data->results());
 print_pre($data->first());
 ```
 
+You can also choose how database should return the results like this:
+
+
+```php
+$db->return_as('object');
+$data = $db->select('*')->from('users')->where('id', '=', '3')->fetch();
+//Will Return as: PDO::FETCH_OBJ
+
+$db->return_as('array');
+$data = $db->select('*')->from('users')->where('id', '=', '3')->fetch();
+//Will Return as: PDO::FETCH_ASSOC
+
+$db->return_as('both');
+$data = $db->select('*')->from('users')->where('id', '=', '3')->fetch();
+//Will Return as: PDO::FETCH_BOTH
+
+$db->return_as('class');
+$data = $db->select('*')->from('users')->where('id', '=', '3')->fetch();
+//Will Return as: PDO::FETCH_CLASS
+
+```
+
 
 ## Pull Requests
 
