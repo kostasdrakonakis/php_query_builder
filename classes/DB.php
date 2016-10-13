@@ -371,7 +371,11 @@
 
 		public function order($column, $sort = 'ASC'){
 			if (isset($column)) {
-				$this->_order = " ORDER BY {$column} {$sort}";
+				if($column === 'random'){
+					$this->_order = " ORDER BY RAND()";
+				}else{
+					$this->_order = " ORDER BY {$column} {$sort}";
+				}
 			}
 			return $this;
 		}
