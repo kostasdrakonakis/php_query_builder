@@ -150,6 +150,15 @@ $data = $db->select('*')
            ->where('id', '=', '3')
            ->having('address', '=', 'My Street')
            ->group('user_id')
+           ->order('random')
+           ->fetch();
+//Will Generate: SELECT * FROM users WHERE id = 3 HAVING address = 'My Street' GROUP BY user_id ORDER BY RAND() and the values will be binded
+
+$data = $db->select('*')
+           ->from('users')
+           ->where('id', '=', '3')
+           ->having('address', '=', 'My Street')
+           ->group('user_id')
            ->order('email', 'ASC')
            ->limit(5)
            ->fetch();
