@@ -644,7 +644,7 @@
 			return $this->database_name;
 		}
 
-		public function setDabase($dbname){
+		public function setDatabase($dbname){
 			$this->database_name = $dbname;
 		}
 
@@ -660,7 +660,7 @@
 			return $this->database_host;
 		}
 
-		public function setDabaseHost($host){
+		public function setDatabaseHost($host){
 			$this->database_host = $host;
 		}
 
@@ -668,7 +668,7 @@
 			return $this->database_driver;
 		}
 
-		public function setDabaseDriver($driver){
+		public function setDatabaseDriver($driver){
 			$this->database_driver = $driver;
 		}
 
@@ -686,7 +686,7 @@
 			return $this->database_charset;
 		}
 
-		public function setDabaseCharset($charset){
+		public function setDatabaseCharset($charset){
 			if (in_array($charset, $this->_charsets)) {
 				$this->database_charset = $charset;
 			}
