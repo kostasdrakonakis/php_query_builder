@@ -237,7 +237,23 @@ $data = $db->update('users', 'user_id', '3', array(
 ));
 
 ```
+You can set custom database charset and names for the connection like this:
 
+```php
+//Check the charset array in DB.php to see if the charset that you are setting is in the array and allowed. You can
+//limit specific charset and names to be set by modifying the array.
+$db->setDatabaseCharset('utf8');
+$db->setDatabaseNames('utf8');
+
+//and also get the connection data such as
+
+$db->getDatabaseCharset();
+$db->getDatabaseNames();
+$db->getDns();
+$db->getDatabase();
+$db->getDatabaseDriver();
+$db->getDatabaseHost();
+```
 
 ## Responses
 
