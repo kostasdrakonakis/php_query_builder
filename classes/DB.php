@@ -33,18 +33,47 @@
 				$_union = '',
 				$_sql = '',
 				$_operators = array('=', '>', '<', '<=', '>=', '!=');
-		private $return_type = 'object';
+		private $return_type = 'object',
+				$database_name,
+				$database_host,
+				$database_driver,
+				$database_username,
+				$database_charset,
+				$database_names,
+				$_dns,
+				$database_password;
+		private $_charsets = array(
+					'latin1',
+					'latin2',
+					'utf8',
+					'utf8mb4',
+					'ucs2',
+					'ascii',
+					'greek',
+					'cp866',
+					'cp852',
+					'latin7',
+					'utf16',
+					'swe7',
+					'utf32',
+					'binary',
+				);
 
 		private function __construct(){
+			$this->database_name = Config::get('mysql/dbname');
+			$this->database_host = Config::get('mysql/host');
+			$this->database_driver = Config::get('database/driver');
+			$this->database_username = Config::get('mysql/username');
+			$this->database_password = Config::get('mysql/password');
+			$this->database_charset = Config::get('database/charset');
+			$this->database_names = Config::get('database/names');
 			try{
-				$dns = ''.Config::get('database/driver').':host='.Config::get('mysql/host').';dbname='.Config::get('mysql/dbname').'';
-				$username = Config::get('mysql/username');
-				$password = Config::get('mysql/password');
-				$this->_pdo = new PDO($dns, $username, $password);
+				$this->_dns = ''.$this->database_driver.':host='.$this->database_host.';dbname='.$this->database_name.'';
+				$this->_pdo = new PDO($this->_dns, $this->database_username, $this->database_password);
 				$this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-				$this->_pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES ".Config::get('database/names')." ");
+				$this->_pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES ".$this->database_names." ");
 				$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this->_pdo->exec("SET CHARACTER SET '".Config::get('database/charset')."'");
+				$this->_pdo->exec("SET CHARACTER SET '".$this->database_charset."'");
 			}catch(PDOException $e){
 				die($e->getMessage());
 			}
@@ -608,6 +637,58 @@
 			}else{
 				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
 				$this->_count = $this->_query->rowCount();
+			}
+		}
+		
+		public function getDatabase(){
+			return $this->database_name;
+		}
+
+		public function setDabase($dbname){
+			$this->database_name = $dbname;
+		}
+
+		public function getDns(){
+			return $this->_dns;
+		}
+
+		public function setDns($dns){
+			$this->_dns = $dns;
+		}
+
+		public function getDatabaseHost(){
+			return $this->database_host;
+		}
+
+		public function setDabaseHost($host){
+			$this->database_host = $host;
+		}
+
+		public function getDatabaseDriver(){
+			return $this->database_driver;
+		}
+
+		public function setDabaseDriver($driver){
+			$this->database_driver = $driver;
+		}
+
+		public function getDatabaseNames(){
+			return $this->database_names;
+		}
+
+		public function setDatabaseNames($names){
+			if (in_array($names, $this->_charsets)) {
+				$this->database_names = $names;
+			}
+		}
+
+		public function getDatabaseCharset(){
+			return $this->database_charset;
+		}
+
+		public function setDabaseCharset($charset){
+			if (in_array($charset, $this->_charsets)) {
+				$this->database_charset = $charset;
 			}
 		}
 	}
